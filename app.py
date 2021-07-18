@@ -21,9 +21,9 @@ def weapons():
 def results():
     return render_template('results.html')
       
-@app.route('/fights')
+@app.route('/fightsetup')
 def fights():
-    return render_template('fights.html')
+    return render_template('fightsetup.html')
 
 	
 if __name__ == '__main__':
