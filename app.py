@@ -24,6 +24,10 @@ def results():
 @app.route('/fightsetup')
 def fights():
     return render_template('fightsetup.html')
+    
+@app.route('/prizes')
+def prizes():
+    return render_template('prizes.html')
 
 	
 if __name__ == '__main__':
