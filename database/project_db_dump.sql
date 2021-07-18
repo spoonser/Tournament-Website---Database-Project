@@ -6,6 +6,18 @@ DROP TABLE IF EXISTS weapons;
 SET FOREIGN_KEY_CHECKS = 1;
 
 --
+-- Table structure for weapons
+--
+
+CREATE TABLE `Weapons` (
+`weaponID` int(11) NOT NULL AUTO_INCREMENT,
+`weaponName` varchar(255) NOT NULL,
+`weaponType` varchar(255) NOT NULL,
+`ranged` boolean NOT NULL,
+PRIMARY KEY (`weaponID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for fighters
 --
 
@@ -25,8 +37,8 @@ FOREIGN KEY (`weapon`) REFERENCES Weapons(`weaponID`)
 CREATE TABLE `Fights` (
 `fightID` int(11) NOT NULL AUTO_INCREMENT,
 `fightDate` date NOT NULL,
-`fighter1` bigint(20) DEFAULT NULL,
-`fighter2` int(11) NOT NULL,
+`fighter1` int(11) DEFAULT NULL,
+`fighter2` int(11) DEFAULT NULL,
 `fighter1Won` boolean DEFAULT 0,
 `fighter2Won` boolean DEFAULT 0,
 PRIMARY KEY (`fightID`),
@@ -41,7 +53,7 @@ FOREIGN KEY (`fighter2`) REFERENCES Fighters(`fighterID`)
 CREATE TABLE `Prizes` (
 `prizeID` int(11) NOT NULL AUTO_INCREMENT,
 `prizeType` varchar(255) NOT NULL,
-PRIMARY KEY (`prizeID`),
+PRIMARY KEY (`prizeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -55,18 +67,3 @@ PRIMARY KEY (`fighterID`, `prizeID`),
 FOREIGN KEY (`fighterID`) REFERENCES Fighters(`fighterID`),
 FOREIGN KEY (`prizeID`) REFERENCES Prizes(`prizeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Table structure for weapons
---
-
-CREATE TABLE `Weapons` (
-`weaponID` int(11) NOT NULL AUTO_INCREMENT,
-`weaponName` varchar(255) NOT NULL,
-`weaponType` varchar(255) NOT NULL,
-`ranged` boolean NOT NULL,
-PRIMARY KEY (`weaponID`),
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
