@@ -21,8 +21,7 @@ def weapons():
 @app.route('/results')
 def results():
     return render_template('results.html')
-    # placeholder -- will contain leaderboard (fighters with most wins) and per-fighter prize lookup
-   
+      
 @app.route('/fights')
 def fights():
     return render_template('fights.html')
