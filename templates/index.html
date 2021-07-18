@@ -6,13 +6,13 @@
 {% block content %}
   <h1>Index</h1>
   <p> <ul>
-	<li> <a href="{{ url_for('fighters') }}">Fighters</a> Allows users to look up an existing fighter, modify an existing fighter (change weapon, change name), 
-		and create a new fighter. Fighter profiles for existing fighters will link to that fighter's prize results.
+	<li> <a href="{{ url_for('fighters') }}">Fighters</a> Allows users to look up an existing Fighter or create a new Fighter. 
+	Fighter profiles for existing Fighters will link to that Fighter's Prize results.
 		
-	<li> <a href="{{ url_for('weapons') }}">Weapons</a> Allows users to look up an existing weapon, modify an existing weapon (change weapon, change name), 
-		and links to fighter using that weapon (if any).
+	<li> <a href="{{ url_for('weapons') }}">Weapons</a> Allows users to look up an existing Weapon or create a new Weapon. 
+	Links to Fighter using that Weapon (if any).
 		
-	<li> <a href="{{ url_for('results') }}">Results</a> Contains leaderboard (Fighters with most wins) and allows users to look up a Fighter's Prizes
+	<li> <a href="{{ url_for('results') }}">Results</a> Contains leaderboard (Fighters with most wins) and allows users to look up a Fighter's Prizes.
 	
 	<li> <a href="{{ url_for('fights') }}">Fights</a> Allows lookup and creation/modification of fights (who is participating, when the Fight is). 
 	Allows assignment of Prizes to Fights and assignment of Fight winners.
