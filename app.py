@@ -30,7 +30,7 @@ def results():
 def fights():
     return render_template('fights.html')
     # placeholder -- will allow creation/modification of fights (who is participating, when it is)
-    # TBD - could also do the prizes-to-fights assignment and winner assignment here. 
+    # TBD - could also do the prizes-to-fights assignment and winner assignment here.
     
 @app.route('/test')
 def hello_world():
