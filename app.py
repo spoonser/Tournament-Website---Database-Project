@@ -12,13 +12,10 @@ def index():
 @app.route('/fighters')
 def fighters():
     return render_template('fighters.html') 
-    # Placeholder -- will allow creation/modification of fighters (change weapon, change name)
-    # Fighter profiles will link to that fighter's prize results
     
 @app.route('/weapons')
 def weapons():
     return render_template('weapons.html')
-    # placeholder -- will allow creation/modification of weapons, links to fighter using that weapon (if any)
     # TBD - might also allow a general search by weapon type, general search for all fighters using that weapon type
     
 @app.route('/results')

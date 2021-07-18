@@ -5,6 +5,10 @@
 {% endblock %}
 {% block content %}
   <h1>Index</h1>
-  <p class="important">
-    Index goes here.
+  <p> <ul>
+	<li> <a href="{{ url_for('fighters') }}">Fighters</a> Allows users to look up an existing fighter, modify an existing fighter (change weapon, change name), 
+		and create a new fighter. Fighter profiles for existing fighters will link to that fighter's prize results.
+	<li> <a href="{{ url_for('weapons') }}">Weapons</a> Allows users to look up an existing weapon, modify an existing weapon (change weapon, change name), 
+		and links to fighter using that weapon (if any).
+  </ul> </p> 
 {% endblock %}
