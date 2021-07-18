@@ -6,6 +6,18 @@ DROP TABLE IF EXISTS weapons;
 SET FOREIGN_KEY_CHECKS = 1;
 
 --
+-- Table structure for weapons
+--
+
+CREATE TABLE `Weapons` (
+`weaponID` int(11) NOT NULL AUTO_INCREMENT,
+`weaponName` varchar(255) NOT NULL,
+`weaponType` varchar(255) NOT NULL,
+`ranged` boolean NOT NULL,
+PRIMARY KEY (`weaponID`),
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for fighters
 --
 
@@ -55,18 +67,4 @@ PRIMARY KEY (`fighterID`, `prizeID`),
 FOREIGN KEY (`fighterID`) REFERENCES Fighters(`fighterID`),
 FOREIGN KEY (`prizeID`) REFERENCES Prizes(`prizeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
---
--- Table structure for weapons
---
-
-CREATE TABLE `Weapons` (
-`weaponID` int(11) NOT NULL AUTO_INCREMENT,
-`weaponName` varchar(255) NOT NULL,
-`weaponType` varchar(255) NOT NULL,
-`ranged` boolean NOT NULL,
-PRIMARY KEY (`weaponID`),
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
