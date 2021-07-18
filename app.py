@@ -22,7 +22,7 @@ def results():
     return render_template('results.html')
       
 @app.route('/fightsetup')
-def fights():
+def fightsetup():
     return render_template('fightsetup.html')
     
 @app.route('/prizes')
