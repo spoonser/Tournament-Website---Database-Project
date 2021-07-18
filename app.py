@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 from flask import Flask, render_template
+=======
+from flask import Flask
+from flask import render_template
+>>>>>>> f1c3ba5bda4d589f26876d115a464ef3ec5af8e9
 app = Flask(__name__)
     
 @app.route('/')
@@ -21,10 +26,17 @@ def weapons():
 def results():
     return render_template('results.html')
       
-@app.route('/fights')
-def fights():
-    return render_template('fights.html')
+@app.route('/fightsetup')
+def fightsetup():
+    return render_template('fightsetup.html')
+    
+@app.route('/prizes')
+def prizes():
+    return render_template('prizes.html')
 
+@app.route('/test')
+def hello_world():
+    return 'Hello, World!'
 	
 if __name__ == '__main__':
     app.run(host="localhost", port=61557, debug=True)

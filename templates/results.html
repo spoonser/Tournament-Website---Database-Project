@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <h1>Leaderboard</h1>
+  
+  
+  <form name="fighterForm">
+      <fieldset>
+        <legend>Look up a Fighter by Name:</legend>
+			<input type="text" name="fighterName" id="fighterName" />
+		<input type="submit" class="button" id="fighterNameSubmit" value="Get Fighter Results"/>
+      </fieldset>
+    </form>
+
+{% endblock %}

@@ -14,10 +14,12 @@
 	<li> <a href="{{ url_for('weapons') }}">Weapons</a> Allows users to look up an existing Weapon or create a new Weapon. 
 	Links to Fighter using that Weapon (if any).
 		
-	<li> <a href="{{ url_for('results') }}">Fight Results</a> Contains leaderboard (Fighters with most wins) and allows users to look up a Fighter's Prizes.
+	<li> <a href="{{ url_for('results') }}">Fighter Wins</a> Contains leaderboard (Fighters with most wins) and allows users to look up a Fighter's Prizes.
 	
-	<li> <a href="{{ url_for('fights') }}">Fight Setup</a> Allows lookup and creation/modification of fights (who is participating, when the Fight is). 
+	<li> <a href="{{ url_for('fightsetup') }}">Fight Setup</a> Allows lookup and creation/modification of Fights (who is participating, when the Fight is). 
 	Allows assignment of Prizes to Fights and assignment of Fight winners.
+	
+	<li> <a href="{{ url_for('prizes') }}">Prize Setup</a> Allows lookup and creation/modification of Prizes.
     
   </ul> </p> 
 {% endblock %}
