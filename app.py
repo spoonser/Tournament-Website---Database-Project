@@ -29,6 +29,9 @@ def fightsetup():
 def prizes():
     return render_template('prizes.html')
 
+@app.route('/test')
+def hello_world():
+    return 'Hello, World!'
 	
 if __name__ == '__main__':
     app.run(host="localhost", port=61557, debug=True)
