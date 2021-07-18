@@ -8,7 +8,7 @@ UNIQUE(`prizeID`)
 CREATE TABLE `Weapons`(
 `weaponID` int(11) NOT NULL AUTO_INCREMENT,
 `weaponName` varchar(255) NOT NULL,
-`weaponType` varchar(255) NOT NULL
+`weaponType` varchar(255) NOT NULL,
 `ranged` BOOL NOT NULL,
 PRIMARY KEY (`weaponID`),
 UNIQUE(`weaponID`)
@@ -28,8 +28,8 @@ CREATE TABLE `Fights` (
 `fightDate` date NOT NULL,
 `fighter1` int(11),
 `fighter2` int(11), 
-`fighter1Won` bool DEFAULT FALSE,
-`fighter2Won` bool DEFAULT FALSE,
+`fighter1Won` BOOL DEFAULT FALSE,
+`fighter2Won` BOOL DEFAULT FALSE,
 PRIMARY KEY (`fightID`),
 FOREIGN KEY (`fighter1`) REFERENCES `Fighters`(`fighterID`),
 FOREIGN KEY (`fighter2`) REFERENCES `Fighters`(`fighterID`),
@@ -41,4 +41,4 @@ CREATE TABLE `PrizesWon` (
 `fighterID` int(11),
 FOREIGN KEY (`prizeID`) REFERENCES `Prizes`(`prizeID`),
 FOREIGN KEY (`fighterID`) REFERENCES `Fighters`(`fighterID`)
-)
+);
