@@ -5,22 +5,13 @@
 {% endblock %}
 {% block content %}
   <div class="center-child">
-    <h2>Find a Weapon</h2>
-    <form name="weaponForm">
-      <fieldset>
-        <legend>Look up a Weapon by Name or Type:</legend>
-        <input type="text" name="weaponName" id="weaponName" value="Weapon Name"/>
-        <input type="text" name="weaponType" id="weaponType" value="Weapon Type" />
-        <input type="submit" class="button" id="fighterNameSubmit" value="Get Weapon Results"/>
-      </fieldset>
-    </form>
-
-    <h2>Create a New Weapon</h2>
+	<h1>Weapons</h1>
+	<h2>Create a New Weapon</h2>
     <form name="newWeaponForm">
         <fieldset>
           <legend>Enter Weapon Details:</legend>
-          <input type="text" name="newWeaponName" id="newWeaponName" value="Weapon Name" />
-          <input type="text" name="newWeaponType" id="newWeaponType" value="Weapon Type"/>
+          <input type="text" name="newWeaponName" id="newWeaponName" placeholder="Weapon Name" />
+          <input type="text" name="newWeaponType" id="newWeaponType" placeholder="Weapon Type"/>
           <label for="newWeaponRanged">Is this a ranged weapon?</label>
           <select id="newWeaponRanged" name="newWeaponRanged">
             <option value="1">Yes</option>
@@ -29,5 +20,36 @@
           <input type="submit" class="button" id="fighterNameSubmit" value="Create"/>
         </fieldset>
     </form>
+	
+    <h2>Current Weapons</h2>
+	
+    <form name="weaponForm">
+      <fieldset>
+        <legend>Look up a Weapon by Name or Type:</legend>
+        <input type="text" name="weaponName" id="weaponName" placeholder="Weapon Name"/>
+        <input type="text" name="weaponType" id="weaponType" placeholder="Weapon Type" />
+        <input type="submit" class="button" id="fighterNameSubmit" value="Get Weapon Results"/>
+      </fieldset>
+    </form>
+
+    <h2>Current Participants</h2>
+    <table id="fighter-table">
+      <tr>
+        <th>Fighter Name</th>
+        <th>Fighter ID</th>
+        <th>Fighter Weapon</th>
+      </tr>
+      <tr>
+        <td>Fighter names, alphabetically</td>
+        <td>ID listed</td>
+        <td>Weapon Name/ID listed</td>
+      </tr>
+    </table>
+  </div>
   </div>
 {% endblock %}
+
+
+
+
+

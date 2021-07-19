@@ -24,11 +24,21 @@
         <th>Fighter ID</th>
         <th>Fighter Weapon</th>
       </tr>
-      <tr>
-        <td>Fighter names, alphabetically</td>
-        <td>ID listed</td>
-        <td>Weapon Name/ID listed</td>
+	  <tr>
+      <td>Fighter names, alphabetically</td>
+      <td>ID listed</td>
+      <td>Weapon Name/ID listed</td>
       </tr>
+	  {% for fighter in fighters %}
+		<tr>
+			<td>{{ fighter['fighterName'] }}</td> 
+			<td>{{ fighter['fighterID'] }}</td>
+			<td>{{ fighter['weapon'] }}</td>
+		</tr>
+      {% endfor %}
+	  
+	  
+    
     </table>
   </div>
 {% endblock %}
