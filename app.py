@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flaskext.mysql import MySQLdb
+import MySQLdb
 import os
 
 # Set the variables in our application with those environment variables
