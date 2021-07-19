@@ -33,7 +33,7 @@
 		<tr>
 			<td>{{ fighter['fighterName'] }}</td> 
 			<td>{{ fighter['fighterID'] }}</td>
-			<td>{{ fighter['IFNULL(w.weaponName, 'No Weapon')'] }}</td>
+			<td>{{ fighter['IFNULL(w.weaponName, ''No Weapon'')'] }}</td>
 		</tr>
       {% endfor %}
 	  
