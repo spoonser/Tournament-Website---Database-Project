@@ -6,9 +6,8 @@
 {% block content %}
  <script type=text/javascript src="{{
   url_for('static', filename='js/main.js') }}"></script>
-  <h2>Leaderboard - Today's Top 3 Prize-Winning Fighters</h2>
-  <p>{{ leaders }} </p>
-  <table style="width:70%">
+  <h2>Leaderboard - Most Wins</h2>
+  <table style="width:50%">
   <tr>
     <th>Fighter Name</th>
     <th>Total Number of Fights Won</th>
@@ -19,7 +18,7 @@
 
 </table>
  
-  <h2>Individual Fighters' Fights and Prizes Won</h2>
+  <h2>Individual Fighters' Fights and Special Prizes Won</h2>
   <form name="fighterForm">
       <fieldset>
         <legend>Look up a Fighter by Name:</legend>
