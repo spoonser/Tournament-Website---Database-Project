@@ -13,11 +13,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
     
-@app.route('/')
-def main():
-    return render_template('main.html')
-
-@app.route('/index')
+@app.route('/', '/index')
 def index():
     return render_template('index.html')   
     
