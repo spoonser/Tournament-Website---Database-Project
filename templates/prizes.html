@@ -25,10 +25,10 @@
       </tr>
 	  {% for prize in prizesWon %}
 		<tr>
-			<td>{{ prizesWon['prizeID'] }}</td> 
-			<td>{{ prizesWon['prizeType'] }}</td>
-			<td>{{ prizesWon['fighterID'] }}</td>
-			<td>{{ prizesWon['fighterName'] }}</td>
+			<td>{{ prize['prizeID'] }}</td> 
+			<td>{{ prize['prizeType'] }}</td>
+			<td>{{ prize['fighterID'] }}</td>
+			<td>{{ prize['fighterName'] }}</td>
 		</tr>
       {% endfor %}
     </table>
