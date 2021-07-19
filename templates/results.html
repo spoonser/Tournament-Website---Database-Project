@@ -7,9 +7,19 @@
  <script type=text/javascript src="{{
   url_for('static', filename='js/main.js') }}"></script>
   <h2>Leaderboard - Today's Top 3 Prize-Winning Fighters</h2>
-  <p>{{ leaderboard }} </p>
+  <p>{{ leaders }} </p>
+  <table style="width:70%">
+  <tr>
+    <th>Fighter Name</th>
+    <th>Total Number of Fights Won</th>
+  </tr>
+  {% for fighter in leaders %}
+   <tr><td>{{ fighter['fighterName'] }}</td> <td>{{ fighter['COUNT(p.prizeID)'] }}</td></tr>
+   {% endfor %}
+
+</table>
  
-  <h2>Individual Fighters' Prize Results</h2>
+  <h2>Individual Fighters' Fights and Prizes Won</h2>
   <form name="fighterForm">
       <fieldset>
         <legend>Look up a Fighter by Name:</legend>

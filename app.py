@@ -33,16 +33,16 @@ def weapons():
 def results():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total Fights Won` FROM 
-(SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
-UNION 
- SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
-INNER JOIN Fighters
-ON Wins.fighterID = Fighters.fighterID
-GROUP BY Wins.fighterID
-ORDER BY Wins.WinCount DESC
-LIMIT 3;''')
+        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        UNION 
+         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+        INNER JOIN Fighters
+        ON Wins.fighterID = Fighters.fighterID
+        GROUP BY Wins.fighterID
+        ORDER BY Wins.WinCount DESC
+        LIMIT 3;''')
     leaders = cur.fetchall()
-    return render_template('results.html', leaderboard=leaders)
+    return render_template('results.html', leaders=leaders)
       
 @app.route('/fightsetup')
 def fightsetup():
