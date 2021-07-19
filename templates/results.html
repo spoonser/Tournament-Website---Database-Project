@@ -4,10 +4,11 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h2>Leaderboard - Today's Top 3 Prize-Winning Fighters</h2>
-  
-  <script type=text/javascript src="{{
+ <script type=text/javascript src="{{
   url_for('static', filename='js/main.js') }}"></script>
+  <h2>Leaderboard - Today's Top 3 Prize-Winning Fighters</h2>
+  <p>{{ leaderboard }} </p>
+ 
   <h2>Individual Fighters' Prize Results</h2>
   <form name="fighterForm">
       <fieldset>

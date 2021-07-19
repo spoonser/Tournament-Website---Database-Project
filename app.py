@@ -31,8 +31,10 @@ def weapons():
     
 @app.route('/results')
 def results():
-    connect_to_database()
-    return render_template('results.html')
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT f.fighterName, COUNT(p.prizeID) FROM PrizesWon as p INNER JOIN Fighters as f ON p.fighterID = f.fighterID GROUP BY p.fighterID ORDER BY COUNT(p.prizeID) DESC''')
+    leaders = cur.fetchall()
+    return render_template('results.html', leaderboard=leaders)
       
 @app.route('/fightsetup')
 def fightsetup():
@@ -46,12 +48,7 @@ def prizes():
 def hello_world():
     return 'Hello, World!'
 	
-def connect_to_database(host = host, user = user, passwd = passwd, db = db):
-    '''
-    connects to a database and returns a database objects
-    '''
-    db_connection = MySQLdb.connect(host,user,passwd,db)
-    return db_connection
+
     
 if __name__ == '__main__':
     app.run(host="localhost", port=61557, debug=True)
