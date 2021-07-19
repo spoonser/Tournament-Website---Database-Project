@@ -44,11 +44,14 @@
 		<th>Associated Prize</th>
       </tr>
 
-	  {% for fighter in fighters %}
+	  {% for fight in fights %}
 		<tr>
-			<td>{{ fighter['fighterName'] }}</td> 
-			<td>{{ fighter['fighterID'] }}</td>
-			<td>{{ fighter['weapon'] }}</td>
+			<td>{{ fight['fightID'] }}</td> 
+			<td>{{ fight['fightDate'] }}</td>
+			<td>{{ fight['fighter1'] }}</td>
+			<td>{{ fight['fighter2'] }}</td>
+			<td>{{ fight['winner'] }}</td>
+			<td>{{ fight['prize'] }}</td>
 		</tr>
       {% endfor %}
 	  
