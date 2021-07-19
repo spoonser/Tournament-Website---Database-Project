@@ -15,7 +15,10 @@
         <th>Total Number of Fights Won</th>
       </tr>
       {% for fighter in leaders %}
-      <tr><td>{{ fighter['fighterName'] }}</td> <td>{{ fighter['Total'] }}</td></tr>
+      <tr>
+        <td>{{ fighter['fighterName'] }}</td> 
+        <td>{{ fighter['Total'] }}</td>
+      </tr>
       {% endfor %}
     </table>
   
