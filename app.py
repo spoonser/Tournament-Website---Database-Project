@@ -1,6 +1,12 @@
 from flask import Flask, render_template
 from flaskext.mysql import MySQL
- 
+import os
+
+# Set the variables in our application with those environment variables
+host = os.environ.get("CS340DBHOST")
+user = os.environ.get("CS340DBUSER")
+passwd = os.environ.get("CS340DBPW")
+db = os.environ.get("CS340DB")
 app = Flask(__name__)
     
 @app.route('/')

@@ -4,9 +4,10 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h1>Leaderboard</h1>
+  <h1>Leaderboard - Today's Top 3 Prize-Winning Fighters</h1>
   
-  
+  <script type=text/javascript src="{{
+  url_for('static', filename='js/main.js') }}"></script>
   <form name="fighterForm">
       <fieldset>
         <legend>Look up a Fighter by Name:</legend>
