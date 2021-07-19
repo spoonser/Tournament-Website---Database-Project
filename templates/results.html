@@ -1,18 +1,31 @@
 {% extends "layout.html" %}
-{% block title %}Index{% endblock %}
+{% block title %}Leaderboard and Results{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h1>Leaderboard</h1>
-  
-  
-  <form name="fighterForm">
-      <fieldset>
-        <legend>Look up a Fighter by Name:</legend>
-			<input type="text" name="fighterName" id="fighterName" />
-		<input type="submit" class="button" id="fighterNameSubmit" value="Get Fighter Results"/>
-      </fieldset>
-    </form>
+  <script type=text/javascript src="{{
+  url_for('static', filename='js/main.js') }}"></script>
 
+  <div class="center-child">
+    <h2>Leaderboard - Most Wins</h2>
+    <table style="width:50%">
+      <tr>
+        <th>Fighter Name</th>
+        <th>Total Number of Fights Won</th>
+      </tr>
+      {% for fighter in leaders %}
+      <tr><td>{{ fighter['fighterName'] }}</td> <td>{{ fighter['Total'] }}</td></tr>
+      {% endfor %}
+    </table>
+  
+    <h2>Individual Fighters' Results</h2>
+    <form name="fighterForm">
+        <fieldset>
+          <legend>Look up a Fighter by Name:</legend>
+          <input type="text" name="fighterName" id="fighterName" />
+          <input type="submit" class="button" id="fighterNameSubmit" value="Get Fighter Results"/>
+        </fieldset>
+    </form>
+  </div>
 {% endblock %}

@@ -1,1 +1,70 @@
 /* CS340 Project Styles */
+
+/* Shared formatting */
+
+body {
+  height: 100%;
+  background-color: rgba(166, 16, 31, 0.5);
+  font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.center  {
+  text-align: center;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-child {
+  display: inline-block;
+  text-align: left;
+  margin-left: 0px;
+  max-width: 880px;
+  width: 90%;
+} 
+
+table, th, td {	
+	border: 1px solid black;
+	border-collapse: collapse;
+	width: 700px;
+	text-align: center;
+} 
+
+th, td {
+	width: 100px;
+	max-width: 100px;
+	align-content: center;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Footer styles */
+#footer {
+  background-color: rgb(158, 120, 120);
+  color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Fighters Page */
+#fighter-table {
+	margin: 10px;
+}

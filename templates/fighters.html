@@ -4,6 +4,31 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h1>Fighters</h1>
+  <div class="center-child">
+    <h1>Fighters</h1>
 
+    <h2>Sign Up:</h2>
+    <form class="input-form" id="fighter-form" name="fighter-form">
+        <fieldset>
+          <legend>New Fighter:</legend>
+          <input type="text" name="fighter-name" id="fighter-name" placeholder="Name"/>
+          <input type="text" name="fighter-weapon" id="fighter-weapon" placeholder="Weapon ID"/>
+          <input type="submit" class="button" id="fighter-submit" value="Sign Up"/>
+        </fieldset>
+    </form>
+
+    <h2>Current Participants</h2>
+    <table id="fighter-table">
+      <tr>
+        <th>Fighter Name</th>
+        <th>Fighter ID</th>
+        <th>Fighter Weapon</th>
+      </tr>
+      <tr>
+        <td>Fighter names, alphabetically</td>
+        <td>ID listed</td>
+        <td>Weapon Name/ID listed</td>
+      </tr>
+    </table>
+  </div>
 {% endblock %}

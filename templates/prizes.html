@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Prizes{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="center-child">
+    <h1>Prizes</h1>
+    <h2>Add a New Prize</h2>
+    <form class="input-form" id="prize-form" name="prize-form">
+        <fieldset>
+          <legend>New Prize:</legend>
+          <input type="text" name="prize-type" id="prize-type" placeholder="Prize Type"/>
+          <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
+        </fieldset>
+    </form>
+  </div>
+{% endblock %}

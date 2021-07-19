@@ -4,5 +4,30 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h1>Weapons</h1>
+  <div class="center-child">
+    <h2>Find a Weapon</h2>
+    <form name="weaponForm">
+      <fieldset>
+        <legend>Look up a Weapon by Name or Type:</legend>
+        <input type="text" name="weaponName" id="weaponName" value="Weapon Name"/>
+        <input type="text" name="weaponType" id="weaponType" value="Weapon Type" />
+        <input type="submit" class="button" id="fighterNameSubmit" value="Get Weapon Results"/>
+      </fieldset>
+    </form>
+
+    <h2>Create a New Weapon</h2>
+    <form name="newWeaponForm">
+        <fieldset>
+          <legend>Enter Weapon Details:</legend>
+          <input type="text" name="newWeaponName" id="newWeaponName" value="Weapon Name" />
+          <input type="text" name="newWeaponType" id="newWeaponType" value="Weapon Type"/>
+          <label for="newWeaponRanged">Is this a ranged weapon?</label>
+          <select id="newWeaponRanged" name="newWeaponRanged">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          <input type="submit" class="button" id="fighterNameSubmit" value="Create"/>
+        </fieldset>
+    </form>
+  </div>
 {% endblock %}
