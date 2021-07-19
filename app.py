@@ -21,7 +21,7 @@ def index():
 @app.route('/fighters')
 def fighters():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT f.fighterName, f.fighterID, IFNULL(w.weaponName, 'No Weapon')  FROM Fighters as f
+    cur.execute('''SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`  FROM Fighters as f
         LEFT JOIN Weapons as w
         on f.weapon=w.weaponID
         ORDER BY f.fighterName asc;''')
