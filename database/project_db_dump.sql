@@ -32,6 +32,17 @@ FOREIGN KEY (`weapon`) REFERENCES Weapons(`weaponID`)
 
 
 --
+-- Table structure for prizes
+--
+
+CREATE TABLE `Prizes` (
+`prizeID` int(11) NOT NULL AUTO_INCREMENT,
+`prizeType` varchar(255) NOT NULL,
+PRIMARY KEY (`prizeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
 -- Table structure for fights
 --
 
@@ -42,19 +53,11 @@ CREATE TABLE `Fights` (
 `fighter2` int(11) DEFAULT NULL,
 `fighter1Won` boolean DEFAULT 0,
 `fighter2Won` boolean DEFAULT 0,
+`prize` int(11),
 PRIMARY KEY (`fightID`),
 FOREIGN KEY (`fighter1`) REFERENCES Fighters(`fighterID`),
-FOREIGN KEY (`fighter2`) REFERENCES Fighters(`fighterID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Table structure for prizes
---
-
-CREATE TABLE `Prizes` (
-`prizeID` int(11) NOT NULL AUTO_INCREMENT,
-`prizeType` varchar(255) NOT NULL,
-PRIMARY KEY (`prizeID`)
+FOREIGN KEY (`fighter2`) REFERENCES Fighters(`fighterID`), 
+FOREIGN KEY (`prize`) REFERENCES Prizes(`prizeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
