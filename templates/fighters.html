@@ -18,7 +18,6 @@
     </form>
 
     <h2>Current Participants</h2>
-	{{fighters}}
     <table id="fighter-table">
       <tr>
         <th>Fighter Name</th>
@@ -34,7 +33,7 @@
 		<tr>
 			<td>{{ fighter['fighterName'] }}</td> 
 			<td>{{ fighter['fighterID'] }}</td>
-			<td>{{ fighter['IFNULL(w.weaponName, ''No Weapon'')'] }}</td>
+			<td>{{ fighter['weapon'] }}</td>
 		</tr>
       {% endfor %}
 	  
