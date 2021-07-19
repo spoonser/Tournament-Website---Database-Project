@@ -1,13 +1,17 @@
-from flask import Flask, render_template
-import MySQLdb
+from flask import Flask, render_template, json, redirect
+from flask_mysqldb import MySQL
+from flask import request
 import os
 
-# Set the variables in our application with those environment variables
-host = os.environ.get("CS340DBHOST")
-user = os.environ.get("CS340DBUSER")
-passwd = os.environ.get("CS340DBPW")
-db = os.environ.get("CS340DB")
 app = Flask(__name__)
+app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
+app.config['MYSQL_USER'] = os.environ.get("CS340DBUSER")
+app.config['MYSQL_PASSWORD'] = os.environ.get("CS340DBPW")
+app.config['MYSQL_DB'] = os.environ.get("CS340DB")
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+
+mysql = MySQL(app)
     
 @app.route('/')
 def main():
