@@ -54,7 +54,15 @@ def fightsetup():
     
 @app.route('/prizes')
 def prizes():
-    return render_template('prizes.html')
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterID, IFNULL(f.fighterName, 'No Winners Yet') as fighterName
+        FROM Prizes as p 
+        LEFT JOIN PrizesWon as pw ON p.prizeID=pw.prizeID
+        JOIN Fighters as f 
+        ON pw.fighterID=f.fighterID;''')
+    prizesWon = cur.fetchall()
+
+    return render_template('prizes.html', prizesWon=prizesWon)
 
 @app.route('/test')
 def hello_world():

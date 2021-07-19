@@ -23,12 +23,14 @@
         <th>Fighter ID</th>
         <th>Fighter Name</th>
       </tr>
-      <tr>
-        <td>Prize IDs, numerically</td>
-        <td>Type of Prize</td>
-        <td>Prize Winner's ID</td>
-        <td>Prize Winner's Name</td>
-      </tr>
+	  {% for prize in prizesWon %}
+		<tr>
+			<td>{{ prizesWon['prizeID'] }}</td> 
+			<td>{{ prizesWon['prizeType'] }}</td>
+			<td>{{ prizesWon['fighterID'] }}</td>
+			<td>{{ prizesWon['fighterName'] }}</td>
+		</tr>
+      {% endfor %}
     </table>
   </div>
 {% endblock %}
