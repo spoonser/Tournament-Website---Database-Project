@@ -33,7 +33,28 @@
         </fieldset>
     </form>
 
+	<h2>Fight Records</h2>
+    <table id="fight-table">
+      <tr>
+        <th>Fight ID</th>
+        <th>Fight Date</th>
+        <th>Fighter One</th>
+		<th>Fighter Two</th>
+		<th>Winner</th>
+		<th>Associated Prize</th>
+      </tr>
 
+	  {% for fighter in fighters %}
+		<tr>
+			<td>{{ fighter['fighterName'] }}</td> 
+			<td>{{ fighter['fighterID'] }}</td>
+			<td>{{ fighter['weapon'] }}</td>
+		</tr>
+      {% endfor %}
+	  
+	  
+    
+    </table>
 
   </div>
 {% endblock %}
