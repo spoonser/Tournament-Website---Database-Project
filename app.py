@@ -31,7 +31,16 @@ def fighters():
     
 @app.route('/weapons')
 def weapons():
-    return render_template('weapons.html')
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ranged,
+        IFNULL(GROUP_CONCAT(f.fighterName), "No Users") as `WeaponUsers`
+        FROM Weapons w
+        LEFT JOIN Fighters as f 
+        ON w.weaponID=f.weapon
+        GROUP BY w.weaponID;''')
+    weapons = cur.fetchall()
+
+    return render_template('weapons.html', weapons=weapons)
     
 @app.route('/results')
 def results():
@@ -64,10 +73,6 @@ def prizes():
 
     return render_template('prizes.html', prizesWon=prizesWon)
 
-@app.route('/test')
-def hello_world():
-    return 'Hello, World!'
-	
 
     
 if __name__ == '__main__':

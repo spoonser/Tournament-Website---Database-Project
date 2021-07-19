@@ -28,12 +28,18 @@
         <th>Weapon ID</th>
         <th>Weapon Type</th>
 		<th>Ranged?</th>
+		<th>Current Fighters</th>
       </tr>
-      <tr>
-        <td>Fighter names, alphabetically</td>
-        <td>ID listed</td>
-        <td>Weapon Name/ID listed</td>
-      </tr>
+		
+	  {% for weapon in weapons %}
+		<tr>
+			<td>{{ weapon['weaponName'] }}</td> 
+			<td>{{ weapon['weaponID'] }}</td>
+			<td>{{ weapon['weaponType'] }}</td>
+			<td>{{ weapon['ranged'] }}</td>
+			<td>{{ weapon['WeaponUsers'] }}</td>
+		</tr>
+      {% endfor %}
     </table>
   </div>
   </div>
