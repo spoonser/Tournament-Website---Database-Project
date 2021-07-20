@@ -97,5 +97,6 @@ def prizes():
 
 
     
-if __name__ == '__main__':
-    app.run(host="http://flip3.engr.oregonstate.edu/", port=61557, debug=False)
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 61557))
+    app.run(port=port, debug=False)
