@@ -1,6 +1,8 @@
 from flask import Flask, render_template, json, redirect
 from flask_mysqldb import MySQL
 from flask import request
+from waitress import serve
+
 import os
 
 app = Flask(__name__)
@@ -10,7 +12,7 @@ app.config['MYSQL_PASSWORD'] = os.environ.get("CS340DBPW")
 app.config['MYSQL_DB'] = os.environ.get("CS340DB")
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-
+serve(wsgiapp, listen='*:61557')
 mysql = MySQL(app)
     
 @app.route('/')
@@ -98,4 +100,4 @@ def prizes():
 
     
 if __name__ == '__main__':
-    app.run(host="localhost", port=61557, debug=True)
+    app.run(host="http://flip3.engr.oregonstate.edu/", port=61557, debug=False)
