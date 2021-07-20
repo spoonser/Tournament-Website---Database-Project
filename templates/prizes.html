@@ -14,6 +14,7 @@
           <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
         </fieldset>
     </form>
+	
 
     <h2>Prizewinners</h2>
 	<p> Note: Prizes can be awarded to more than one Fighter! </p>
@@ -30,6 +31,10 @@
 			<td>{{ prize['prizeType'] }}</td>
 			<td>{{ prize['fighterID'] }}</td>
 			<td>{{ prize['fighterName'] }}</td>
+			<td>
+			<form name="deletePrizeForm" action="javascript:select();" >
+                <input id="deletePrize" type="submit" name="deletePrize" value={{ prize['fighterID'] }} />
+               </form> </td>
 		</tr>
       {% endfor %}
     </table>
