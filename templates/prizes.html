@@ -33,7 +33,7 @@
 			<td>{{ prize['fighterName'] }}</td>
 			<td>
 			<form name="deletePrizeForm" action="javascript:select();" >
-                <input id="deletePrize"+@{{ prize['prizeID'] }} type="submit" name="deletePrize" value="Delete" />
+                <input id="deletePrize__{{ prize.prizeID }}" type="submit" name="deletePrize" value="Delete" />
                </form> </td>
 		</tr>
       {% endfor %}
