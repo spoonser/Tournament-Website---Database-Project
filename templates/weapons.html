@@ -7,17 +7,17 @@
   <h1>Weapons</h1>
   <h2>Create a New Weapon</h2>
 
-  <form name="newWeaponForm">
+  <form name="newWeaponForm" method="POST">
     <fieldset>
       <legend>Enter Weapon Details:</legend>
-      <input type="text" name="newWeaponName" id="newWeaponName" placeholder="Weapon Name" />
-      <input type="text" name="newWeaponType" id="newWeaponType" placeholder="Weapon Type"/>
-      <label for="newWeaponRanged">Is this a ranged weapon?</label>
-      <select id="newWeaponRanged" name="newWeaponRanged">
+      <input type="text" name="weapon-name" id="weapon-name" placeholder="Weapon Name"/>
+      <input type="text" name="weapon-type" id="weapon-type" placeholder="Weapon Type"/>
+      <label for="weapon-ranged">Is this a ranged weapon?</label>
+      <select id="weapon-ranged" name="weapon-ranged">
         <option value="1">Yes</option>
         <option value="0">No</option>
       </select>
-      <input type="submit" class="button" id="fighterNameSubmit" value="Create"/>
+      <input type="submit" class="button" id="fighter-name-submit" value="Create"/>
     </fieldset>
   </form>
     

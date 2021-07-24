@@ -1,0 +1,2 @@
+app.py merge=ours
+db_credentials.py merge=ours

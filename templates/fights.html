@@ -6,10 +6,10 @@
 {% block content %}
   <div class="center-child">
     <h2>Add a New Fight</h2>
-    <form class="input-form" id="fighter-form" name="fighter-form">
+    <form class="input-form" id="fighter-form" name="fighter-form" method="POST">
         <fieldset>
           <legend>New Fight:</legend>
-          <input type="number" step="1" min="0" name="fighter2-id" id="fighter1-id" placeholder="Fighter 1 ID"/>
+          <input type="number" step="1" min="0" name="fighter1-id" id="fighter1-id" placeholder="Fighter 1 ID"/>
           <input type="number" step="1" min="0" name="fighter2-id" id="fighter2-id" placeholder="Fighter 2 ID"/>
           <input type="number" step="1" min="0" name="prize-id" id="prize-id" placeholder="Prize ID (or empty)"/>
           <input type="date" name="fight-date" id="fight-date"/>

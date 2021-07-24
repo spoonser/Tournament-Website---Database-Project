@@ -20,6 +20,8 @@ mysql = MySQL(app)
 def index():
     return render_template('index.html')   
     
+# -------------------------------------------------------------------------------------------------
+# Fighters Page
 @app.route('/fighters')
 def fighters():
     cur = mysql.connection.cursor()
@@ -31,6 +33,25 @@ def fighters():
     
     return render_template('fighters.html', fighters=fighters) 
     
+@app.route('/fighters', methods=['POST'])
+def add_fighter():
+    fighterName = request.form.get('fighter-name') or None
+    weapon = request.form.get('fighter-weapon') or None
+
+    try:
+        con = mysql.connect
+        cur = con.cursor()
+        cur.execute('''INSERT INTO Fighters (fighterName, weapon) 
+            VALUES (%s, %s);''', (fighterName, weapon))
+        con.commit()
+
+    except:
+        print("Insert Failed")
+
+    return fighters()
+
+# -------------------------------------------------------------------------------------------------
+# Weapons Page
 @app.route('/weapons')
 def weapons():
     cur = mysql.connection.cursor()
@@ -43,7 +64,27 @@ def weapons():
     weapons = cur.fetchall()
 
     return render_template('weapons.html', weapons=weapons)
-    
+
+@app.route('/weapons', methods=['POST'])
+def add_weapon():
+    weaponName = request.form.get('weapon-name') or None
+    weaponType = request.form.get('weapon-type') or None
+    ranged = request.form.get('weapon-ranged')
+
+    try:
+        con = mysql.connection
+        cur = con.cursor()
+        cur.execute('''INSERT INTO Weapons (weaponName, weaponType, ranged) 
+            VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
+        con.commit()
+        
+    except:
+        print("Insert Failed")
+
+    return weapons()
+
+# -------------------------------------------------------------------------------------------------
+# Results Page
 @app.route('/results')
 def results():
     cur = mysql.connection.cursor()
@@ -59,6 +100,9 @@ def results():
     leaders = cur.fetchall()
     return render_template('results.html', leaders=leaders)
       
+
+# -------------------------------------------------------------------------------------------------
+# Fights Page
 @app.route('/fights')
 def fightsetup():
     cur = mysql.connection.cursor()
@@ -85,6 +129,29 @@ def fightsetup():
 
     return render_template('fights.html', fights=fights)
     
+@app.route('/fights', methods=['POST'])
+def add_fight():
+    fighter1 = request.form.get('fighter1-id') or None
+    fighter2 = request.form.get('fighter2-id') or None
+    prize = request.form.get('prize-id') or None
+    fightDate = request.form.get('fight-date') or None
+
+    print(fightDate)
+    try:
+        con = mysql.connection
+        cur = con.cursor()
+        cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
+            VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))
+        con.commit()
+
+    except:
+        print('Insert Failed')
+    
+    return fightsetup()
+
+
+# -------------------------------------------------------------------------------------------------
+# Prizes Page
 @app.route('/prizes')
 def prizes():
     cur = mysql.connection.cursor()
