@@ -4,39 +4,40 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="center-child">
-    <h1>Prizes</h1>
-    <h2>Add a New Prize</h2>
-    <form class="input-form" id="prize-form" name="prize-form">
-        <fieldset>
-          <legend>New Prize:</legend>
-          <input type="text" name="prize-type" id="prize-type" placeholder="Prize Type"/>
-          <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
-        </fieldset>
-    </form>
+  <h1>Prizes</h1>
+  <h2>Add a New Prize</h2>
+  <form class="input-form" id="prize-form" name="prize-form">
+    <fieldset>
+      <legend>New Prize:</legend>
+      <input type="text" name="prize-type" id="prize-type" placeholder="Prize Type"/>
+      <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
+    </fieldset>
+  </form>
 	
 
-    <h2>Prizewinners</h2>
+  <h2>Prizewinners</h2>
 	<p> Note: Prizes can be awarded to more than one Fighter! </p>
-    <table id="prize-table">
-      <tr>
-        <th>Prize ID</th>
-        <th>Prize Type</th>
-        <th>Fighter ID</th>
-        <th>Fighter Name</th>
-      </tr>
+  <table id="prize-table">
+    <tr>
+      <th>Prize ID</th>
+      <th>Prize Type</th>
+      <th>Fighter ID</th>
+      <th>Fighter Name</th>
+    </tr>
+
 	  {% for prize in prizesWon %}
 		<tr>
-			<td>{{ prize['prizeID'] }}</td> 
-			<td>{{ prize['prizeType'] }}</td>
-			<td>{{ prize['fighterID'] }}</td>
-			<td>{{ prize['fighterName'] }}</td>
-			<td>
-			<form name="deletePrizeForm" action="javascript:select();" >
-                <input id="deletePrize__{{ prize.prizeID }}" type="submit" name="deletePrize" value="Delete" />
-               </form> </td>
+		  <td>{{ prize['prizeID'] }}</td> 
+		  <td>{{ prize['prizeType'] }}</td>
+		  <td>{{ prize['fighterID'] }}</td>
+		  <td>{{ prize['fighterName'] }}</td>
+		  <td>
+			  <form name="deletePrizeForm" action="javascript:select();" >
+          <input id="deletePrize__{{ prize.prizeID }}" type="submit" name="deletePrize" value="Delete" />
+        </form> 
+      </td>
 		</tr>
-      {% endfor %}
-    </table>
-  </div>
+    {% endfor %}
+  </table>
+
 {% endblock %}
