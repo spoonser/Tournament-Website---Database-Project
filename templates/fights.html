@@ -43,17 +43,15 @@
 		<th>Winner</th>
 		<th>Associated Prize</th>
       </tr>
-<script>
-console.log(JSON.stringify({{fights}}));
-</script>
+
 	  {% for fight in fights %}
 		<tr>
 			<td>{{ fight['fightID'] }}</td> 
 			<td>{{ fight['fightDate'] }}</td>
-			<td>{{ fight['fighter1'] }}</td>
+			<!--td>{{ fight['fighter1'] }}</td>
 			<td>{{ fight['fighter2'] }}</td>
 			<td>{{ fight['winner'] }}</td>
-			<td>{{ fight['prize'] }}</td>
+			<td>{{ fight['prize'] }}</td-->
 		</tr>
       {% endfor %}
 	  
