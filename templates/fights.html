@@ -43,11 +43,9 @@
 		<th>Winner</th>
 		<th>Associated Prize</th>
       </tr>
-		<script>console.log("TESTING");</script>
 	  {% for fight in fights %}
-		<script> console.log({{fight['winner']}});</script>
 		<tr>
-			<td>Test {{ fight['fightID'] }}</td> 
+			<td>{{ fight['fightID'] }}</td> 
 			<td>{{ fight['fightDate'] }}</td>
 			<td>{{ fight['fighter1'] }}</td>
 			<td>{{ fight['fighter2'] }}</td>

@@ -9,6 +9,7 @@ app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
 app.config['MYSQL_USER'] = os.environ.get("CS340DBUSER")
 app.config['MYSQL_PASSWORD'] = os.environ.get("CS340DBPW")
 app.config['MYSQL_DB'] = os.environ.get("CS340DB")
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
     
@@ -61,14 +62,11 @@ def fightsetup():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prize FROM
-
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
         FROM Fights
         LEFT JOIN Fighters
         on Fights.fighter1=Fighters.fighterID) as one
-
         JOIN
-
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
         FROM Fights
         LEFT JOIN Fighters
@@ -76,7 +74,6 @@ def fightsetup():
         LEFT JOIN Prizes 
         ON one.prize=Prizes.prizeID
         WHERE one.fightID=two.fightID
-
         ORDER BY one.fightDate desc;;''')
     fights = cur.fetchall()
 
