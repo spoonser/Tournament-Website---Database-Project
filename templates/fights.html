@@ -9,9 +9,9 @@
     <form class="input-form" id="fighter-form" name="fighter-form" method="POST">
         <fieldset>
           <legend>New Fight:</legend>
-          <input type="number" step="1" min="0" name="fighter1-id" id="fighter1-id" placeholder="Fighter 1 ID"/>
-          <input type="number" step="1" min="0" name="fighter2-id" id="fighter2-id" placeholder="Fighter 2 ID"/>
-          <input type="number" step="1" min="0" name="prize-id" id="prize-id" placeholder="Prize ID (or empty)"/>
+          <input type="number" step="1" min="1" name="fighter1-id" id="fighter1-id" placeholder="Fighter 1 ID"/>
+          <input type="number" step="1" min="1" name="fighter2-id" id="fighter2-id" placeholder="Fighter 2 ID"/>
+          <input type="number" step="1" min="1" name="prize-id" id="prize-id" placeholder="Prize ID (or empty)"/>
           <input type="date" name="fight-date" id="fight-date"/>
           <input type="submit" class="button" id="fighter-submit" value="Submit Fight"/>
         </fieldset>
@@ -21,7 +21,7 @@
     <form class="input-form" id="fighter-form" name="fighter-form">
         <fieldset>
           <legend>Fight Update:</legend>
-          <input type="number" step="1" min="0" name="existing-fight-id" id="existing-fight-id" placeholder="Fight ID"/>
+          <input type="number" step="1" min="1" name="old-fight-id" id="old-fight-id" placeholder="Fight ID"/>
           <input type="date" name="new-fight-date" id="new-fight-date"/>
           <select name="fight-winner" id="fight-winner">
             <option disabled selected value> -- select an option -- </option>
@@ -29,6 +29,7 @@
             <option value="fighter2-won">Fighter 2 Won</option>
             <option value="fighter-draw">Draw</option>
           </select>
+          <input type="number" step="1" min="1" name="new-prize-id" id="new-prize-id" placeholder="Prize"/>
           <input type="submit" class="button" id="fighter-submit" value="Update Fight Info"/>
         </fieldset>
     </form>
