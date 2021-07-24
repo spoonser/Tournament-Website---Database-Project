@@ -46,13 +46,12 @@
 
 	  {% for fight in fights %}
 		<tr>
-			<td> Test </td>
-			<td>{{ fight['fightID'] }}</td> 
+			<td>Test {{ fight['fightID'] }}</td> 
 			<td>{{ fight['fightDate'] }}</td>
-			<!--td>{{ fight['fighter1'] }}</td>
+			<td>{{ fight['fighter1'] }}</td>
 			<td>{{ fight['fighter2'] }}</td>
 			<td>{{ fight['winner'] }}</td>
-			<td>{{ fight['prize'] }}</td-->
+			<td>{{ fight['prize'] }}</td>
 		</tr>
       {% endfor %}
 	  
