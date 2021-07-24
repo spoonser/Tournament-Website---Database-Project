@@ -1,6 +1,0 @@
-app.py merge=ours
-<<<<<<< HEAD
-db_credentials.py merge=ours
-=======
-db_credentials merge=ours
->>>>>>> 3874d54befa5cc9639cc2d028214590911aecf57
