@@ -74,7 +74,7 @@ def fightsetup():
         LEFT JOIN Prizes 
         ON one.prize=Prizes.prizeID
         WHERE one.fightID=two.fightID
-        ORDER BY one.fightDate desc;;''')
+        ORDER BY one.fightDate desc;''')
     fights = cur.fetchall()
 
     return render_template('fights.html', fights=fights)

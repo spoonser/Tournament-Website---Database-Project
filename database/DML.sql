@@ -1,22 +1,18 @@
-    cur.execute('''SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`  FROM Fighters as f
+-- Query to select all Fighters and their Weapon. If the Fighter has NULL as a Weapon, populates with 'No Weapon' to be more readable.
+SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`  FROM Fighters as f
         LEFT JOIN Weapons as w
         on f.weapon=w.weaponID
-        ORDER BY f.fighterName asc;''')
-    fighters = cur.fetchall()
+        ORDER BY f.fighterName asc;
     
-    return render_template('fighters.html', fighters=fighters) 
-    
-@app.route('/weapons')
-def weapons():
-    cur = mysql.connection.cursor()
-    cur.execute('''SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ranged,
+-- Query to select all Weapons and their attributes.
+SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ranged,
         IFNULL(GROUP_CONCAT(f.fighterName), "No Users") as `WeaponUsers`
         FROM Weapons w
         LEFT JOIN Fighters as f 
         ON w.weaponID=f.weapon
         GROUP BY w.weaponID;
 		
--- Query for retrieving the 3 Fighters with the most Wins to populate the leaderboard
+-- Query to select the 3 Fighters with the most Wins to populate the leaderboard
 SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
         UNION 
@@ -26,7 +22,9 @@ SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM
         GROUP BY Wins.fighterID
         ORDER BY Wins.WinCount DESC
         LIMIT 3;
-    cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+
+-- Query to select all Fights and their attributes
+SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prize FROM
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
         FROM Fights
@@ -40,16 +38,11 @@ SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM
         LEFT JOIN Prizes 
         ON one.prize=Prizes.prizeID
         WHERE one.fightID=two.fightID
-        ORDER BY one.fightDate desc;;''')
-    fights = cur.fetchall()
+        ORDER BY one.fightDate desc
 
-    return render_template('fights.html', fights=fights)
-    
-@app.route('/prizes')
-def prizes():
-    cur = mysql.connection.cursor()
-    cur.execute('''SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterID, IFNULL(f.fighterName, 'No Winners Yet') as fighterName
+--Query to select all Prizes and their attributes
+SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterID, IFNULL(f.fighterName, 'No Winners Yet') as fighterName
         FROM Prizes as p 
         LEFT JOIN PrizesWon as pw ON p.prizeID=pw.prizeID
         JOIN Fighters as f 
-        ON pw.fighterID=f.fighterID;''')
+        ON pw.fighterID=f.fighterID;
