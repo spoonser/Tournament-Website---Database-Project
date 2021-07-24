@@ -4,45 +4,43 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="center-child">
-	<h1>Weapons</h1>
-	<h2>Create a New Weapon</h2>
-    <form name="newWeaponForm">
-        <fieldset>
-          <legend>Enter Weapon Details:</legend>
-          <input type="text" name="newWeaponName" id="newWeaponName" placeholder="Weapon Name" />
-          <input type="text" name="newWeaponType" id="newWeaponType" placeholder="Weapon Type"/>
-          <label for="newWeaponRanged">Is this a ranged weapon?</label>
-          <select id="newWeaponRanged" name="newWeaponRanged">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-          </select>
-          <input type="submit" class="button" id="fighterNameSubmit" value="Create"/>
-        </fieldset>
-    </form>
-	
-    <h2>Current Weapons</h2>
-    <table id="weapon-table">
-      <tr>
-        <th>Weapon Name</th>
-        <th>Weapon ID</th>
-        <th>Weapon Type</th>
-		<th>Ranged?</th>
-		<th>Current Fighters</th>
-      </tr>
-		
-	  {% for weapon in weapons %}
-		<tr>
-			<td>{{ weapon['weaponName'] }}</td> 
-			<td>{{ weapon['weaponID'] }}</td>
-			<td>{{ weapon['weaponType'] }}</td>
-			<td>{{ weapon['ranged'] }}</td>
-			<td>{{ weapon['WeaponUsers'] }}</td>
-		</tr>
-      {% endfor %}
-    </table>
-  </div>
-  </div>
+  <h1>Weapons</h1>
+  <h2>Create a New Weapon</h2>
+
+  <form name="newWeaponForm">
+    <fieldset>
+      <legend>Enter Weapon Details:</legend>
+      <input type="text" name="newWeaponName" id="newWeaponName" placeholder="Weapon Name" />
+      <input type="text" name="newWeaponType" id="newWeaponType" placeholder="Weapon Type"/>
+      <label for="newWeaponRanged">Is this a ranged weapon?</label>
+      <select id="newWeaponRanged" name="newWeaponRanged">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+      <input type="submit" class="button" id="fighterNameSubmit" value="Create"/>
+    </fieldset>
+  </form>
+    
+  <h2>Current Weapons</h2>
+  <table id="weapon-table">
+    <tr>
+      <th>Weapon Name</th>
+      <th>Weapon ID</th>
+      <th>Weapon Type</th>
+      <th>Ranged?</th>
+      <th>Current Fighters</th>
+    </tr>
+      
+    {% for weapon in weapons %}
+    <tr>
+      <td>{{ weapon['weaponName'] }}</td> 
+      <td>{{ weapon['weaponID'] }}</td>
+      <td>{{ weapon['weaponType'] }}</td>
+      <td>{{ weapon['ranged'] }}</td>
+      <td>{{ weapon['WeaponUsers'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
 {% endblock %}
 
 

@@ -1,11 +1,12 @@
 /* CS340 Project Styles */
 
 /* Shared formatting */
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
 
 body {
   height: 100%;
   background-color: rgba(166, 16, 31, 0.5);
-  font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Metal Mania', cursive;
   margin: 0px;
   padding: 0px;
   overflow: hidden;
@@ -26,9 +27,26 @@ ul {
   display: inline-block;
   text-align: left;
   margin-left: 0px;
-  max-width: 880px;
+  max-width: 960px;
   width: 90%;
 } 
+
+
+.page-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0;
+}
+
+.page-content {
+  height: 1000px;
+  flex-grow: 1;
+  overflow: auto;
+  min-height: 2em;
+}
 
 table, th, td {	
 	border: 1px solid black;
@@ -51,8 +69,77 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 
+
+/* -------------------------------------------------------------------------- */
+/* Header Styles */
+#header {
+  background-color: rgb(158, 120, 120);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+  margin: 0px;
+  padding: 10px;
+  user-select: none;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#header-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 960px;
+  position: relative;
+}
+
+#header a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 1;
+}
+
+#header a:hover {
+  color: rgb(	166,16,30);
+}
+
+#header li {
+  font-weight: 60;
+  font-size: 20px;
+  display: inline;
+  font-weight: 600;
+  padding: 0px;
+  margin: 0px 25px 0px 0px;
+}
+
+#page-select {
+  position: relative;
+  margin-top: 20px;
+}
+
+#logo {
+  font-size: 30px;
+  margin: 12px 0px 10px 100px;
+  display: inline;
+  position: absolute;
+}
+
+#skull {
+  width: 40px;
+  height: 40px;
+  margin-top: 7px;
+  margin-left: 30px;
+  position: relative;
+}
+
+
 /* -------------------------------------------------------------------------- */
 /* Footer styles */
+#flames {
+  width: 100%;
+  height: 260px;
+  bottom: 0px;
+  position: fixed;
+  margin-left: 0px;
+}
+
 #footer {
   background-color: rgb(158, 120, 120);
   color: rgb(0, 0, 0);
@@ -68,6 +155,7 @@ input[type=number]::-webkit-outer-spin-button {
   flex-shrink: 0;
   overflow: hidden;
 }
+
 
 
 /* -------------------------------------------------------------------------- */

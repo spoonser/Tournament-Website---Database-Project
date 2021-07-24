@@ -8,7 +8,7 @@
 host = 'localhost'
 user = 'root'                                   # can be different if you set up another username in your MySQL installation
 passwd = ''                        # set accordingly
-db = 'bsg'
+db = 'cs340_project'
 
 
 # For OSU Flip Servers

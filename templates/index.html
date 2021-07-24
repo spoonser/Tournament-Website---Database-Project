@@ -4,9 +4,9 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-	<div class="center-child">
-		<h1>Index</h1>
-		<p> <ul>	
+
+	<h1>Index</h1>
+	<p> <ul>	
 		<li> <a href="{{ url_for('fighters') }}">Fighters</a> Allows users to see existing Fighters or create a new Fighter. 
 		Fighter profiles for existing Fighters are planned to link to that Fighter's Prize results.
 			
@@ -20,6 +20,5 @@
 		
 		<li> <a href="{{ url_for('results') }}">Fighter Wins</a> Contains leaderboard (Fighters with most wins) and allows users to look up a Fighter's wins and Prizes.
 			
-		</ul> </p> 
-	</div>
+	</ul> </p> 
 {% endblock %}
