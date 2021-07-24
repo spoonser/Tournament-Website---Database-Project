@@ -48,6 +48,10 @@ ul {
   min-height: 2em;
 }
 
+form {
+  width: 710px;
+}
+
 table, th, td {	
 	border: 1px solid black;
 	border-collapse: collapse;
