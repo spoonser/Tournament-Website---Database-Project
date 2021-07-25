@@ -74,8 +74,6 @@ def add_weapon():
         cur = con.cursor()
         cur.execute('''INSERT INTO Weapons (weaponName, weaponType, ranged) 
             VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
-        print ('''INSERT INTO Weapons (weaponName, weaponType, ranged) 
-            VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
         con.commit()
         
     except:
@@ -172,13 +170,11 @@ def add_prize():
         con = mysql.connection
         cur = con.cursor()
         cur.execute('''INSERT INTO Prizes (prizeType) 
-            VALUES (%s);''', (prizeType))     
+            VALUES (%s);''', (prizeType))
         con.commit()
 
     except:
         print("Insert Failed")
-        print ('''INSERT INTO Prizes (prizeType) 
-            VALUES (%s);''', (prizeType))
 
     return prizes()
     
