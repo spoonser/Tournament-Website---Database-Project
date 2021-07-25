@@ -13,11 +13,28 @@
       <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
     </fieldset>
   </form>
-	
+  
+  <h2>Current Prizes</h2>
+    <table id="prize-table">
+      <tr>
+		<th>Prize ID</th>
+		<th>Prize Type</th>
+      </tr>
+
+	  {% for prize in allPrizes %}
+		<tr>
+			<td>{{ prize['prizeID'] }}</td> 
+			<td>{{ prize['prizeType'] }}</td>
+		</tr>
+      {% endfor %}
+	  
+	  
+    
+    </table>
 
   <h2>Prizewinners</h2>
 	<p> Note: Prizes can be awarded to more than one Fighter! </p>
-  <table id="prize-table">
+  <table id="prizewinners-table">
     <tr>
       <th>Prize ID</th>
       <th>Prize Type</th>

@@ -1,18 +1,31 @@
--- Query to select all Fighters and their Weapon. If the Fighter has NULL as a Weapon, populates with 'No Weapon' to be more readable.
+-- Select all Fighters and their Weapon. If the Fighter has NULL as a Weapon, populates with 'No Weapon' to be more readable.
 SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`  FROM Fighters as f
         LEFT JOIN Weapons as w
         on f.weapon=w.weaponID
         ORDER BY f.fighterName asc;
+		
+-- Insert a new Fighter. Parameters are provided by code in the Flask application and are commented out below.
+INSERT INTO Fighters (fighterName, weapon) 
+            VALUES (%s, %s);
+	--Full syntax: cur.execute('''INSERT INTO Fighters (fighterName, weapon) VALUES (%s, %s);''', (fighterName, weapon))
     
--- Query to select all Weapons and their attributes.
+-- -----------------------------------------------------------------------------------------------------------------------	
+
+-- Select all Weapons and their attributes.
 SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ranged,
         IFNULL(GROUP_CONCAT(f.fighterName), "No Users") as `WeaponUsers`
         FROM Weapons w
         LEFT JOIN Fighters as f 
         ON w.weaponID=f.weapon
         GROUP BY w.weaponID;
-		
--- Query to select the 3 Fighters with the most Wins to populate the leaderboard
+-- Insert a new Weapon. Parameters are provided by code in the Flask application and are commented out below.
+INSERT INTO Weapons (weaponName, weaponType, ranged) 
+            VALUES (%s, %s, %s);
+	--Full syntax: cur.execute('''INSERT INTO Weapons (weaponName, weaponType, ranged) VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
+	
+-- -----------------------------------------------------------------------------------------------------------------------	
+
+-- Select the 3 Fighters with the most Wins to populate the leaderboard
 SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
         UNION 
@@ -40,9 +53,13 @@ SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Wo
         WHERE one.fightID=two.fightID
         ORDER BY one.fightDate desc
 
---Query to select all Prizes and their attributes
+-- Select all Prizes and their attributes
 SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterID, IFNULL(f.fighterName, 'No Winners Yet') as fighterName
         FROM Prizes as p 
         LEFT JOIN PrizesWon as pw ON p.prizeID=pw.prizeID
         JOIN Fighters as f 
         ON pw.fighterID=f.fighterID;
+-- Insert a new Prize. Parameters are provided by code in the Flask application and are commented out below.
+INSERT INTO Prizes (prizeType) 
+            VALUES (%s);
+	--Full syntax:  cur.execute('''INSERT INTO Prizes (prizeType) VALUES (%s);''', (prizeType))

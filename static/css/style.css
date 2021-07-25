@@ -29,6 +29,7 @@ ul {
   margin-left: 0px;
   max-width: 960px;
   width: 90%;
+  overflow: scroll;
 } 
 
 

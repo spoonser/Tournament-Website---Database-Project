@@ -156,9 +156,27 @@ def prizes():
         ON pw.fighterID=f.fighterID;''')
     prizesWon = cur.fetchall()
 
-    return render_template('prizes.html', prizesWon=prizesWon)
+    cur.execute('''SELECT prizeID, prizeType 
+        FROM Prizes;''')
+    allPrizes=cur.fetchall()
+    
+    return render_template('prizes.html', allPrizes=allPrizes, prizesWon=prizesWon)
 
+@app.route('/prizes', methods=['POST'])
+def add_prize():
+    prizeType = request.form.get('prize-type') or None
 
+    try:
+        con = mysql.connect
+        cur = con.cursor()
+        cur.execute('''INSERT INTO Prizes (prizeType) 
+            VALUES (%s);''', (prizeType))
+        con.commit()
+
+    except:
+        print("Insert Failed")
+
+    return fighters()
     
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 61557))
