@@ -176,7 +176,7 @@ def add_prize():
     except:
         print("Insert Failed")
 
-    return fighters()
+    return prizes()
     
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 61557))
