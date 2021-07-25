@@ -164,7 +164,7 @@ def prizes():
 
 @app.route('/prizes', methods=['POST'])
 def add_prize():
-    prizeType = request.form.get('prize-type') or None
+    prizeType = request.form('prize-type') 
 
     try:
         con = mysql.connection
