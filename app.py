@@ -171,6 +171,8 @@ def add_prize():
         cur = con.cursor()
         cur.execute('''INSERT INTO Prizes (prizeType) 
             VALUES (%s);''', (prizeType))
+        print ('''INSERT INTO Prizes (prizeType) 
+            VALUES (%s);''', (prizeType))
         con.commit()
 
     except:
