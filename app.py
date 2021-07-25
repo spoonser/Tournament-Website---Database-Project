@@ -130,7 +130,7 @@ def add_fight():
     prize = request.form.get('prize-id') or None
     fightDate = request.form.get('fight-date') or None
 
-    print(fightDate)
+    # print(fightDate)
     try:
         con = mysql.connection
         cur = con.cursor()
@@ -167,7 +167,7 @@ def add_prize():
     prizeType = request.form.get('prize-type') or None
 
     try:
-        con = mysql.connect
+        con = mysql.connection
         cur = con.cursor()
         cur.execute('''INSERT INTO Prizes (prizeType) 
             VALUES (%s);''', (prizeType))
