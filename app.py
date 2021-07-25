@@ -176,7 +176,7 @@ def add_prize():
     except:
         print("Insert Failed")
         print('''INSERT INTO Prizes (prizeType) 
-            VALUES (%s);''', (prizeType))
+            VALUES (''%s'');''', (prizeType))
 
     return prizes()
     
