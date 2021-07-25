@@ -170,7 +170,7 @@ def add_prize():
         con = mysql.connection
         cur = con.cursor()
         cur.execute('''INSERT INTO Prizes (prizeType) 
-            VALUES (%s);''', (prizeType))
+            VALUES (''%s'');''', (prizeType))
         con.commit()
 
     except:
