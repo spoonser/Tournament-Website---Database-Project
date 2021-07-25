@@ -125,23 +125,24 @@ def fightsetup():
     
 @app.route('/fights', methods=['POST'])
 def add_fight():
-    fighter1 = request.form.get('fighter1-id') or None
-    fighter2 = request.form.get('fighter2-id') or None
-    prize = request.form.get('prize-id') or None
-    fightDate = request.form.get('fight-date') or None
+    if request.form.get('new-fight-form'):
+        fighter1 = request.form.get('fighter1-id') or None
+        fighter2 = request.form.get('fighter2-id') or None
+        prize = request.form.get('prize-id') or None
+        fightDate = request.form.get('fight-date') or None
 
-    # print(fightDate)
-    try:
-        con = mysql.connection
-        cur = con.cursor()
-        cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
-            VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))
-        con.commit()
+        # print(fightDate)
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
+                VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))
+            con.commit()
 
-    except:
-        print('Insert Failed')
-    
-    return fightsetup()
+        except:
+            print('Insert Failed')
+        
+        return fightsetup()
 
 
 # -------------------------------------------------------------------------------------------------
