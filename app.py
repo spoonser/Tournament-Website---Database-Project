@@ -74,6 +74,8 @@ def add_weapon():
         cur = con.cursor()
         cur.execute('''INSERT INTO Weapons (weaponName, weaponType, ranged) 
             VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
+        print ('''INSERT INTO Weapons (weaponName, weaponType, ranged) 
+            VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
         con.commit()
         
     except:
