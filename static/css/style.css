@@ -27,8 +27,8 @@ ul {
   display: inline-block;
   text-align: left;
   margin-left: 0px;
-  /* max-width: 960px; */
-  width: 90%;
+  max-width: 960px;
+  /* width: 90%; */
   overflow: auto;
 } 
 
