@@ -9,7 +9,7 @@ body {
   font-family: 'Metal Mania', cursive;
   margin: 0px;
   padding: 0px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 ul {
@@ -29,7 +29,7 @@ ul {
   margin-left: 0px;
   max-width: 960px;
   width: 90%;
-  overflow: scroll;
+  overflow: auto;
 } 
 
 
