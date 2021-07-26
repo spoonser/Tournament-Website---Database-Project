@@ -221,17 +221,16 @@ def modify_prize():
             print("PrizesWon - Insert Failed")
     
     elif request.form.get('prize-won-delete'):
-        pass
-        # prizeID = request.form.get('prize-id') 
-        # fighterID = request.form.get('fighter-id') 
-        # try:
-            # con = mysql.connection
-            # cur = con.cursor()
-            # cur.execute('''DELETE FROM PrizesWon WHERE fighterID=%s and prizeID=%s;''', (fighterID, prizeID))
-            # con.commit()
+        prizeID = request.form.get('prize-won-delete')[0]
+        fighterID = request.form.get('prize-won-delete')[1] 
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''DELETE FROM PrizesWon WHERE fighterID=%s and prizeID=%s;''', (fighterID, prizeID))
+            con.commit()
 
-        # except:
-            # print("PrizesWon - Insert Failed")
+        except:
+            print("PrizesWon - Delete Failed")
                     
     return prizes()
     
