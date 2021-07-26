@@ -154,11 +154,11 @@ def fightsetup():
     
 @app.route('/fights', methods=['POST'])
 def add_fight():
-    if request.form.get('old-fight-id'):
-        # add code to edit a fight
+    if request.form.get('fight-update'):
+        # TODO add code to edit a fight -- needs logic for handling nulls and leaving values unchanged
         pass
         
-    else:
+    elif request.form.get('fight-insert'):
         fighter1 = request.form.get('fighter1-id') or None
         fighter2 = request.form.get('fighter2-id') or None
         prize = request.form.get('prize-id') or None
@@ -175,6 +175,9 @@ def add_fight():
         except:
             print('Insert Failed')
     
+    elif request.form.get('fight-filter'):
+        # TODO add code for fight filtering -- needs logic for handling nulls
+        pass
     return fightsetup()
 
 # -------------------------------------------------------------------------------------------------

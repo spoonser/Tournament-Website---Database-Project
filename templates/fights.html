@@ -9,6 +9,7 @@
     <form class="input-form" id="new-fight-form" name="new-fight-form" method="POST">
         <fieldset>
           <legend>New Fight:</legend>
+		  <input type="hidden" id="fight-insert" name="fight-insert" value="1">
           <input type="number" step="1" min="1" name="fighter1-id" id="fighter1-id" placeholder="Fighter 1 ID"/>
           <input type="number" step="1" min="1" name="fighter2-id" id="fighter2-id" placeholder="Fighter 2 ID"/>
           <input type="number" step="1" min="1" name="prize-id" id="prize-id" placeholder="Prize ID (or empty)"/>
@@ -21,6 +22,7 @@
     <form class="input-form" id="edit-fight-form" name="edit-fight-form">
         <fieldset>
           <legend>Fight Update:</legend>
+		  <input type="hidden" id="fight-update" name="fight-update" value="1">
           <input type="number" step="1" min="1" name="old-fight-id" id="old-fight-id" placeholder="Fight ID"/>
           <input type="date" name="new-fight-date" id="new-fight-date"/>
           <select name="fight-winner" id="fight-winner">
@@ -34,6 +36,14 @@
         </fieldset>
     </form>
 
+	<h2>Filter Fight Records by Date Range</h2>
+    <form class="input-form" id="filter-fight-form" name="filter-fight-form">
+        <fieldset>
+          <input type="date" name="start-date" id="start-date"/>
+		  <input type="date" name="end-date" id="end-date"/>
+          <input type="submit" class="button" id="fight-filter" value="Filter Fights"/>
+        </fieldset>
+    </form>
 	<h2>Fight Records</h2>
 	{% if filtered_fights is defined %}
 		{% if filtered_fights|length %}
@@ -62,6 +72,9 @@
 		{% else %}
 			<p> No results found for these Fight criteria. Check back later! </p>
 		{% endif %}
+		<form class="input-form" id="filter-fight-clear"  method="post">
+			<input type="submit" name="clear-filter" value="Remove Filters" />
+		</form>
 	{% else %}
 		<table id="fight-table">
 		  <tr>
