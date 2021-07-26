@@ -98,7 +98,7 @@ def results():
     leaders = cur.fetchall()
     return render_template('results.html', leaders=leaders)
     
-@app.route('/filtered_results', methods=['POST'])
+@app.route('/results', methods=['POST'])
 def filtered_results():
     fighterName = request.form.get('fighterName') or None
     con = mysql.connection
