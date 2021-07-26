@@ -9,7 +9,7 @@
   <form class="input-form" id="prize-form" name="prize-form" action="/prizes" method="POST">
     <fieldset>
       <legend>New Prize:</legend>
-	  <input type="hidden" id="new-prize" name="new-prize">
+	  <input type="hidden" id="new-prize" name="new-prize" value="1">
       <input type="text" name="prize-type" id="prize-type" placeholder="Prize Type"/>
       <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
     </fieldset>
@@ -37,7 +37,7 @@
   <form class="input-form" id="prize-won-form" name="prize-won-form"  method="POST">
     <fieldset>
       <legend>New Prizewinner:</legend>
-	  <input type="hidden" id="prize-won" name="prize-won">
+	  <input type="hidden" id="prize-won" name="prize-won" value="1">
       <input type="text" name="prize-id" id="prize-id" placeholder="Prize ID"/>
 	  <input type="text" name="fighter-id" id="fighter-id" placeholder="Fighter ID"/>
       <input type="submit" class="button" id="prize-won-submit" value="Add a new prizewinner"/>

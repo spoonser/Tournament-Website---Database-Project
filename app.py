@@ -198,6 +198,7 @@ def prizes():
 @app.route('/prizes', methods=['POST'])
 def add_prize():
     prizeType = request.form.get('prize-type') or None 
+    print(request.form.get('new-prize'))
     if request.form.get('new-prize'):
 
         try:
