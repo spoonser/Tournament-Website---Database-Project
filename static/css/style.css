@@ -21,6 +21,7 @@ ul {
   margin-top: 0px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 80px;
 }
 
 .center-child {
@@ -157,7 +158,7 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
   flex-direction: row;
   justify-content: center;
-  position: relative; /* Changed from fixed as it was overlapping table data when we got past a handful of entries */
+  position: fixed;
   bottom: 0;
   height: 60px;
   width: 100%;
