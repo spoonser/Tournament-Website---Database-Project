@@ -103,14 +103,14 @@ def filtered_results():
     fighterName = request.form.get('fighterName') or None
     con = mysql.connection
     cur = con.cursor()
-    cur.execute('''    SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
+    cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
         UNION 
          SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
         INNER JOIN Fighters
         ON Wins.fighterID = Fighters.fighterID
         AND Fighters.fighterName = %s
-        GROUP BY Wins.fighterID;''', (fighterName))
+        GROUP BY Wins.fighterID;''', fighterName)
     individual = cur.fetchall()
     cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
