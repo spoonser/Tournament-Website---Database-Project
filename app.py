@@ -213,12 +213,12 @@ def add_prize():
         try:
             con = mysql.connection
             cur = con.cursor()
-            cur.execute('''INSERT INTO `PrizesWon` (`fighterID`, `prizeID`) VALUES (%s, %s);''', (prizeID, fighterID))
+            cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))
             con.commit()
 
         except:
             print("PrizesWon - Insert Failed")
-            print('''INSERT INTO `PrizesWon` (`fighterID`, `prizeID`) VALUES (%s, %s);''', (fighterID, prizeID))
+            print('''INSERT INTO PrizesWon (`fighterID`, `prizeID`) VALUES (%s, %s);''', (fighterID, prizeID))
         
     return prizes()
     
