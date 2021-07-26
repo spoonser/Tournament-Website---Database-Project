@@ -97,3 +97,7 @@ INSERT INTO Prizes (prizeType)
 -- Insert a new entry into PrizesWon. Parameters are provided by code in the Flask application and are commented out below.
 INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);
 	--Full syntax: cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))
+	
+-- Delete a PrizesWon entry. Parameters are provided by code in the Flask application and are commented out below.
+DELETE FROM PrizesWon WHERE fighterID=%s and prizeID=%s;
+	--Full syntax: cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))

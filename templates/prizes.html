@@ -61,8 +61,8 @@
 		  <td>{{ prize['fighterID'] }}</td>
 		  <td>{{ prize['fighterName'] }}</td>
 		  <td>
-			  <form class="table-form" name="deletePrizeForm" action="javascript:select();" >
-          <input id="deletePrize__{{ prize.prizeID }}" type="submit" name="deletePrize" value="Delete" />
+			  <form class="table-form" name="deletePrizeForm" action="javascript:select();" method="POST" >
+          <input id="deletePrize__{{ prize.prizeID }}__{{ prize['fighterID'] }}" type="submit" name="deletePrize" value="Delete" />
         </form> 
       </td>
 		</tr>
