@@ -197,6 +197,7 @@ def prizes():
 
 @app.route('/prizes', methods=['POST'])
 def modify_prize():
+    print(request.form.to_dict())
     if request.form.get('new-prize'):
         prizeType = request.form.get('prize-type') or None 
         try:
@@ -220,7 +221,7 @@ def modify_prize():
             print("PrizesWon - Insert Failed")
     
     elif request.form.get('prize-won-delete'):
-        print(request.form.to_dict())
+        pass
         # prizeID = request.form.get('prize-id') 
         # fighterID = request.form.get('fighter-id') 
         # try:
