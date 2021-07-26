@@ -99,7 +99,7 @@ def results():
     return render_template('results.html', leaders=leaders)
     
 @app.route('/filtered_results')
-def filtered_results:
+def filtered_results():
     fighterName = request.form.get('fighterName') or None
     con = mysql.connection
     cur = con.cursor()
