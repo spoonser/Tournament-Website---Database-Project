@@ -5,13 +5,14 @@
 {% endblock %}
 {% block content %}
 
-	<h1>Index</h1>
-	<p> <ul>	
+	<h1>Welcome, Tournament Admin!</h1>
+	<p> Track and manage Fighters as they battle for Prizes and, of course, GLORY. This tool supports all of your administrative needs for managing a tournament between fictional Fighters. 
+		
+		<ul>	
 		<li> <a href="{{ url_for('fighters') }}">Fighters</a> Allows users to see existing Fighters or create a new Fighter. 
-		Fighter profiles for existing Fighters are planned to link to that Fighter's Prize results.
+		Fighter profiles for existing Fighters are planned to link to that Fighter's overall win results.
 			
 		<li> <a href="{{ url_for('weapons') }}">Weapons</a> Allows users to look up an existing Weapon or create a new Weapon. 
-		Planning to add links to Fighter using that Weapon (if any).
 		
 		<li> <a href="{{ url_for('fightsetup') }}">Fights</a> Allows lookup and creation/modification of Fights (who is participating, when the Fight is). 
 		Allows assignment of Prizes to Fights and assignment of Fight winners.

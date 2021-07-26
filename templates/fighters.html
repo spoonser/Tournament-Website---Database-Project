@@ -27,7 +27,11 @@
 
 	  {% for fighter in fighters %}
 		<tr>
-			<td>{{ fighter['fighterName'] }}</td> 
+			<td>    
+				<form class="table-form" name="fighterForm" method="POST" action="/results">
+				<input type="hidden" name="fighterName" id="fighterName" value="{{ fighter['fighterName'] }}">  
+				<button type="submit" name="submit_fighter" value="submit_value" class="link-button"> {{ fighter['fighterName'] }} </button>
+				</form> </td>
 			<td>{{ fighter['fighterID'] }}</td>
 			<td>{{ fighter['weapon'] }}</td>
 		</tr>
