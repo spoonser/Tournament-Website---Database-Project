@@ -157,7 +157,7 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
   flex-direction: row;
   justify-content: center;
-  position: relative;
+  position: relative; /* Changed from fixed as it was overlapping table data when we got past a handful of entries */
   bottom: 0;
   height: 60px;
   width: 100%;
