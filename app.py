@@ -221,8 +221,11 @@ def modify_prize():
             print("PrizesWon - Insert Failed")
     
     elif request.form.get('prize-won-delete'):
+        print("Delete entered")
         prizeID = request.form.get('prize-won-delete')[0]
         fighterID = request.form.get('prize-won-delete')[1] 
+        print(prizeID)
+        print(fighterID)
         try:
             con = mysql.connection
             cur = con.cursor()
