@@ -115,13 +115,14 @@ def filtered_results():
         LIMIT 3;''')
     leaders = cur.fetchall()
 
-    cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
+    cur.execute('''SELECT Fighters.fighterName, IFNULL(SUM(Wins.WinCount), 0) as `Total` FROM 
+		Fighters LEFT JOIN 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
         UNION 
          SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
-        INNER JOIN Fighters
+        
         ON Wins.fighterID = Fighters.fighterID
-        AND Fighters.fighterName = %s
+        WHERE Fighters.fighterName = %s
         GROUP BY Wins.fighterID;''', (fighterName,))
     individual = cur.fetchall()
     return render_template('results.html', leaders=leaders, individual=individual)
