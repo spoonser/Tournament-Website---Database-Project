@@ -36,7 +36,19 @@ SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM
         ORDER BY Wins.WinCount DESC
         LIMIT 3;
 
--- Query to select all Fights and their attributes
+-- Select/filter Fighters' results by name.
+SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
+        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        UNION 
+         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+        INNER JOIN Fighters
+        ON Wins.fighterID = Fighters.fighterID
+        AND Fighters.fighterName = %s
+        GROUP BY Wins.fighterID;
+
+-- -----------------------------------------------------------------------------------------------------------------------	
+
+-- Select all Fights and their attributes
 SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prize FROM
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
@@ -52,6 +64,22 @@ SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Wo
         ON one.prize=Prizes.prizeID
         WHERE one.fightID=two.fightID
         ORDER BY one.fightDate desc
+
+-- Insert a new Fight. Parameters are provided by code in the Flask application and are commented out below.
+UPDATE Fights 
+	SET fightDate = %s,
+	fighter1Won = %s,
+	fighter2Won = %s,
+	prizeID = %s
+	WHERE fightID = %s;
+	--Full syntax: cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prizeID = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
+
+-- Update a Fight. Parameters are provided by code in the Flask application and are commented out below.
+INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
+                VALUES (%s, %s, %s, %s); 
+	--Full syntax: cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate)  VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))	
+
+-- -----------------------------------------------------------------------------------------------------------------------	
 
 -- Select all Prizes and their attributes
 SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterID, IFNULL(f.fighterName, 'No Winners Yet') as fighterName

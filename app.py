@@ -97,6 +97,22 @@ def results():
         LIMIT 3;''')
     leaders = cur.fetchall()
     return render_template('results.html', leaders=leaders)
+    
+@app.route('/filtered_results')
+def filtered_results:
+    fighterName = request.form.get('fighterName') or None
+    con = mysql.connection
+    cur = con.cursor()
+    cur.execute('''    SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
+        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        UNION 
+         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+        INNER JOIN Fighters
+        ON Wins.fighterID = Fighters.fighterID
+        AND Fighters.fighterName = %s
+        GROUP BY Wins.fighterID;''', (fighterName))
+    con.commit()
+
       
 
 # -------------------------------------------------------------------------------------------------
@@ -126,10 +142,10 @@ def fightsetup():
 @app.route('/fights', methods=['POST'])
 def add_fight():
     if request.form.get('old-fight-id'):
+        # add code to edit a fight
         pass
         
     else:
-
         fighter1 = request.form.get('fighter1-id') or None
         fighter2 = request.form.get('fighter2-id') or None
         prize = request.form.get('prize-id') or None

@@ -23,12 +23,27 @@
     </table>
   
     <h2>Individual Fighters' Results</h2>
-    <form name="fighterForm">
+    <form name="fighterForm" action="/filtered_results">
         <fieldset>
           <legend>Look up a Fighter by Name:</legend>
           <input type="text" name="fighterName" id="fighterName" />
           <input type="submit" class="button" id="fighterNameSubmit" value="Get Fighter Results"/>
         </fieldset>
     </form>
+	{% if individual is defined %}
+
+	<table style="width:50%">
+      <tr>
+        <th>Fighter Name</th>
+        <th>Total Number of Fights Won</th>
+      </tr>
+      {% for ind in individual %}
+      <tr>
+        <td>{{ ind['fighterName'] }}</td> 
+        <td>{{ ind['Total'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+	{% endif %}
   </div>
 {% endblock %}
