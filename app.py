@@ -122,7 +122,7 @@ def filtered_results():
         INNER JOIN Fighters
         ON Wins.fighterID = Fighters.fighterID
         AND Fighters.fighterName = %s
-        GROUP BY Wins.fighterID;''', (fighterName))
+        GROUP BY Wins.fighterID;''', (fighterName,))
     individual = cur.fetchall()
     return render_template('results.html', leaders=leaders, individual=individual)
 
