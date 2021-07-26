@@ -61,9 +61,10 @@
 		  <td>{{ prize['fighterID'] }}</td>
 		  <td>{{ prize['fighterName'] }}</td>
 		  <td>
-			  <form class="table-form" name="deletePrizeForm" action="javascript:select();" method="POST" >
-          <input id="deletePrize__{{ prize.prizeID }}__{{ prize['fighterID'] }}" type="submit" name="deletePrize" value="Delete" />
-        </form> 
+			<form class="table-form" name="deletePrizeForm" action="javascript:select();" method="POST" >
+				<input type="hidden" id="prize-won-delete" name="prize-won-delete" value="1">  
+				<input id="deletePrize__{{ prize.prizeID }}__{{ prize['fighterID'] }}" type="submit" name="deletePrize" value="Delete" />
+			</form> 
       </td>
 		</tr>
     {% endfor %}
