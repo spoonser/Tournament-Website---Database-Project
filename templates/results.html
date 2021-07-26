@@ -31,19 +31,23 @@
         </fieldset>
     </form>
 	{% if individual is defined %}
+		{% if variable|length %}
 
-	<table style="width:50%">
-      <tr>
-        <th>Fighter Name</th>
-        <th>Total Number of Fights Won</th>
-      </tr>
-      {% for ind in individual %}
-      <tr>
-        <td>{{ ind['fighterName'] }}</td> 
-        <td>{{ ind['Total'] }}</td>
-      </tr>
-      {% endfor %}
-    </table>
+		<table style="width:50%">
+		  <tr>
+			<th>Fighter Name</th>
+			<th>Total Number of Fights Won</th>
+		  </tr>
+		  {% for ind in individual %}
+		  <tr>
+			<td>{{ ind['fighterName'] }}</td> 
+			<td>{{ ind['Total'] }}</td>
+		  </tr>
+		  {% endfor %}
+		</table>
+		{% else %}
+		<p> No results found for this Fighter. Check back later! </p>
+		{% endif %}
 	{% endif %}
   </div>
 {% endblock %}
