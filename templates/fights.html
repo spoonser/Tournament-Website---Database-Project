@@ -47,57 +47,31 @@
     </form>
 	<h2>Fight Records</h2>
 	{% if filtered_fights is defined %}
-		{% if filtered_fights|length %}
-
-		<table id="fight-table">
-		  <tr>
-			<th>Fight ID</th>
-			<th>Fight Date</th>
-			<th>Fighter One</th>
-			<th>Fighter Two</th>
-			<th>Winner</th>
-			<th>Associated Prize</th>
-		  </tr>
-		  {% for fight in fights %}
-			<tr>
-				<td>{{ fight['fightID'] }}</td> 
-				<td>{{ fight['fightDate'] }}</td>
-				<td>{{ fight['fighter1'] }}</td>
-				<td>{{ fight['fighter2'] }}</td>
-				<td>{{ fight['winner'] }}</td>
-				<td>{{ fight['prize'] }}</td>
-			</tr>
-		{% endfor %}
-	  
-		</table>
-		{% else %}
-			<p> No results found for these Fight criteria. Check back later! </p>
-		{% endif %}
 		<form class="input-form" id="filter-fight-clear"  method="post">
 			<input type="submit" name="clear-filter" value="Remove Filters" />
 		</form>
-	{% else %}
-		<table id="fight-table">
-		  <tr>
-			<th>Fight ID</th>
-			<th>Fight Date</th>
-			<th>Fighter One</th>
-			<th>Fighter Two</th>
-			<th>Winner</th>
-			<th>Associated Prize</th>
-		  </tr>
-		  {% for fight in fights %}
-			<tr>
-				<td>{{ fight['fightID'] }}</td> 
-				<td>{{ fight['fightDate'] }}</td>
-				<td>{{ fight['fighter1'] }}</td>
-				<td>{{ fight['fighter2'] }}</td>
-				<td>{{ fight['winner'] }}</td>
-				<td>{{ fight['prize'] }}</td>
-			</tr>
-		  {% endfor %}
-		  
-		</table>
 	{% endif %}
+	<table id="fight-table">
+	  <tr>
+		<th>Fight ID</th>
+		<th>Fight Date</th>
+		<th>Fighter One</th>
+		<th>Fighter Two</th>
+		<th>Winner</th>
+		<th>Associated Prize</th>
+	  </tr>
+	  {% for fight in fights %}
+		<tr>
+			<td>{{ fight['fightID'] }}</td> 
+			<td>{{ fight['fightDate'] }}</td>
+			<td>{{ fight['fighter1'] }}</td>
+			<td>{{ fight['fighter2'] }}</td>
+			<td>{{ fight['winner'] }}</td>
+			<td>{{ fight['prize'] }}</td>
+		</tr>
+	  {% endfor %}
+	  
+	</table>
+	
   </div>
 {% endblock %}
