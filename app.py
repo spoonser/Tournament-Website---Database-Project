@@ -197,8 +197,9 @@ def modify_fight():
                 LEFT JOIN Prizes 
                 ON one.prize=Prizes.prizeID
                 WHERE one.fightID=two.fightID
-
-                ORDER BY one.fightDate desc;''')
+				AND (one.fightDate >= %s OR %s IS NULL)
+                AND (one.fightDate <= %s OR %s IS NULL)
+                ORDER BY one.fightDate desc;''', (startDate, endDate))
             fights = cur.fetchall()
             return render_template('fights.html', fights=fights, filtered=1)
         except:
