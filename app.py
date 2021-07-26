@@ -127,6 +127,8 @@ def fightsetup():
 def add_fight():
     data = request.form.to_dict()
     print(data)
+    print(request.form.get('Submit Fight'))
+    print(request.form.get('fight-insert'))
     fighter1 = request.form.get('fighter1-id') or None
     fighter2 = request.form.get('fighter2-id') or None
     prize = request.form.get('prize-id') or None
