@@ -218,8 +218,7 @@ def add_prize():
 
         except:
             print("PrizesWon - Insert Failed")
-            print('''INSERT INTO PrizesWon (`fighterID`, `prizeID`) VALUES (%s, %s);''', (fighterID, prizeID))
-        
+                    
     return prizes()
     
 if __name__ == "__main__":

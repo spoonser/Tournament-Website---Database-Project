@@ -46,6 +46,8 @@ SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM
         AND Fighters.fighterName = %s
         GROUP BY Wins.fighterID;
 
+-- No insert statement here, as the leaderboard is not directly associated with an entity--it's an extra page of reporting.
+
 -- -----------------------------------------------------------------------------------------------------------------------	
 
 -- Select all Fights and their attributes
@@ -66,6 +68,11 @@ SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Wo
         ORDER BY one.fightDate desc
 
 -- Insert a new Fight. Parameters are provided by code in the Flask application and are commented out below.
+INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
+                VALUES (%s, %s, %s, %s); 
+	--Full syntax: cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate)  VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))	
+
+-- Update a Fight. Parameters are provided by code in the Flask application and are commented out below.	
 UPDATE Fights 
 	SET fightDate = %s,
 	fighter1Won = %s,
@@ -74,10 +81,6 @@ UPDATE Fights
 	WHERE fightID = %s;
 	--Full syntax: cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prizeID = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
 
--- Update a Fight. Parameters are provided by code in the Flask application and are commented out below.
-INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
-                VALUES (%s, %s, %s, %s); 
-	--Full syntax: cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate)  VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))	
 
 -- -----------------------------------------------------------------------------------------------------------------------	
 
@@ -91,3 +94,6 @@ SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterI
 INSERT INTO Prizes (prizeType) 
             VALUES (%s);
 	--Full syntax:  cur.execute('''INSERT INTO Prizes (prizeType) VALUES (%s);''', (prizeType))
+-- Insert a new entry into PrizesWon. Parameters are provided by code in the Flask application and are commented out below.
+INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);
+	--Full syntax: cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))
