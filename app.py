@@ -227,7 +227,7 @@ def modify_prize():
         # try:
             # con = mysql.connection
             # cur = con.cursor()
-            # cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))
+            # cur.execute('''DELETE FROM PrizesWon WHERE fighterID=%s and prizeID=%s;''', (fighterID, prizeID))
             # con.commit()
 
         # except:

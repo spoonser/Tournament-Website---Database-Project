@@ -100,4 +100,4 @@ INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);
 	
 -- Delete a PrizesWon entry. Parameters are provided by code in the Flask application and are commented out below.
 DELETE FROM PrizesWon WHERE fighterID=%s and prizeID=%s;
-	--Full syntax: cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))
+	--Full syntax: cur.execute('''DELETE FROM PrizesWon WHERE fighterID=%s and prizeID=%s;''', (fighterID, prizeID))
