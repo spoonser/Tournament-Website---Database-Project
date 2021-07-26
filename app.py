@@ -198,19 +198,26 @@ def prizes():
 @app.route('/prizes', methods=['POST'])
 def add_prize():
     prizeType = request.form.get('prize-type') or None 
-    print(prizeType)
+    if request.form.get('new-prize'):
 
-    try:
-        con = mysql.connection
-        cur = con.cursor()
-        cur.execute('''INSERT INTO Prizes (prizeType) VALUES(%s);''', (prizeType,))
-        con.commit()
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''INSERT INTO Prizes (prizeType) VALUES(%s);''', (prizeType,))
+            con.commit()
 
-    except:
-        print("Insert Failed")
-        print("INSERT INTO Prizes (prizeType) VALUES(?)",
-                                                  (prizeType))
+        except:
+            print("Insert Failed")
+    elif request.form.get('prize-won'):
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''INSERT INTO Prizes (prizeType) VALUES(%s);''', (prizeType,))
+            con.commit()
 
+        except:
+            print("Insert Failed")
+        
     return prizes()
     
 if __name__ == "__main__":
