@@ -61,7 +61,7 @@ form {
 .link-button {
   background: none;
   border: none;
-  color: rgba(166, 16, 31, 0.9);
+  color: black;
   text-decoration: underline;
   font-family: 'Metal Mania', cursive;
 }
