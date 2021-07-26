@@ -182,7 +182,8 @@ def modify_fight():
 
         # print(fightDate)
         try:
-            cur = mysql.connection.cursor()
+            con = mysql.connection
+            cur = con.cursor()
             cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
                 IFNULL(Prizes.prizeType, "No Prize") as prize FROM
                 (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
@@ -197,11 +198,18 @@ def modify_fight():
                 LEFT JOIN Prizes 
                 ON one.prize=Prizes.prizeID
                 WHERE one.fightID=two.fightID
-                ORDER BY one.fightDate desc;''')
+				AND (one.fightDate >= %s OR %s IS NULL)
+                AND (one.fightDate <= %s OR %s IS NULL)
+                ORDER BY one.fightDate desc;''', (startDate, endDate))
+                
+                
             fights = cur.fetchall()
             return render_template('fights.html', fights=fights, filtered=1)
         except:
             print('Fight Filter Failed')
+    
+    elif request.form.get('clear-fight-filter'):
+        pass
     return fightsetup()
 
 # -------------------------------------------------------------------------------------------------

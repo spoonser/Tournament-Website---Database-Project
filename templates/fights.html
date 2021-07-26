@@ -48,6 +48,7 @@
 	<h2>Fight Records</h2>
 	{% if filtered is defined %}
 		<form class="input-form" id="filter-fight-clear"  method="POST">
+			<input type="hidden" id="clear-fight-filter" name="clear-fight-filter" value="1">
 			<input type="submit" name="clear-filter" value="Remove Filters" />
 		</form>
 	{% endif %}
