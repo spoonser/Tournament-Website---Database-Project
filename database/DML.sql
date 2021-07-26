@@ -80,6 +80,25 @@ UPDATE Fights
 	prizeID = %s
 	WHERE fightID = %s;
 	--Full syntax: cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prizeID = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
+	
+-- Filter Fights by a date range. Parameters are provided by code in the Flask application.
+SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+	IFNULL(Prizes.prizeType, "No Prize") as prize FROM
+	(SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+	FROM Fights
+	LEFT JOIN Fighters
+	on Fights.fighter1=Fighters.fighterID) as one
+	JOIN
+	(SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
+	FROM Fights
+	LEFT JOIN Fighters
+	ON Fights.fighter2=Fighters.fighterID) AS two
+	LEFT JOIN Prizes 
+	ON one.prize=Prizes.prizeID
+	WHERE one.fightID=two.fightID
+	AND (one.fightDate >= %s OR %s IS NULL)
+	AND (one.fightDate <= %s OR %s IS NULL)
+	ORDER BY one.fightDate desc;
 
 
 -- -----------------------------------------------------------------------------------------------------------------------	
