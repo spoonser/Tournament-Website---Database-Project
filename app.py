@@ -98,7 +98,7 @@ def results():
     leaders = cur.fetchall()
     return render_template('results.html', leaders=leaders)
     
-@app.route('/filtered_results')
+@app.route('/filtered_results', methods=['POST'])
 def filtered_results():
     fighterName = request.form.get('fighterName') or None
     con = mysql.connection
@@ -114,7 +114,7 @@ def filtered_results():
         ORDER BY Wins.WinCount DESC
         LIMIT 3;''')
     leaders = cur.fetchall()
-    print(leaders)
+
     cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
         UNION 
