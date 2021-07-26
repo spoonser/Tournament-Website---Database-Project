@@ -154,7 +154,7 @@ def fightsetup():
     return render_template('fights.html', fights=fights)
     
 @app.route('/fights', methods=['POST'])
-def add_fight():
+def modify_fight():
     if request.form.get('fight-update'):
         # TODO add code to edit a fight -- needs logic for handling nulls and leaving values unchanged
         pass
@@ -180,12 +180,9 @@ def add_fight():
         startDate = request.form.get('start-date') or None
         endDate = request.form.get('end-date') or None
 
-            
-
         # print(fightDate)
         try:
-            con = mysql.connection
-            cur = con.cursor()
+            cur = mysql.connection.cursor()
             cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
                 IFNULL(Prizes.prizeType, "No Prize") as prize FROM
                 (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
@@ -203,9 +200,8 @@ def add_fight():
 				AND (one.fightDate >= %s OR %s IS NULL)
                 AND (one.fightDate <= %s OR %s IS NULL)
                 ORDER BY one.fightDate desc;''', (startDate, endDate))
-            fights = cur.fetchall() 
-            print(fights)
-            #return render_template('fights.html', fights=fights)
+            fights = cur.fetchall()
+            return render_template('fights.html', fights=fights, filtered=1)
         except:
             print('Fight Filter Failed')
     return fightsetup()
