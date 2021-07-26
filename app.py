@@ -196,7 +196,7 @@ def prizes():
     return render_template('prizes.html', allPrizes=allPrizes, prizesWon=prizesWon)
 
 @app.route('/prizes', methods=['POST'])
-def add_prize():
+def modify_prize():
     if request.form.get('new-prize'):
         prizeType = request.form.get('prize-type') or None 
         try:
@@ -218,6 +218,19 @@ def add_prize():
 
         except:
             print("PrizesWon - Insert Failed")
+    
+    elif request.form.get('prize-won-delete'):
+        print(request.form.to_dict())
+        # prizeID = request.form.get('prize-id') 
+        # fighterID = request.form.get('fighter-id') 
+        # try:
+            # con = mysql.connection
+            # cur = con.cursor()
+            # cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))
+            # con.commit()
+
+        # except:
+            # print("PrizesWon - Insert Failed")
                     
     return prizes()
     
