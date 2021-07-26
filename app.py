@@ -197,10 +197,8 @@ def prizes():
 
 @app.route('/prizes', methods=['POST'])
 def add_prize():
-    prizeType = request.form.get('prize-type') or None 
-    print(request.form.get('new-prize'))
     if request.form.get('new-prize'):
-
+        prizeType = request.form.get('prize-type') or None 
         try:
             con = mysql.connection
             cur = con.cursor()
@@ -210,10 +208,12 @@ def add_prize():
         except:
             print("Insert Failed")
     elif request.form.get('prize-won'):
+        prizeID = request.form.get('prize-id') 
+        fighterID = request.form.get('fighter-id') 
         try:
             con = mysql.connection
             cur = con.cursor()
-            cur.execute('''INSERT INTO Prizes (prizeType) VALUES(%s);''', (prizeType,))
+            cur.execute('''INSERT INTO `PrizesWon` (`fighterID`, `prizeID`) VALUES (%s, %s);''', (prizeID, fighterID))
             con.commit()
 
         except:
