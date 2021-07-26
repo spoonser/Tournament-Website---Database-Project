@@ -125,13 +125,14 @@ def fightsetup():
     
 @app.route('/fights', methods=['POST'])
 def add_fight():
-    print(request.form.get('new-fight-form'))
+    data = request.form.to_dict()
+    print(data)
     fighter1 = request.form.get('fighter1-id') or None
     fighter2 = request.form.get('fighter2-id') or None
     prize = request.form.get('prize-id') or None
     fightDate = request.form.get('fight-date') or None
 
-    print(fightDate)
+    # print(fightDate)
     try:
         con = mysql.connection
         cur = con.cursor()
