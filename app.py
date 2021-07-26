@@ -203,6 +203,7 @@ def add_fight():
                 AND (one.fightDate <= %s OR %s IS NULL)
                 ORDER BY one.fightDate desc;'''''', (fighter1, fighter2, prize, fightDate));''', (startDate, endDate))
             filtered_fights = cur.fetchall() 
+            print(filtered_fights)
             return render_template('fights.html', filtered_fights=filtered_fights)
         except:
             print('Fight Filter Failed')
