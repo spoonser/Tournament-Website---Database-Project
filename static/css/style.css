@@ -21,7 +21,6 @@ ul {
   margin-top: 0px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 80px;
 }
 
 .center-child {
@@ -29,6 +28,7 @@ ul {
   text-align: left;
   margin-left: 0px;
   max-width: 960px;
+  margin-bottom: 80px; /* Added height of footer plus a bit to solve content overlapping. */ 
   /* width: 90%; */
   overflow: auto;
 } 
