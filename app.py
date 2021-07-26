@@ -176,8 +176,36 @@ def add_fight():
             print('Insert Failed')
     
     elif request.form.get('fight-filter'):
-        # TODO add code for fight filtering -- needs logic for handling nulls
-        pass
+        startDate = request.form.get('start-date') or None
+        endDate = request.form.get('end-date') or None
+
+            
+
+        # print(fightDate)
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+                IFNULL(Prizes.prizeType, "No Prize") as prize FROM
+                (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+                FROM Fights
+                LEFT JOIN Fighters
+                on Fights.fighter1=Fighters.fighterID) as one
+                JOIN
+                (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
+                FROM Fights
+                LEFT JOIN Fighters
+                ON Fights.fighter2=Fighters.fighterID) AS two
+                LEFT JOIN Prizes 
+                ON one.prize=Prizes.prizeID
+                WHERE one.fightID=two.fightID
+				AND (one.fightDate >= %s OR %s IS NULL)
+                AND (one.fightDate <= %s OR %s IS NULL)
+                ORDER BY one.fightDate desc;'''''', (fighter1, fighter2, prize, fightDate));''', (startDate, endDate))
+            filtered_fights = cur.fetchall() 
+            return render_template('fights.html', filtered_fights=filtered_fights)
+        except:
+            print('Fight Filter Failed')
     return fightsetup()
 
 # -------------------------------------------------------------------------------------------------
