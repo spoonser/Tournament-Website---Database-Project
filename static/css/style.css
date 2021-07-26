@@ -58,6 +58,14 @@ form {
 	width: 100%;
 }
 
+.link-button {
+  background: none;
+  border: none;
+  color: #641E16;
+  text-decoration: underline;
+  font-family: 'Metal Mania', cursive;
+}
+
 table, th, td {	
 	border: 1px solid black;
 	border-collapse: collapse;
