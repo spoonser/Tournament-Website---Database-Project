@@ -125,9 +125,11 @@ def fightsetup():
     
 @app.route('/fights', methods=['POST'])
 def add_fight():
-    if request.form.get['old-fight-id']:
+    if request.form.get('old-fight-id'):
         pass
+        
     else:
+
         fighter1 = request.form.get('fighter1-id') or None
         fighter2 = request.form.get('fighter2-id') or None
         prize = request.form.get('prize-id') or None
