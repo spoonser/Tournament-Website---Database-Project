@@ -179,6 +179,8 @@ def modify_fight():
     elif request.form.get('fight-filter'):
         startDate = request.form.get('start-date') or None
         endDate = request.form.get('end-date') or None
+        print(startDate)
+        print(endDate)
 
         # print(fightDate)
         try:
