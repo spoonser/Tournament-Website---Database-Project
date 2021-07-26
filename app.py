@@ -131,7 +131,7 @@ def add_fight():
         prize = request.form.get('prize-id') or None
         fightDate = request.form.get('fight-date') or None
 
-        # print(fightDate)
+        print(fightDate)
         try:
             con = mysql.connection
             cur = con.cursor()
