@@ -206,7 +206,7 @@ def add_prize():
             con.commit()
 
         except:
-            print("Insert Failed")
+            print("Prizes - Insert Failed")
     elif request.form.get('prize-won'):
         prizeID = request.form.get('prize-id') 
         fighterID = request.form.get('fighter-id') 
@@ -217,7 +217,8 @@ def add_prize():
             con.commit()
 
         except:
-            print("Insert Failed")
+            print("PrizesWon - Insert Failed")
+            print('''INSERT INTO `PrizesWon` (`fighterID`, `prizeID`) VALUES (%s, %s);''', (prizeID, fighterID))
         
     return prizes()
     
