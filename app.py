@@ -200,8 +200,8 @@ def modify_fight():
                 LEFT JOIN Prizes 
                 ON one.prize=Prizes.prizeID
                 WHERE one.fightID=two.fightID
-				AND (one.fightDate >= %s OR %s IS NULL)
-                AND (one.fightDate <= %s OR %s IS NULL)
+				AND (one.fightDate >= %s )
+                AND (one.fightDate <= %s )
                 ORDER BY one.fightDate desc;''', (startDate, endDate))
                 
                 
