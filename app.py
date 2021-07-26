@@ -222,8 +222,8 @@ def modify_prize():
     
     elif request.form.get('prize-won-delete'):
         print("Delete entered")
-        prizeID = request.form.get('prize-won-delete')[0]
-        fighterID = request.form.get('prize-won-delete')[1] 
+        prizeID = eval(request.form.get('prize-won-delete'))[0]
+        fighterID = eval(request.form.get('prize-won-delete'))[1] 
         print(prizeID)
         print(fighterID)
         try:
