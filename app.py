@@ -182,9 +182,14 @@ def modify_fight():
         con = mysql.connection
         cur = con.cursor()
         fightID = request.form.get('old-fight-id') 
-        fightDate = request.form.get('new-fight-date') or cur.execute('''SELECT fightDate FROM Fights WHERE fightID = %s;''', (fightID,))
-        prizeID = request.form.get('new-prize-id') or cur.execute('''SELECT prize FROM Fights WHERE fightID = %s;''', (fightID,))
-        result = request.form.get('new-prize-id') or None
+        
+        # If the fightDate and prizeWon weren't assigned, stay with the current values in the database.
+        cur.execute('''SELECT fightDate FROM Fights WHERE fightID = %s;''', (fightID,))
+        fightDate = request.form.get('new-fight-date') or cur.fetchone()
+        
+        cur.execute('''SELECT prize FROM Fights WHERE fightID = %s;''', (fightID,))
+        prizeID = request.form.get('new-prize-id') or cur.fetchone()
+        result = request.form.get('fight-winner') or None
         fighter1Won = 0
         fighter2Won = 0
         
