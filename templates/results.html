@@ -52,12 +52,16 @@
 			<th>Fighter Name</th>
 			<th>Prize Won</th>
 		  </tr>
-		  {% for prize in prizesWon %}
-		  <tr>
-			<td>{{ ind['fighterName'] }}</td> 
-			<td>{{ ind['prizeType'] }}</td>
-		  </tr>
-		  {% endfor %}
+		  {% if prizesWon|length %}
+			  {% for prize in prizesWon %}
+			  <tr>
+				<td>{{ ind['fighterName'] }}</td> 
+				<td>{{ ind['prizeType'] }}</td>
+			  </tr>
+			  {% endfor %}
+		  {% else %}
+			<tr> <td> No Prizes yet </td> <tr>
+		  {% endif %}
 		</table>
 		{% else %}
 		<p> No results found for this Fighter. Check back later! </p>
