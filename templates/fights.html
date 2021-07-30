@@ -14,13 +14,13 @@
           <legend>New Fight:</legend>
 		  <input type="hidden" id="fight-insert" name="fight-insert" value="1">
          
-			<select name="fighter1-id" id="fighter1-id">
+			<select name="fighter1-id" id="fighter1-id" required>
 				<option disabled selected value="">Select Fighter 1</option>
 				{% for fighter in available_fighters %}
 					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
 				{% endfor %}
 			</select>
-			<select name="fighter2-id" id="fighter2-id">
+			<select name="fighter2-id" id="fighter2-id" required>
 			<option disabled selected value="">Select Fighter 2</option>
 				{% for fighter in available_fighters %}
 					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
@@ -32,7 +32,7 @@
 					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
 				{% endfor %}
 			</select>
-          <input type="date" name="fight-date" id="fight-date"/>
+          <input type="date" name="fight-date" id="fight-date" required />
           <input type="submit" class="button" id="fight-insert" value="Submit Fight"/>
         </fieldset>
     </form>

@@ -234,6 +234,8 @@ def modify_fight():
         # Fights require two distinct Fighters.
         if fighter1 == fighter2:
             error = 'Fights must be between two different Fighters. Try again.'
+        if fightDate is None:
+            error = 'Fight Date is a required field. Try again.'
      
         else:
             try:
