@@ -140,7 +140,7 @@ def filtered_results():
         WHERE f.fighterName = %s;''', (fighterName,))
     prizesWon = cur.fetchall()
     
-    return render_template('results.html', leaders=leaders, individual=individual)
+    return render_template('results.html', leaders=leaders, individual=individual, prizesWon=prizesWon)
 
       
 
