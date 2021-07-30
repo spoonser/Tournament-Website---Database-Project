@@ -11,6 +11,7 @@
     <form class="input-form" id="fighter-form" name="fighter-form" method="POST">
         <fieldset>
           <legend>New Fighter:</legend>
+		  <input type="hidden" id="new-fighter" name="new-fighter" value="1">
           <input type="text" name="fighter-name" id="fighter-name" required placeholder="Name"/>
 		  <label for="fighter-weapon">Choose a weapon:</label>
 			<select name="fighter-weapon" id="fighter-weapon">
@@ -21,6 +22,29 @@
 				{% endfor %}
 			</select>
           <input type="submit" class="button" id="fighter-submit" value="Sign Up"/>
+        </fieldset>
+    </form>
+	
+	<h2>Edit a Fighter</h2>
+    <form class="input-form" id="edit-fighter-form" name="edit-fighter-form" method="POST">
+        <fieldset>
+          <legend>Fighter Update:</legend>
+			<input type="hidden" id="fighter-update" name="fighter-update" value="1">
+		    <select name="weapon-id" id="weapon-id">
+				<option disabled selected value=None> -- Select Fighter --</option>
+				{% for fighter in fighters %}
+					<option value={{ fighter['fighterID'] }} >{{ fighter['fighterName'] }} (ID {{ fighter['fighterID'] }})	</option>
+				{% endfor %}
+			</select>
+          <label for="fighter-weapon">Choose a weapon:</label>
+			<select name="fighter-weapon" id="fighter-weapon">
+				<option disabled selected value="">Select a Weapon</option>
+				<option value=None>No Weapon</option>
+				{% for weapon in available_weapons %}
+					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
+				{% endfor %}
+			</select>
+          <input type="submit" class="button" id="update-weapon-button" value="Update Weapon"/>
         </fieldset>
     </form>
 

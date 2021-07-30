@@ -35,19 +35,40 @@ def fighters():
     return render_template('fighters.html', fighters=fighters, available_weapons=available_weapons) 
     
 @app.route('/fighters', methods=['POST'])
-def add_fighter():
-    fighterName = request.form.get('fighter-name') or None
-    weapon = request.form.get('fighter-weapon') or None
+def modify_fighter():
 
-    try:
+
+    if request.form.get('new-fighter'):
+        fighterName = request.form.get('fighter-name') or None
+        weapon = request.form.get('fighter-weapon') or None
+        try:
+            con = mysql.connect
+            cur = con.cursor()
+            cur.execute('''INSERT INTO Fighters (fighterName, weapon) 
+                VALUES (%s, %s);''', (fighterName, weapon))
+            con.commit()
+
+        except:
+            print("Fighter Insert Failed")
+    
+    elif request.form.get('fighter-update'):
+        fighterID = request.form.get('fighter-id') or None
         con = mysql.connect
         cur = con.cursor()
-        cur.execute('''INSERT INTO Fighters (fighterName, weapon) 
-            VALUES (%s, %s);''', (fighterName, weapon))
-        con.commit()
+        # If the fighterName or weapon wasn't provided, stay with the current values in the database.
+        cur.execute('''SELECT fighterName, weapon FROM Fighters WHERE fighterID = %s;''', (fighterID,))
+        
+        fighterName = request.form.get('fighter-name') or cur.fetchone()['fighterName']
+        weapon = request.form.get('fighter-weapon') or cur.fetchone()['weapon']
+ 
+        try:
+            
+            cur.execute('''UPDATE Fighters SET fighterName=%s, weapon=%s WHERE fighterID=%s;''', (fighterName, weapon, fighterID))
+            con.commit()
 
-    except:
-        print("Insert Failed")
+        except:
+            print("Fighter Update Failed")
+            
 
     return fighters()
 
