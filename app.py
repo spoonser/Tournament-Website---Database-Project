@@ -132,7 +132,7 @@ def filtered_results():
     individual = cur.fetchall()
        
     # Query to generate the prize results for a single Fighter, filtered by name. 
-    cur.execute('''SELECT IFNULL(p.prizeType, 'No Prizes Won'), f.fighterName
+    cur.execute('''SELECT IFNULL(p.prizeType, 'No Prizes Won') as prizeType, f.fighterName
         FROM Fighters as f
         LEFT JOIN PrizesWon as pw ON f.fighterID=pw.fighterID
         LEFT JOIN Prizes as p 
