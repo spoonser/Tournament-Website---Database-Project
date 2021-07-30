@@ -233,7 +233,7 @@ def modify_fight():
         fightDate = request.form.get('fight-date') or None
         # Fights require two distinct Fighters.
         if fighter1 == fighter2:
-            error = 'Error - Fights must be between two different Fighters. Try again.'
+            error = 'Fights must be between two different Fighters. Try again.'
      
         else:
             try:
