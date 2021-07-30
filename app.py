@@ -165,12 +165,14 @@ def fightsetup(error=None):
         WHERE one.fightID=two.fightID
         ORDER BY one.fightDate desc;''')
     fights = cur.fetchall()
+    cur.execute('''SELECT fightID from Fights ORDER BY fightID asc''')
+    fightIDs = cur.fetchall()
     cur.execute('''SELECT fighterName, fighterID from Fighters''')
     available_fighters=cur.fetchall()
     cur.execute('''SELECT prizeID, prizeType from Prizes''')
     available_prizes=cur.fetchall()
 
-    return render_template('fights.html', fights=fights, available_fighters=available_fighters, available_prizes=available_prizes, error=error)
+    return render_template('fights.html', fights=fights, available_fighters=available_fighters, available_prizes=available_prizes, fightIDs=fightIDs, error=error)
     
 @app.route('/fights', methods=['POST'])
 def modify_fight():

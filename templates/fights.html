@@ -43,7 +43,7 @@
           <legend>Fight Update:</legend>
 		    <select name="old-fight-id" id="old-fight-id">
 				<option disabled selected value=None>Choose the Fight ID</option>
-				{% for fight in fights %}
+				{% for fight in fightIDs %}
 					<option value={{ fight['fightID'] }} >{{ fight['fightID'] }}	</option>
 				{% endfor %}
 			</select>
