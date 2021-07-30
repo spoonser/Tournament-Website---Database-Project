@@ -3,7 +3,12 @@ SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapo
         LEFT JOIN Weapons as w
         on f.weapon=w.weaponID
         ORDER BY f.fighterName asc;
-		
+
+	
+-- Select all fighterNames and fighterIDs. Used to populate a dropdown and prevent direct user entry of the fighterID.
+SELECT fighterName, fighterID from Fighters
+ORDER BY fighterName asc;
+	
 -- Insert a new Fighter. Parameters are provided by code in the Flask application and are commented out below.
 INSERT INTO Fighters (fighterName, weapon) 
             VALUES (%s, %s);
@@ -18,6 +23,10 @@ SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ra
         LEFT JOIN Fighters as f 
         ON w.weaponID=f.weapon
         GROUP BY w.weaponID;
+
+-- Select weaponIDs and weaponNames. Used to populate a dropdown and prevent direct user entry of the weaponID.
+SELECT weaponName, weaponID from Weapons
+
 -- Insert a new Weapon. Parameters are provided by code in the Flask application and are commented out below.
 INSERT INTO Weapons (weaponName, weaponType, ranged) 
             VALUES (%s, %s, %s);
@@ -46,6 +55,15 @@ SELECT Fighters.fighterName, IFNULL(SUM(Wins.WinCount), 0) as `Total` FROM
         ON Wins.fighterID = Fighters.fighterID
         WHERE Fighters.fighterName = %s
         GROUP BY Wins.fighterID;
+		
+-- Select/filter PrizesWon by Fighter names.
+SELECT IFNULL(p.prizeType, 'No Prizes Won') as prizeType, f.fighterName
+        FROM Fighters as f
+        LEFT JOIN PrizesWon as pw ON f.fighterID=pw.fighterID
+        LEFT JOIN Prizes as p 
+        ON pw.prizeID=p.prizeID
+        WHERE f.fighterName = %s;
+		
 -- No insert statement here, as the leaderboard is not directly associated with an entity--it's an extra page of reporting.
 
 -- -----------------------------------------------------------------------------------------------------------------------	
@@ -100,6 +118,9 @@ SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Wo
 	AND (one.fightDate <= %s OR %s IS NULL)
 	ORDER BY one.fightDate desc;
 
+-- Select all fightIDs. Used to populate a dropdown and prevent direct user entry of the fightID.
+SELECT fightID from Fights ORDER BY fightID asc;
+
 
 -- -----------------------------------------------------------------------------------------------------------------------	
 
@@ -109,6 +130,10 @@ SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterI
         LEFT JOIN PrizesWon as pw ON p.prizeID=pw.prizeID
         JOIN Fighters as f 
         ON pw.fighterID=f.fighterID;
+		
+-- Select all prizeIDs and prizeTypes. Used to populate a dropdown and prevent direct user entry of the prizeID.
+SELECT prizeID, prizeType from Prizes;
+
 -- Insert a new Prize. Parameters are provided by code in the Flask application and are commented out below.
 INSERT INTO Prizes (prizeType) 
             VALUES (%s);

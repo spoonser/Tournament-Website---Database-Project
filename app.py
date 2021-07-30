@@ -165,11 +165,11 @@ def fightsetup(error=None):
         WHERE one.fightID=two.fightID
         ORDER BY one.fightDate desc;''')
     fights = cur.fetchall()
-    cur.execute('''SELECT fightID from Fights ORDER BY fightID asc''')
+    cur.execute('''SELECT fightID from Fights ORDER BY fightID asc;''')
     fightIDs = cur.fetchall()
-    cur.execute('''SELECT fighterName, fighterID from Fighters''')
+    cur.execute('''SELECT fighterName, fighterID from Fighters ORDER BY fighterName asc;''')
     available_fighters=cur.fetchall()
-    cur.execute('''SELECT prizeID, prizeType from Prizes''')
+    cur.execute('''SELECT prizeID, prizeType from Prizes;''')
     available_prizes=cur.fetchall()
 
     return render_template('fights.html', fights=fights, available_fighters=available_fighters, available_prizes=available_prizes, fightIDs=fightIDs, error=error)
@@ -178,6 +178,8 @@ def fightsetup(error=None):
 def modify_fight():
     error=None
     if request.form.get('fight-update'):
+        fightID = request.form.get('old-fight-id') 
+        fightDate = request.form.get('new-fight-date') or None
         # TODO add code to edit a fight -- needs logic for handling nulls and leaving values unchanged
         pass
         
