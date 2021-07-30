@@ -178,6 +178,7 @@ def fightsetup(error=None):
 def modify_fight():
     error=None
     if request.form.get('fight-update'):
+        print(request.form.to_dict())
         con = mysql.connection
         cur = con.cursor()
         fightID = request.form.get('old-fight-id') 
