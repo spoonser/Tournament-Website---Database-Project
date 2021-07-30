@@ -107,6 +107,7 @@ def filtered_results():
     con = mysql.connection
     cur = con.cursor()
  
+    # Query to generate the leaderboard, or the 3 Fighters with the most wins. 
     cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
         UNION 
@@ -118,6 +119,7 @@ def filtered_results():
         LIMIT 3;''')
     leaders = cur.fetchall()
 
+    # Query to generate the win results for a single Fighter, filtered by name. 
     cur.execute('''SELECT Fighters.fighterName, IFNULL(SUM(Wins.WinCount), 0) as `Total` FROM 
 		Fighters LEFT JOIN 
         (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
@@ -128,6 +130,16 @@ def filtered_results():
         WHERE Fighters.fighterName = %s
         GROUP BY Wins.fighterID;''', (fighterName,))
     individual = cur.fetchall()
+       
+    # Query to generate the prize results for a single Fighter, filtered by name. 
+    cur.execute('''SELECT p.prizeID, p.prizeType, IFNULL(f.fighterID, 'No Winners Yet') as fighterID, IFNULL(f.fighterName, 'No Winners Yet') as fighterName
+        FROM Prizes as p 
+        LEFT JOIN PrizesWon as pw ON p.prizeID=pw.prizeID
+        JOIN Fighters as f 
+        ON pw.fighterID=f.fighterID
+        WHERE f.fighterName = %s;''', (fighterName,))
+    prizesWon = cur.fetchall()
+    
     return render_template('results.html', leaders=leaders, individual=individual)
 
       

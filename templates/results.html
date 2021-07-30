@@ -30,9 +30,10 @@
           <input type="submit" class="button" id="fighterNameSubmit" value="Get Fighter Results"/>
         </fieldset>
     </form>
+	<br>
 	{% if individual is defined %}
 		{% if individual|length %}
-
+		<br>
 		<table style="width:50%">
 		  <tr>
 			<th>Fighter Name</th>
@@ -42,6 +43,19 @@
 		  <tr>
 			<td>{{ ind['fighterName'] }}</td> 
 			<td>{{ ind['Total'] }}</td>
+		  </tr>
+		  {% endfor %}
+		</table>
+		<br><br>
+		<table style="width:50%">
+		  <tr>
+			<th>Fighter Name</th>
+			<th>Prize Won</th>
+		  </tr>
+		  {% for prize in prizesWon %}
+		  <tr>
+			<td>{{ ind['fighterName'] }}</td> 
+			<td>{{ ind['prizeType'] }}</td>
 		  </tr>
 		  {% endfor %}
 		</table>
