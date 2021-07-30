@@ -30,6 +30,7 @@
         <fieldset>
           <legend>Fighter Update:</legend>
 			<input type="hidden" id="fighter-update" name="fighter-update" value="1">
+			<input type="text" name="fighter-name" id="fighter-name" placeholder="New Name (optional)"/>
 		    <select name="weapon-id" id="weapon-id">
 				<option disabled selected value=None> -- Select Fighter --</option>
 				{% for fighter in fighters %}
