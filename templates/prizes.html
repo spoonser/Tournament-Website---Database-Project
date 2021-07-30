@@ -38,8 +38,18 @@
     <fieldset>
       <legend>New Prizewinner:</legend>
 	  <input type="hidden" id="prize-won" name="prize-won" value="1">
-      <input type="text" name="prize-id" id="prize-id" placeholder="Prize ID"/>
-	  <input type="text" name="fighter-id" id="fighter-id" placeholder="Fighter ID"/>
+      <select name="prize-id" id="prize-id">
+		<option value=None>No Prize</option>
+			{% for prize in available_prizes %}
+				<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
+			{% endfor %}
+	  </select>
+	  <select name="fighter-id" id="fighter-id">
+			
+				{% for fighter in available_fighters %}
+					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
+				{% endfor %}
+			</select>
       <input type="submit" class="button" id="prize-won-submit" value="Add a new prizewinner"/>
     </fieldset>
   </form>
