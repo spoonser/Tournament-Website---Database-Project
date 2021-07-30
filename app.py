@@ -186,13 +186,14 @@ def modify_fight():
         result = request.form.get('new-prize-id') or None
         fighter1Won = 0
         fighter2Won = 0
+        
         if result == 'fighter1-won': 
             fighter1Won = 1
             fighter2Won = 0
         elif result == 'fighter2-won': 
             fighter1Won = 0
             fighter2Won = 1
-        
+        print(fightID, fightDate, fighter1Won, fighter2Won, prizeID)
         try:
             cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prizeID = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
             con.commit()
