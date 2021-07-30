@@ -11,7 +11,7 @@
     <fieldset>
       <legend>Enter Weapon Details:</legend>
 	   <input type="hidden" id="new-weapon" name="new-weapon" value="1">
-      <input type="text" name="weapon-name" id="weapon-name" placeholder="Weapon Name"/>
+      <input type="text" name="weapon-name" id="weapon-name" required placeholder="Weapon Name"/>
       <input type="text" name="weapon-type" id="weapon-type" placeholder="Weapon Type"/>
       <label for="weapon-ranged">Is this a ranged weapon?</label>
       <select id="weapon-ranged" name="weapon-ranged">
@@ -33,8 +33,8 @@
 					<option value={{ weapon['weaponID'] }} >{{ weapon['weaponID'] }} ({{ weapon['weaponName'] }})	</option>
 				{% endfor %}
 			</select>
-          <input type="text" name="weapon-name" id="weapon-name" placeholder="Weapon Name"/>
-		  <input type="text" name="weapon-type" id="weapon-type" placeholder="Weapon Type"/>
+          <input type="text" name="weapon-name" id="weapon-name" required placeholder="Weapon Name"/>
+		  <input type="text" name="weapon-type" id="weapon-type" required placeholder="Weapon Type"/>
 		  <label for="weapon-ranged">Is this a ranged weapon?</label>
 		  <select id="weapon-ranged" name="weapon-ranged">
 			<option value="1">Yes</option>

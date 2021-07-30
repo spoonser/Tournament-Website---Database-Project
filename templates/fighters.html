@@ -11,7 +11,7 @@
     <form class="input-form" id="fighter-form" name="fighter-form" method="POST">
         <fieldset>
           <legend>New Fighter:</legend>
-          <input type="text" name="fighter-name" id="fighter-name" placeholder="Name"/>
+          <input type="text" name="fighter-name" id="fighter-name" required placeholder="Name"/>
 		  <label for="fighter-weapon">Choose a weapon:</label>
 			<select name="fighter-weapon" id="fighter-weapon">
 				{% for weapon in available_weapons %}
