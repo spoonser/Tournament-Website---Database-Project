@@ -41,7 +41,12 @@
     <form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
         <fieldset>
           <legend>Fight Update:</legend>
-		  <input type="hidden" id="fight-update" name="fight-update" value="1">
+		    <select name="old-fight-id" id="old-fight-id">
+				<option disabled selected value=None>Choose the Fight ID</option>
+				{% for fight in fights %}
+					<option value={{ fight['fightID'] }} >{{ fight['fightID'] }}	</option>
+				{% endfor %}
+			</select>
           <input type="number" step="1" min="1" name="old-fight-id" id="old-fight-id" placeholder="Fight ID"/>
           <input type="date" name="new-fight-date" id="new-fight-date"/>
           <select name="fight-winner" id="fight-winner">
