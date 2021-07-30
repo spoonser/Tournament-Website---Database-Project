@@ -201,7 +201,7 @@ def modify_fight():
             fighter2Won = 1
         print(fightID, fightDate, fighter1Won, fighter2Won, prizeID)
         try:
-            cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prizeID = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, 
+            cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prize = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, 
             prizeID, fightID))
             con.commit()
         
