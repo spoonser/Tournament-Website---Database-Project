@@ -178,8 +178,12 @@ def fightsetup(error=None):
 def modify_fight():
     error=None
     if request.form.get('fight-update'):
+        con = mysql.connection
+        cur = con.cursor()
         fightID = request.form.get('old-fight-id') 
-        fightDate = request.form.get('new-fight-date') or None
+        fightDate = request.form.get('new-fight-date') or cur.execute('''SELECT fightDate FROM Fights WHERE fightID = %s;''', (fightID,))
+        prizeID = request.form.get('new-prize-id') or None
+        result = request.form.get('new-prize-id') or None
         # TODO add code to edit a fight -- needs logic for handling nulls and leaving values unchanged
         pass
         
