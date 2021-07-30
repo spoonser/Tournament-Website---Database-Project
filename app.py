@@ -153,11 +153,14 @@ def fightsetup():
         WHERE one.fightID=two.fightID
         ORDER BY one.fightDate desc;''')
     fights = cur.fetchall()
+    cur.execute('''SELECT fighterName, fighterID from Fighters''')
+    available_fighters=cur.fetchall()
 
-    return render_template('fights.html', fights=fights)
+    return render_template('fights.html', fights=fights, available_fighters=available_fighters)
     
 @app.route('/fights', methods=['POST'])
 def modify_fight():
+    error=None
     if request.form.get('fight-update'):
         # TODO add code to edit a fight -- needs logic for handling nulls and leaving values unchanged
         pass
@@ -165,20 +168,25 @@ def modify_fight():
     elif request.form.get('fight-insert'):
         fighter1 = request.form.get('fighter1-id') or None
         fighter2 = request.form.get('fighter2-id') or None
+        
+            
         prize = request.form.get('prize-id') or None
         fightDate = request.form.get('fight-date') or None
+        # Fights require two distinct Fighters.
+        if fighter1 == fighter2:
+            error = 'Invalid credentials'
+     
+        else:
+            try:
+                con = mysql.connection
+                cur = con.cursor()
+                cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
+                    VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))
+                con.commit()
 
-        print(fightDate)
-        try:
-            con = mysql.connection
-            cur = con.cursor()
-            cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
-                VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))
-            con.commit()
-
-        except:
-            print('Insert Failed')
-    
+            except:
+                print('Insert Failed')
+        
     elif request.form.get('fight-filter'):
         startDate = request.form.get('start-date') or None
         endDate = request.form.get('end-date') or None
@@ -215,7 +223,7 @@ def modify_fight():
     
     elif request.form.get('clear-fight-filter'):
         pass
-    return fightsetup()
+    return fightsetup(error=error)
 
 # -------------------------------------------------------------------------------------------------
 # Prizes Page
