@@ -6,6 +6,9 @@
 {% block content %}
   <div class="center-child">
     <h2>Add a New Fight</h2>
+	{% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+	{% endif %}
     <form class="input-form" id="new-fight-form" name="new-fight-form" method="POST">
         <fieldset>
           <legend>New Fight:</legend>
