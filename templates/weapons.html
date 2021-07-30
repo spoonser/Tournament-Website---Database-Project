@@ -10,6 +10,7 @@
   <form name="newWeaponForm" method="POST">
     <fieldset>
       <legend>Enter Weapon Details:</legend>
+	   <input type="hidden" id="new-weapon" name="new-weapon" value="1">
       <input type="text" name="weapon-name" id="weapon-name" placeholder="Weapon Name"/>
       <input type="text" name="weapon-type" id="weapon-type" placeholder="Weapon Type"/>
       <label for="weapon-ranged">Is this a ranged weapon?</label>
@@ -17,9 +18,31 @@
         <option value="1">Yes</option>
         <option value="0">No</option>
       </select>
-      <input type="submit" class="button" id="fighter-name-submit" value="Create"/>
+      <input type="submit" class="button" id="weapon-submit" value="Create"/>
     </fieldset>
   </form>
+  
+  <h2>Modify a Weapon</h2>
+    <form class="input-form" id="edit-weapon-form" name="edit-weapon-form" method="POST">
+        <fieldset>
+          <legend>Fight Update:</legend>
+			<input type="hidden" id="weapon-update" name="weapon-update" value="1">
+		    <select name="weapon-id" id="weapon-id">
+				<option disabled selected value=None> -- Select Weapon ID --</option>
+				{% for weapon in weapons %}
+					<option value={{ weapon['weaponID'] }} >{{ weapon['weaponID'] }} ({{ weapon['weaponID'] }})	</option>
+				{% endfor %}
+			</select>
+          <input type="text" name="weapon-name" id="weapon-name" placeholder="Weapon Name"/>
+		  <input type="text" name="weapon-type" id="weapon-type" placeholder="Weapon Type"/>
+		  <label for="weapon-ranged">Is this a ranged weapon?</label>
+		  <select id="weapon-ranged" name="weapon-ranged">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		  </select>
+          <input type="submit" class="button" id="update-weapon-button" value="Update Weapon"/>
+        </fieldset>
+    </form>
     
   <h2>Current Weapons</h2>
   <table id="weapon-table">

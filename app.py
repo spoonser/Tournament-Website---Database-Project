@@ -67,22 +67,38 @@ def weapons():
     return render_template('weapons.html', weapons=weapons)
 
 @app.route('/weapons', methods=['POST'])
-def add_weapon():
-    weaponName = request.form.get('weapon-name') or None
-    weaponType = request.form.get('weapon-type') or None
-    ranged = request.form.get('weapon-ranged')
+def modify_weapon():
+    if request.form.get('new-weapon'):
+        weaponName = request.form.get('weapon-name') or None
+        weaponType = request.form.get('weapon-type') or None
+        ranged = request.form.get('weapon-ranged')
 
-    try:
-        con = mysql.connection
-        cur = con.cursor()
-        cur.execute('''INSERT INTO Weapons (weaponName, weaponType, ranged) 
-            VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
-        con.commit()
-        
-    except:
-        print("Insert Failed")
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''INSERT INTO Weapons (weaponName, weaponType, ranged) 
+                VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
+            con.commit()
+            
+        except:
+            print("Insert Failed")
+    
+    elif request.form.get('weapon-update'):
+        weaponID = request.form.get('weapon-id') or None
+        weaponName = request.form.get('weapon-name') or None
+        weaponType = request.form.get('weapon-type') or None
+        ranged = request.form.get('weapon-ranged')
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''UPDATE Weapons SET weaponName=%s, weaponType=%s, ranged=%s WHERE weaponID=%s''', (weaponName, weaponType, ranged, weaponID))
+            con.commit()
+            
+        except:
+            print("Weapon Update Failed")
 
     return weapons()
+
 
 # -------------------------------------------------------------------------------------------------
 # Results Page
