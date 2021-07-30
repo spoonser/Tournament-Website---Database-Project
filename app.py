@@ -177,8 +177,8 @@ def fightsetup(error=None):
 @app.route('/fights', methods=['POST'])
 def modify_fight():
     error=None
+    print(request.form.to_dict())
     if request.form.get('fight-update'):
-        print(request.form.to_dict())
         con = mysql.connection
         cur = con.cursor()
         fightID = request.form.get('old-fight-id') 
@@ -232,10 +232,7 @@ def modify_fight():
     elif request.form.get('fight-filter'):
         startDate = request.form.get('start-date') or None
         endDate = request.form.get('end-date') or None
-        print(startDate)
-        print(endDate)
 
-        # print(fightDate)
         try:
             con = mysql.connection
             cur = con.cursor()
