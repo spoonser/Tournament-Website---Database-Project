@@ -28,8 +28,11 @@ def fighters():
         on f.weapon=w.weaponID
         ORDER BY f.fighterName asc;''')
     fighters = cur.fetchall()
+    # Get the weapon names to populate the available Weapon choices when creating a new Fighter.
+    cur.execute('''SELECT weaponName, weaponID from Weapons''')
+    available_weapons = cur.fetchall()
     
-    return render_template('fighters.html', fighters=fighters) 
+    return render_template('fighters.html', fighters=fighters, available_weapons=available_weapons) 
     
 @app.route('/fighters', methods=['POST'])
 def add_fighter():

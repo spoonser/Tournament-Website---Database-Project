@@ -12,7 +12,12 @@
         <fieldset>
           <legend>New Fighter:</legend>
           <input type="text" name="fighter-name" id="fighter-name" placeholder="Name"/>
-          <input type="text" name="fighter-weapon" id="fighter-weapon" placeholder="Weapon ID"/>
+		  <label for="fighter-weapon">Choose a weapon:</label>
+			<select name="fighter-weapon" id="fighter-weapon">
+				{% for weapon in available-weapons %}
+					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
+				{% endfor %}
+			</select>
           <input type="submit" class="button" id="fighter-submit" value="Sign Up"/>
         </fieldset>
     </form>
