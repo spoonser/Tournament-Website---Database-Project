@@ -135,7 +135,7 @@ def filtered_results():
 # -------------------------------------------------------------------------------------------------
 # Fights Page
 @app.route('/fights')
-def fightsetup():
+def fightsetup(error=None):
     cur = mysql.connection.cursor()
     cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prize FROM
@@ -156,7 +156,7 @@ def fightsetup():
     cur.execute('''SELECT fighterName, fighterID from Fighters''')
     available_fighters=cur.fetchall()
 
-    return render_template('fights.html', fights=fights, available_fighters=available_fighters)
+    return render_template('fights.html', fights=fights, available_fighters=available_fighters, error=error)
     
 @app.route('/fights', methods=['POST'])
 def modify_fight():
