@@ -242,8 +242,12 @@ def prizes():
     cur.execute('''SELECT prizeID, prizeType 
         FROM Prizes;''')
     allPrizes=cur.fetchall()
+    cur.execute('''SELECT fighterName, fighterID from Fighters''')
+    available_fighters=cur.fetchall()
+    cur.execute('''SELECT prizeID, prizeType from Prizes''')
+    available_prizes=cur.fetchall()
     
-    return render_template('prizes.html', allPrizes=allPrizes, prizesWon=prizesWon)
+    return render_template('prizes.html', allPrizes=allPrizes, prizesWon=prizesWon, available_fighters=available_fighters, available_prizes=available_prizes)
 
 @app.route('/prizes', methods=['POST'])
 def modify_prize():
@@ -264,6 +268,7 @@ def modify_prize():
         fighterID = request.form.get('fighter-id') 
         try:
             con = mysql.connection
+            
             cur = con.cursor()
             cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (fighterID, prizeID))
             con.commit()
