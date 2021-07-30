@@ -182,10 +182,23 @@ def modify_fight():
         cur = con.cursor()
         fightID = request.form.get('old-fight-id') 
         fightDate = request.form.get('new-fight-date') or cur.execute('''SELECT fightDate FROM Fights WHERE fightID = %s;''', (fightID,))
-        prizeID = request.form.get('new-prize-id') or None
+        prizeID = request.form.get('new-prize-id') or cur.execute('''SELECT prize FROM Fights WHERE fightID = %s;''', (fightID,))
         result = request.form.get('new-prize-id') or None
-        # TODO add code to edit a fight -- needs logic for handling nulls and leaving values unchanged
-        pass
+        fighter1Won = 0
+        fighter2Won = 0
+        if result == 'fighter1-won': 
+            fighter1Won = 1
+            fighter2Won = 0
+        elif result == 'fighter2-won': 
+            fighter1Won = 0
+            fighter2Won = 1
+        
+        try:
+            cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prizeID = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
+            con.commit()
+        
+        except:
+             print('Fight Update Failed')
         
     elif request.form.get('fight-insert'):
         fighter1 = request.form.get('fighter1-id') or None
