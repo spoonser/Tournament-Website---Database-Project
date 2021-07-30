@@ -30,13 +30,14 @@
         <fieldset>
           <legend>Fighter Update:</legend>
 			<input type="hidden" id="fighter-update" name="fighter-update" value="1">
-			<input type="text" name="fighter-name" id="fighter-name" placeholder="New Name (optional)"/>
-		    <select name="weapon-id" id="weapon-id">
+
+		    <select name="fighter-id" id="fighter-id">
 				<option disabled selected value=None> -- Select Fighter --</option>
 				{% for fighter in fighters %}
 					<option value={{ fighter['fighterID'] }} >{{ fighter['fighterName'] }} (ID {{ fighter['fighterID'] }})	</option>
 				{% endfor %}
 			</select>
+		  <input type="text" name="fighter-name" id="fighter-name" placeholder="New Name (optional)"/>
           <label for="fighter-weapon">Choose a weapon:</label>
 			<select name="fighter-weapon" id="fighter-weapon">
 				<option disabled selected value="">Select a Weapon</option>

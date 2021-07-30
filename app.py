@@ -36,8 +36,6 @@ def fighters():
     
 @app.route('/fighters', methods=['POST'])
 def modify_fighter():
-
-
     if request.form.get('new-fighter'):
         fighterName = request.form.get('fighter-name') or None
         weapon = request.form.get('fighter-weapon') or None
@@ -58,7 +56,7 @@ def modify_fighter():
         # If the fighterName or weapon wasn't provided, stay with the current values in the database.
         cur.execute('''SELECT fighterName, weapon FROM Fighters WHERE fighterID = %s;''', (fighterID,))
         
-        fighterName = request.form.get('fighter-name') or cur.fetchone()['fighterName']
+        fighterName = request.form.get('fighter-name') or cur.fetchone()['fighterName'] 
         weapon = request.form.get('fighter-weapon') or cur.fetchone()['weapon']
  
         try:
