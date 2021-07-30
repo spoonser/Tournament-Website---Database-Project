@@ -185,10 +185,10 @@ def modify_fight():
         
         # If the fightDate and prizeWon weren't assigned, stay with the current values in the database.
         cur.execute('''SELECT fightDate FROM Fights WHERE fightID = %s;''', (fightID,))
-        fightDate = request.form.get('new-fight-date') or cur.fetchone()
+        fightDate = request.form.get('new-fight-date') or cur.fetchone()['fightDate']
         
         cur.execute('''SELECT prize FROM Fights WHERE fightID = %s;''', (fightID,))
-        prizeID = request.form.get('new-prize-id') or cur.fetchone()
+        prizeID = request.form.get('new-prize-id') or cur.fetchone()['prize']
         result = request.form.get('fight-winner') or None
         fighter1Won = 0
         fighter2Won = 0
@@ -217,7 +217,7 @@ def modify_fight():
         fightDate = request.form.get('fight-date') or None
         # Fights require two distinct Fighters.
         if fighter1 == fighter2:
-            error = 'Invalid credentials'
+            error = 'Error - Fights must be between two different Fighters. Try again.'
      
         else:
             try:

@@ -57,7 +57,7 @@
           </select>
           <select name="new-prize-id" id="new-prize-id">
 				<option disabled selected value> -- Select Prize -- </option>
-				<option value>No Prize</option>
+				<option value=None>No Prize</option>
 				{% for prize in available_prizes %}
 					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
 				{% endfor %}
