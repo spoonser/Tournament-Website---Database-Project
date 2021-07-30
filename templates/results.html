@@ -52,17 +52,16 @@
 			<th>Fighter Name</th>
 			<th>Prize Won</th>
 		  </tr>
-		  {% if prizesWon|length %}
-			  {% for prize in prizesWon %}
-			  <tr>
-				<td>{{ prize['fighterName'] }}</td> 
-				<td>{{ prize['prizeType'] }}</td>
-			  </tr>
-			  {% endfor %}
-		  {% else %}
-			<tr> <td> No Prizes yet </td> <tr>
-		  {% endif %}
+
+		  {% for prize in prizesWon %}
+		  <tr>
+			<td>{{ prize['fighterName'] }}</td> 
+			<td>{{ prize['prizeType'] }}</td>
+		  </tr>
+		  {% endfor %}
+
 		</table>
+		<!-- If this Fighter doesn't exist in the database, return a useful message. /-->
 		{% else %}
 		<p> No results found for this Fighter. Check back later! </p>
 		{% endif %}
