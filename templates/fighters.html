@@ -14,7 +14,7 @@
           <input type="text" name="fighter-name" id="fighter-name" placeholder="Name"/>
 		  <label for="fighter-weapon">Choose a weapon:</label>
 			<select name="fighter-weapon" id="fighter-weapon">
-				{% for weapon in available-weapons %}
+				{% for weapon in available_weapons %}
 					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
 				{% endfor %}
 			</select>
