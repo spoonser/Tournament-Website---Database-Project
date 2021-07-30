@@ -50,7 +50,12 @@
             <option value="fighter2-won">Fighter 2 Won</option>
             <option value="fighter-draw">Draw</option>
           </select>
-          <input type="number" step="1" min="1" name="new-prize-id" id="new-prize-id" placeholder="Prize"/>
+          <select name="new-prize-id" id="new-prize-id">
+				<option value=None>No Prize</option>
+				{% for prize in available_prizes %}
+					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
+				{% endfor %}
+			</select>
           <input type="submit" class="button" id="fight-update" value="Update Fight"/>
         </fieldset>
     </form>
