@@ -15,11 +15,13 @@
 		  <input type="hidden" id="fight-insert" name="fight-insert" value="1">
          
 			<select name="fighter1-id" id="fighter1-id">
+				<option disabled value="">Select Fighter 1</option>
 				{% for fighter in available_fighters %}
 					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
 				{% endfor %}
 			</select>
 			<select name="fighter2-id" id="fighter2-id">
+			<option disabled value="">Select Fighter 2</option>
 				{% for fighter in available_fighters %}
 					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
 				{% endfor %}
