@@ -31,7 +31,9 @@ SELECT weaponName, weaponID from Weapons
 INSERT INTO Weapons (weaponName, weaponType, ranged) 
             VALUES (%s, %s, %s);
 	--Full syntax: cur.execute('''INSERT INTO Weapons (weaponName, weaponType, ranged) VALUES (%s, %s, %s);''', (weaponName, weaponType, ranged))
-	
+
+-- Delete a Weapon. Foreign key in the Fighters table is set to SET NULL when this occurs; any Fighter associated with the deleted Weapon will now have no Weapon.
+DELETE FROM Weapons WHERE weaponID=%s
 -- -----------------------------------------------------------------------------------------------------------------------	
 
 -- Select the 3 Fighters with the most Wins to populate the leaderboard

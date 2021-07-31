@@ -35,7 +35,7 @@ CREATE TABLE `Fighters` (
 `fighterName` varchar(255) NOT NULL,
 `weapon` int(11),
 PRIMARY KEY (`fighterID`),
-FOREIGN KEY (`weapon`) REFERENCES Weapons(`weaponID`)
+FOREIGN KEY (`weapon`) REFERENCES Weapons(`weaponID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data for Fighters
