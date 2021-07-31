@@ -117,8 +117,8 @@ def modify_weapon():
             print("Weapon Update Failed")
       
       
-    elif request.form.get('weapon-delete'):
-        weaponID = request.form.get('weapon-id') or None
+    elif request.form.get('weapon-delete-id'):
+        weaponID = request.form.get('weapon-delete-id')
 
         try:
             con = mysql.connection
@@ -365,7 +365,6 @@ def modify_prize():
             print("PrizesWon - Insert Failed")
     
     elif request.form.get('prize-won-delete'):
-        print("Delete entered")
         prizeID = eval(request.form.get('prize-won-delete'))[0]
         fighterID = eval(request.form.get('prize-won-delete'))[1] 
         print(prizeID)
