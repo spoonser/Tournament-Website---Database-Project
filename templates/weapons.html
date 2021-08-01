@@ -54,6 +54,12 @@
       <td>{{ weapon['weaponType'] }}</td>
       <td>{{ weapon['ranged'] }}</td>
       <td>{{ weapon['WeaponUsers'] }}</td>
+	  <td> 	<form class="table-form" name="deleteWeaponForm"  method="POST" >
+				<input type="hidden" id="weapon-delete-id" name="weapon-delete-id" value="{{ weapon['weaponID'] }}">  
+				<input id="weapon-delete" type="submit" name="weapon-delete" value="Delete" />
+			</form> 
+	  </td>
+	  
     </tr>
     {% endfor %}
   </table>

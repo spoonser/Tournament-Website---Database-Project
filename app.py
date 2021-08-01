@@ -451,7 +451,6 @@ def modify_prize():
             print("PrizesWon - Insert Failed")
     
     elif request.form.get('prize-won-delete'):
-        print("Delete entered")
         prizeID = eval(request.form.get('prize-won-delete'))[0]
         fighterID = eval(request.form.get('prize-won-delete'))[1] 
         print(prizeID)
