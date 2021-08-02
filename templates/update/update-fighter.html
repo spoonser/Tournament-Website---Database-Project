@@ -37,7 +37,7 @@
 				<select name="fighter-weapon" id="fighter-weapon">
 					<option value=None {% if  fighters[0]['weapon'] == "No Weapon" %}  selected="selected"{% endif %} >No Weapon</option>
 					{% for weapon in available_weapons %}
-					<option value={{ weapon['weaponID']}} {% if  fighters[0]['weapon'] == {{ weapon['weaponID']}} %}  selected="selected"{% endif %} >{{ weapon['weaponName'] }}	</option>
+					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
 			  	{% endfor %}
 				</select>
         <input type="submit" class="button" id="update-weapon-button" value="Update Fighter"/>
