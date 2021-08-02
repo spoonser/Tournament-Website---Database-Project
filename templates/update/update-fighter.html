@@ -30,15 +30,14 @@
 	  <h2>Edit the Fighter</h2>
     <form class="input-form" id="edit-fighter-form" name="edit-fighter-form" method="POST">
       <fieldset>
-        <legend>Fighter Update:</legend>
-
-		  	<input type="text" name="fighter-name" id="fighter-name" placeholder="New Name (optional)"/>
-        <label for="fighter-weapon">Choose a weapon:</label>
+        <legend>Fighter Update:</legend>		
+			
+		  	<input type="text" name="fighter-name" id="fighter-name" value={{ fighters[0]['fighterName'] }}"/>
+				<label for="fighter-weapon">Choose a weapon:</label>
 				<select name="fighter-weapon" id="fighter-weapon">
-					<option disabled selected value="">New Weapon (optional)</option>
-					<option value=None>No Weapon</option>
+					<option value=None {% if  fighters[0]['weapon'] == "No Weapon" %}  selected="selected"{% endif %} >No Weapon</option>
 					{% for weapon in available_weapons %}
-					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
+					<option value={{ weapon['weaponID']}} {% if  fighters[0]['weapon'] == {{ weapon['weaponID']}} %}  selected="selected"{% endif %} >{{ weapon['weaponName'] }}	</option>
 			  	{% endfor %}
 				</select>
         <input type="submit" class="button" id="update-weapon-button" value="Update Fighter"/>
