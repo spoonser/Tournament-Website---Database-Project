@@ -139,6 +139,18 @@ def modify_weapon():
         else:
             print("No weapon selected")
 
+    elif request.form.get('weapon-delete-id'):
+        weaponID = request.form.get('weapon-delete-id') or None
+
+        try:
+            con = mysql.connection
+            cur = con.cursor()
+            cur.execute('''DELETE FROM Weapons WHERE weaponID=%s;''', (weaponID,))
+            con.commit()
+
+        except:
+            print("Weapon - Delete Failed")
+                    
     return weapons()
 
 
