@@ -68,7 +68,7 @@ def modify_fighter():
 def update_fighter_page():
     fighterID = request.args['fighterID']
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`  FROM Fighters as f
+    cur.execute('''SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`, w.weaponID  FROM Fighters as f
         LEFT JOIN Weapons as w
         on f.weapon=w.weaponID
         WHERE fighterID=%s;''', (fighterID,))
