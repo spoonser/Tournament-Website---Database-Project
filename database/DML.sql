@@ -131,7 +131,11 @@ SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Wo
         ON one.prize=Prizes.prizeID
         WHERE one.fightID=two.fightID
         AND one.fightID=%s;
-		
+
+-- Get current values for a given Fight. Used to populate specific variables in case of update issues.
+SELECT fightDate FROM Fights WHERE fightID = %s;        
+SELECT prize FROM Fights WHERE fightID = %s;
+
 -- Update a Fight. Parameters are provided by code in the Flask application and are commented out below.	
 UPDATE Fights 
 	SET fightDate = %s,
