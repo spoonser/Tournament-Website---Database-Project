@@ -371,7 +371,8 @@ def update_fight_page(error=None):
         ON Fights.fighter2=Fighters.fighterID) AS two
         LEFT JOIN Prizes 
         ON one.prize=Prizes.prizeID
-        WHERE one.fightID=two.fightID;''')
+        WHERE one.fightID=two.fightID
+        AND one.fightID=%s;''', (fightID,))
     fights = cur.fetchall()
     cur.execute('''SELECT fightID from Fights ORDER BY fightID asc;''')
     fightIDs = cur.fetchall()
