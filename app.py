@@ -412,6 +412,7 @@ def update_fight():
         con.commit()
         
     except:
+        print(fightID, fightDate, fighter1Won, fighter2Won, prizeID)
         print('Fight Update Failed')
 
     return redirect(url_for('.fightsetup'))

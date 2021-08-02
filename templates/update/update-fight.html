@@ -36,7 +36,7 @@
         <select name="fight-winner" id="fight-winner">
           <option value="fighter1-won" {% if  fights[0]['fighter1Won'] == 1 %} selected="selected"{% endif %}>Fighter 1 Won</option>
           <option value="fighter2-won" {% if  fights[0]['fighter2Won'] == 1 %} selected="selected"{% endif %}>Fighter 2 Won</option>
-          <option value="fighter-draw" {% if  fights[0]['fighter1Won'] == 0 and fights[0]['fighter2Won'] == 0%} selected="selected"{% endif %}>Draw</option>
+          <option value="fighter-draw" {% if  fights[0]['fighter1Won'] == 0 and fights[0]['fighter2Won'] == 0%} selected="selected"{% endif %}>Draw - No Winner </option>
         </select>
         <select name="new-prize-id" id="new-prize-id">
 					<option value= {% if  fights[0]['prize'] is none %} selected="selected"{% endif %}>No Prize</option>
