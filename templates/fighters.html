@@ -27,27 +27,27 @@
 	
 	<h2>Edit a Fighter</h2>
     <form class="input-form" id="edit-fighter-form" name="edit-fighter-form" method="POST">
-        <fieldset>
-          <legend>Fighter Update:</legend>
-			<input type="hidden" id="fighter-update" name="fighter-update" value="1">
+      <fieldset>
+        <legend>Fighter Update:</legend>
+				<input type="hidden" id="fighter-update" name="fighter-update" value="1">
 
-		    <select name="fighter-id" id="fighter-id">
-				<option disabled selected value=None> -- Select Fighter --</option>
-				{% for fighter in fighters %}
+		  	<select name="fighter-id" id="fighter-id">
+					<option disabled selected value=None> -- Select Fighter --</option>
+					{% for fighter in fighters %}
 					<option value={{ fighter['fighterID'] }} >{{ fighter['fighterName'] }} (ID {{ fighter['fighterID'] }})	</option>
-				{% endfor %}
-			</select>
-		  <input type="text" name="fighter-name" id="fighter-name" placeholder="New Name (optional)"/>
-          <label for="fighter-weapon">Choose a weapon:</label>
-			<select name="fighter-weapon" id="fighter-weapon">
-				<option disabled selected value="">New Weapon (optional)</option>
-				<option value=None>No Weapon</option>
-				{% for weapon in available_weapons %}
+					{% endfor %}
+				</select>
+		  	<!-- <input type="text" name="fighter-name" id="fighter-name" placeholder="New Name (optional)"/><br><br>
+        <label for="fighter-weapon">Choose a weapon:</label>
+				<select name="fighter-weapon" id="fighter-weapon">
+					<option disabled selected value="">New Weapon (optional)</option>
+					<option value=None>No Weapon</option>
+					{% for weapon in available_weapons %}
 					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
 				{% endfor %}
-			</select>
-          <input type="submit" class="button" id="update-weapon-button" value="Update Weapon"/>
-        </fieldset>
+				</select> -->
+         <input type="submit" class="button" id="update-weapon-button" value="Update Fighter"/>
+      </fieldset>
     </form>
 
     <h2>Current Participants </h2>

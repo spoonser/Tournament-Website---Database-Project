@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %}Fighters{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  <div class="center-child">
+    <h2>Fight Update</h2>
+		<table id="fight-table">
+			<tr>
+			<th>Fight ID</th>
+			<th>Fight Date</th>
+			<th>Fighter One</th>
+			<th>Fighter Two</th>
+			<th>Winner</th>
+			<th>Associated Prize</th>
+			</tr>
+			{% for fight in fights %}
+			<tr>
+				<td>{{ fight['fightID'] }}</td> 
+				<td>{{ fight['fightDate'] }}</td>
+				<td>{{ fight['fighter1'] }}</td>
+				<td>{{ fight['fighter2'] }}</td>
+				<td>{{ fight['winner'] }}</td>
+				<td>{{ fight['prize'] }}</td>
+			</tr>
+			{% endfor %}
+			
+		</table>
+
+		<h2>Modify Fight</h2>
+ 	 	<form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
+      <fieldset>
+        <legend>Fight Update:</legend>
+        <input type="date" name="new-fight-date" id="new-fight-date"/>
+        <select name="fight-winner" id="fight-winner">
+          <option disabled selected value> -- Select Win Status -- </option>
+          <option value="fighter1-won">Fighter 1 Won</option>
+          <option value="fighter2-won">Fighter 2 Won</option>
+          <option value="fighter-draw">Draw</option>
+        </select>
+        <select name="new-prize-id" id="new-prize-id">
+					<option disabled selected value> -- Select Prize -- </option>
+					<option value=None>No Prize</option>
+					{% for prize in available_prizes %}
+					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
+					{% endfor %}
+				</select>
+        <input type="submit" class="button" id="fight-update" value="Update Fight"/>
+      </fieldset>
+    </form>
+
+  </div>
+{% endblock %}

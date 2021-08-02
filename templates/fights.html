@@ -41,14 +41,14 @@
     <form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
         <fieldset>
           <legend>Fight Update:</legend>
-			<input type="hidden" id="fight-update" name="fight-update" value="1">
-		    <select name="old-fight-id" id="old-fight-id">
-				<option disabled selected value=None> -- Select Fight ID --</option>
-				{% for fight in fightIDs %}
-					<option value={{ fight['fightID'] }} >{{ fight['fightID'] }}	</option>
-				{% endfor %}
-			</select>
-          <input type="date" name="new-fight-date" id="new-fight-date"/>
+					<input type="hidden" id="fight-update" name="fight-update" value="1">
+		    	<select name="old-fight-id" id="old-fight-id">
+						<option disabled selected value=None> -- Select Fight ID --</option>
+						{% for fight in fightIDs %}
+						<option value={{ fight['fightID'] }} >{{ fight['fightID'] }}	</option>
+						{% endfor %}
+					</select>
+			     <!-- <input type="date" name="new-fight-date" id="new-fight-date"/>
           <select name="fight-winner" id="fight-winner">
             <option disabled selected value> -- Select Win Status -- </option>
             <option value="fighter1-won">Fighter 1 Won</option>
@@ -61,8 +61,8 @@
 				{% for prize in available_prizes %}
 					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
 				{% endfor %}
-			</select>
-          <input type="submit" class="button" id="fight-update" value="Update Fight"/>
+			</select> -->
+        <input type="submit" class="button" id="fight-update" value="Update Fight"/>
         </fieldset>
     </form>
 
