@@ -37,8 +37,8 @@
 		    <input type="text" name="weapon-type" id="weapon-type" required placeholder={{ weapons[0]['weaponType'] }}/>
 		    <label for="weapon-ranged">Is this a ranged weapon?</label>
 		    <select id="weapon-ranged" name="weapon-ranged">
-			    <option value="1" {% if {{ weapons[0]['ranged'] }}==1 %} selected="selected"{% endif %}>Yes</option>
-			    <option value="0" {% if {{ weapons[0]['ranged'] }}==0 %} selected="selected"{% endif %}>No</option>
+			    <option value="1" {% if  weapons[0]['ranged'] ==1 %} selected="selected"{% endif %}>Yes</option>
+			    <option value="0" {% if  weapons[0]['ranged'] ==0 %} selected="selected"{% endif %}>No</option>
 		    </select>
         <input type="submit" class="button" id="update-weapon-button" value="Update Weapon"/>
       </fieldset>
