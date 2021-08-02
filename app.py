@@ -359,7 +359,7 @@ def update_fight_page(error=None):
     fightID = request.args['fightID']
     cur = mysql.connection.cursor()
     cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
-        IFNULL(Prizes.prizeType, "No Prize") as prize FROM
+        IFNULL(Prizes.prizeType, "No Prize") as prizeType, one.prize, one.fighter1Won, one.fighter2Won FROM
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
         FROM Fights 
         LEFT JOIN Fighters

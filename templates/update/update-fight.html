@@ -22,7 +22,7 @@
 				<td>{{ fight['fighter1'] }}</td>
 				<td>{{ fight['fighter2'] }}</td>
 				<td>{{ fight['winner'] }}</td>
-				<td>{{ fight['prize'] }}</td>
+				<td>{{ fight['prizeType'] }}</td>
 			</tr>
 			{% endfor %}
 			
@@ -32,18 +32,16 @@
  	 	<form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
       <fieldset>
         <legend>Fight Update:</legend>
-        <input type="date" name="new-fight-date" id="new-fight-date"/>
+        <input type="date" name="new-fight-date" id="new-fight-date" value={{ fights[0]['fightDate'] }}/>
         <select name="fight-winner" id="fight-winner">
-          <option disabled selected value> -- Select Win Status -- </option>
-          <option value="fighter1-won">Fighter 1 Won</option>
-          <option value="fighter2-won">Fighter 2 Won</option>
-          <option value="fighter-draw">Draw</option>
+          <option value="fighter1-won" {% if  fights[0]['fighter1Won'] == 1 %} selected="selected"{% endif %}>Fighter 1 Won</option>
+          <option value="fighter2-won" {% if  fights[0]['fighter2Won'] == 1 %} selected="selected"{% endif %}>Fighter 2 Won</option>
+          <option value="fighter-draw" {% if  fights[0]['fighter1Won'] == 0 and fights[0]['fighter2Won'] == 0%} selected="selected"{% endif %}>Draw</option>
         </select>
         <select name="new-prize-id" id="new-prize-id">
-					<option disabled selected value> -- Select Prize -- </option>
-					<option value=None>No Prize</option>
+					<option value= {% if  fights[0]['prize'] is None %} selected="selected"{% endif %}>No Prize</option>
 					{% for prize in available_prizes %}
-					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
+					<option value={{ prize['prizeID']}} {% if  fights[0]['prize'] == prize['prizeID'] %} selected="selected"{% endif %} >{{ prize['prizeType'] }}	</option>
 					{% endfor %}
 				</select>
         <input type="submit" class="button" id="fight-update" value="Update Fight"/>

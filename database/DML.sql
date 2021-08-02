@@ -92,14 +92,6 @@ INSERT INTO Fights (fighter1, fighter2, prize, fightDate)
                 VALUES (%s, %s, %s, %s); 
 	--Full syntax: cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate)  VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))	
 
--- Update a Fight. Parameters are provided by code in the Flask application and are commented out below.	
-UPDATE Fights 
-	SET fightDate = %s,
-	fighter1Won = %s,
-	fighter2Won = %s,
-	prize = %s
-	WHERE fightID = %s;
-	--Full syntax: cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prize = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
 	
 -- Filter Fights by a date range. Parameters are provided by code in the Flask application.
 SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
@@ -123,7 +115,31 @@ SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Wo
 -- Select all fightIDs. Used to populate a dropdown and prevent direct user entry of the fightID.
 SELECT fightID from Fights ORDER BY fightID asc;
 
-
+-- Select a single Fight's details. Modified version used to support editing a single fight. 
+SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+        IFNULL(Prizes.prizeType, "No Prize") as prizeType, one.prize, one.fighter1Won, one.fighter2Won FROM
+        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+        FROM Fights 
+        LEFT JOIN Fighters
+        on Fights.fighter1=Fighters.fighterID) as one
+        JOIN
+        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
+        FROM Fights
+        LEFT JOIN Fighters
+        ON Fights.fighter2=Fighters.fighterID) AS two
+        LEFT JOIN Prizes 
+        ON one.prize=Prizes.prizeID
+        WHERE one.fightID=two.fightID
+        AND one.fightID=%s;
+		
+-- Update a Fight. Parameters are provided by code in the Flask application and are commented out below.	
+UPDATE Fights 
+	SET fightDate = %s,
+	fighter1Won = %s,
+	fighter2Won = %s,
+	prize = %s
+	WHERE fightID = %s;
+	--Full syntax: cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prize = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
 -- -----------------------------------------------------------------------------------------------------------------------	
 
 -- Select all Prizes and their attributes
