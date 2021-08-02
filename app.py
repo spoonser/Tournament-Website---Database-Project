@@ -50,15 +50,6 @@ def modify_fighter():
 
         except:
             print("Fighter Insert Failed")
-    
-    elif request.form.get('fighter-update'):
-        fighterID = request.form.get('fighter-id') or None
-        
-        if fighterID:
-            return redirect(url_for('.update_fighter_page', fighterID=fighterID))
-       
-        else:
-            print("No fighter ID entered")
         
     return fighters()
 
@@ -130,15 +121,6 @@ def modify_weapon():
         except:
             print("Insert Failed")
     
-    elif request.form.get('weapon-update'):
-        weaponID = request.form.get('weapon-id') or None
-
-        if weaponID:
-            return redirect(url_for('.update_weapon_page', weaponID=weaponID))
-
-        else:
-            print("No weapon selected")
-
     return weapons()
 
 
