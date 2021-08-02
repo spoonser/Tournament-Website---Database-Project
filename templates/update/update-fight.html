@@ -39,7 +39,7 @@
           <option value="fighter-draw" {% if  fights[0]['fighter1Won'] == 0 and fights[0]['fighter2Won'] == 0%} selected="selected"{% endif %}>Draw</option>
         </select>
         <select name="new-prize-id" id="new-prize-id">
-					<option value= {% if  fights[0]['prize'] is None %} selected="selected"{% endif %}>No Prize</option>
+					<option value= {% if  fights[0]['prize'] is none %} selected="selected"{% endif %}>No Prize</option>
 					{% for prize in available_prizes %}
 					<option value={{ prize['prizeID']}} {% if  fights[0]['prize'] == prize['prizeID'] %} selected="selected"{% endif %} >{{ prize['prizeType'] }}	</option>
 					{% endfor %}
