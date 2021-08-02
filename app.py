@@ -94,6 +94,7 @@ def update_fighter():
         con.commit()
 
     except:
+        print(fighterID, fighterName, weapon)
         print("Fighter Update Failed")
 
     return redirect(url_for('.fighters'))
