@@ -49,6 +49,7 @@ def modify_fighter():
             return fighters()
 
         except:
+             print(fighterName, weapon)
             print("Fighter Insert Failed")
     
     elif request.form.get('fighter-update'):
