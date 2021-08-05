@@ -416,11 +416,14 @@ def update_fight():
     cur = con.cursor()
 
     # If the fightDate and prizeWon weren't assigned, stay with the current values in the database.
-    cur.execute('''SELECT fightDate, fighter1, fighter2, prize FROM Fights WHERE fightID = %s;''', (fightID,))
+    cur.execute('''SELECT fightDate, fighter1, fighter2, fighter1Won, fighter2Won, prize FROM Fights WHERE fightID = %s;''', (fightID,))
     originalFightDetails = cur.fetchone()
     fightDate = request.form.get('new-fight-date') or originalFightDetails['fightDate']
     prizeID = request.form.get('new-prize-id') or originalFightDetails['prize']
+    originalPrizeID = originalFightDetails['prize']
     fighter1 = originalFightDetails['fighter1']
+    originalWinner = 0
+    originalWinnerID = 0
     fighter2 = originalFightDetails['fighter2']
     result = request.form.get('fight-winner') or None
     
@@ -428,7 +431,18 @@ def update_fight():
     fighter1Won = 0
     fighter2Won = 0
     prizeFighterID = None
+
+    # Store the original winner -- if this changes, we may need to update PrizesWon.
+    if originalFightDetails['fighter1Won'] == 1:
+        originalWinner = 'fighter1-won'
+        originalWinnerID = originalFightDetails['fighter1']
         
+    elif originalFightDetails['fighter2Won'] == 1:
+        originalWinner = 'fighter2-won'
+        originalWinnerID = originalFightDetails['fighter2']
+    
+
+    # Set the fighterWon flags according to the user's input.
     if result == 'fighter1-won': 
         fighter1Won = 1
         fighter2Won = 0
@@ -444,8 +458,16 @@ def update_fight():
         prizeID, fightID))
         con.commit()
         if prizeID is not None:
+            # Award the winning Fighter the associated Prize.
             cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (prizeFighterID, prizeID))
             con.commit()
+        if result == originalWinner and prizeID != originalPrizeID:
+            # Prize has changed, and the old PrizesWon entry should be removed.
+            cur.execute('''DELETE FROM PrizesWon WHERE fighterID = %s AND prizeID = %s;''', (prizeFighterID, originalPrizeID))
+            con.commit()
+        if result != originalWinner and originalWinnerID != 0:
+            # Fight winner has changed. Previous victor no longer gets the original Prize.
+            cur.execute('''DELETE FROM PrizesWon WHERE fighterID = %s and prizeID = %s;''', (originalWinnerID, originalPrizeId))
         
     except:
         print(fightID, fightDate, fighter1Won, fighter2Won, prizeID)
