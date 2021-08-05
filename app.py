@@ -364,7 +364,14 @@ def modify_fight():
                 
                 
             fights = cur.fetchall()
-            return render_template('fights.html', fights=fights, filtered=1)
+            
+            cur.execute('''SELECT fightID from Fights ORDER BY fightID asc;''')
+            fightIDs = cur.fetchall()
+            cur.execute('''SELECT fighterName, fighterID from Fighters ORDER BY fighterName asc;''')
+            available_fighters=cur.fetchall()
+            cur.execute('''SELECT prizeID, prizeType from Prizes;''')
+            available_prizes=cur.fetchall()
+            return render_template('fights.html', fights=fights, available_fighters=available_fighters, available_prizes=available_prizes, fightIDs=fightIDs, error=error, filtered=1)
         except:
             print('Fight Filter Failed')
     
