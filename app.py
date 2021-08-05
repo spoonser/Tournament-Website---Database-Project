@@ -365,7 +365,7 @@ def modify_fight():
                 
             fights = cur.fetchall()
             
-            cur.execute('''SELECT fightID from Fights ORDER BY fightID asc;''')
+            cur.execute('''SELECT fightID from Fights WHERE (fightDate >= %s OR %s IS NULL) AND (fightDate <= %s OR %s IS NULL) ORDER BY fightID asc;''', (startDate, startDate, endDate, endDate))
             fightIDs = cur.fetchall()
             cur.execute('''SELECT fighterName, fighterID from Fighters ORDER BY fighterName asc;''')
             available_fighters=cur.fetchall()

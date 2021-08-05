@@ -47,7 +47,7 @@
         <fieldset>
           <legend>Fight Update:</legend>
 				<input type="hidden" id="fight-update" name="fight-update" value="1">
-				{% if filtered is defined %} Filtered to target date range. Clear filters to see all Fights! {% endif %}
+				{% if filtered is defined %} Filtered to target date range. Clear filters to see all Fights! <br> {% endif %}
 		    	<select name="old-fight-id" id="old-fight-id">
 						<option disabled selected value=None> -- Select Fight ID --</option>
 						{% for fight in fightIDs %}

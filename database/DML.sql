@@ -115,6 +115,9 @@ SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Wo
 -- Select all fightIDs. Used to populate a dropdown and prevent direct user entry of the fightID.
 SELECT fightID from Fights ORDER BY fightID asc;
 
+-- Select fightIDs from a filtered date range. Used to populate  a dropdown and prevent direct user entry of the fightID, but also allow the user to see a subset of target IDs.
+SELECT fightID from Fights WHERE (fightDate >= %s OR %s IS NULL) AND (fightDate <= %s OR %s IS NULL) ORDER BY fightID asc;
+
 -- Select a single Fight's details. Modified version used to support editing a single fight. 
 SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prizeType, one.prize, one.fighter1Won, one.fighter2Won FROM
