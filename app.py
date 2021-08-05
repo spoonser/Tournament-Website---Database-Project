@@ -416,12 +416,14 @@ def update_fight():
     cur = con.cursor()
 
     # If the fightDate and prizeWon weren't assigned, stay with the current values in the database.
-    cur.execute('''SELECT fightDate FROM Fights WHERE fightID = %s;''', (fightID,))
+    cur.execute('''SELECT fightDate, fighter1, fighter2, prize FROM Fights WHERE fightID = %s;''', (fightID,))
     fightDate = request.form.get('new-fight-date') or cur.fetchone()['fightDate']
-        
-    cur.execute('''SELECT prize FROM Fights WHERE fightID = %s;''', (fightID,))
     prizeID = request.form.get('new-prize-id') or cur.fetchone()['prize']
+    fighter1 = cur.fetchone()['fighter1']
+    fighter2 = cur.fetchone()['fighter2']
     result = request.form.get('fight-winner') or None
+    
+
     fighter1Won = 0
     fighter2Won = 0
     prizeFighterID = None
