@@ -457,17 +457,20 @@ def update_fight():
         cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prize = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, 
         prizeID, fightID))
         con.commit()
+        
+        if result == originalWinner and prizeID != originalPrizeID and originalPrizeID is not None:
+            # Prize has changed, and the old PrizesWon entry should be removed.
+            cur.execute('''DELETE FROM PrizesWon WHERE fighterID = %s AND prizeID = %s;''', (prizeFighterID, originalPrizeID))
+            con.commit()
+        if result != originalWinner and originalWinnerID != 0 and prizeID == originalPrizeID and originalPrizeID is not None:
+            # Fight winner has changed. Previous victor no longer gets the original Prize.
+            cur.execute('''DELETE FROM PrizesWon WHERE fighterID = %s and prizeID = %s;''', (originalWinnerID, originalPrizeId))
+            con.commit()
         if prizeID is not None:
             # Award the winning Fighter the associated Prize.
             cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (prizeFighterID, prizeID))
             con.commit()
-        if result == originalWinner and prizeID != originalPrizeID:
-            # Prize has changed, and the old PrizesWon entry should be removed.
-            cur.execute('''DELETE FROM PrizesWon WHERE fighterID = %s AND prizeID = %s;''', (prizeFighterID, originalPrizeID))
-            con.commit()
-        if result != originalWinner and originalWinnerID != 0:
-            # Fight winner has changed. Previous victor no longer gets the original Prize.
-            cur.execute('''DELETE FROM PrizesWon WHERE fighterID = %s and prizeID = %s;''', (originalWinnerID, originalPrizeId))
+        
         
     except:
         print(fightID, fightDate, fighter1Won, fighter2Won, prizeID)
