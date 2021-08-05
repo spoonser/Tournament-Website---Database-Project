@@ -296,7 +296,7 @@ def modify_fight():
     elif request.form.get('fight-insert'):
         fighter1 = request.form.get('fighter1-id') or None
         fighter2 = request.form.get('fighter2-id') or None
-        fightWinner = request.form.get('fight-winner') or None
+        result = request.form.get('fight-winner') or None
             
         prize = request.form.get('prize-id') or None
         fightDate = request.form.get('fight-date') or None
