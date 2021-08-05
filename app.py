@@ -326,7 +326,7 @@ def modify_fight():
             try:
                 con = mysql.connection
                 cur = con.cursor()
-                cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
+                cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate, fighter1Won, fighter2Won) 
                     VALUES (%s, %s, %s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate, fighter1Won, fighter2Won))
                 con.commit()
                 
