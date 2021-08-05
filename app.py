@@ -320,6 +320,7 @@ def modify_fight():
         if fightDate is None:
             error = 'Fight Date is a required field. Try again.'
      
+        print(fighter1, fighter2, fighter1Won, fighter2Won, fightDate, prize, prizeFighterID)
         else:
             try:
                 con = mysql.connection
