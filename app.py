@@ -296,10 +296,24 @@ def modify_fight():
     elif request.form.get('fight-insert'):
         fighter1 = request.form.get('fighter1-id') or None
         fighter2 = request.form.get('fighter2-id') or None
-        
+        fightWinner = request.form.get('fight-winner') or None
             
         prize = request.form.get('prize-id') or None
         fightDate = request.form.get('fight-date') or None
+        
+        fighter1Won = 0
+        fighter2Won = 0
+        prizeFighterID = None
+        
+        if result == 'fighter1-won': 
+            fighter1Won = 1
+            fighter2Won = 0
+            prizeFighterID = fighter1
+
+        elif result == 'fighter2-won': 
+            fighter1Won = 0
+            fighter2Won = 1
+            prizeFighterID = fighter2
         # Fights require two distinct Fighters.
         if fighter1 == fighter2:
             error = 'Fights must be between two different Fighters. Try again.'
@@ -311,8 +325,12 @@ def modify_fight():
                 con = mysql.connection
                 cur = con.cursor()
                 cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
-                    VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))
+                    VALUES (%s, %s, %s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate, fighter1Won, fighter2Won))
                 con.commit()
+                
+                if prize is not None:
+                    cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (prizeFighterID, prize))
+                    con.commit()
 
             except:
                 print('Insert Failed')
@@ -397,19 +415,25 @@ def update_fight():
     result = request.form.get('fight-winner') or None
     fighter1Won = 0
     fighter2Won = 0
+    prizeFighterID = None
         
     if result == 'fighter1-won': 
         fighter1Won = 1
         fighter2Won = 0
+        prizeFighterID = fighter1
 
     elif result == 'fighter2-won': 
         fighter1Won = 0
         fighter2Won = 1
+        prizeFighterID = fighter2
 
     try:
         cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prize = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, 
         prizeID, fightID))
         con.commit()
+        if prizeID is not None:
+            cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (prizeFighterID, prizeID))
+            con.commit()
         
     except:
         print(fightID, fightDate, fighter1Won, fighter2Won, prizeID)
