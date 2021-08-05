@@ -18,7 +18,7 @@ INSERT INTO Fighters (fighterName, weapon)
 
 -- Select all Weapons and their attributes.
 SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ranged,
-        IFNULL(GROUP_CONCAT(f.fighterName), "No Users") as `WeaponUsers`
+        COUNT(f.fighterName)  as `WeaponUsers`
         FROM Weapons w
         LEFT JOIN Fighters as f 
         ON w.weaponID=f.weapon

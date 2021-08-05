@@ -106,7 +106,7 @@ def update_fighter():
 def weapons():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ranged,
-        IFNULL(GROUP_CONCAT(f.fighterName), "No Users") as `WeaponUsers`
+        COUNT(f.fighterName)  as `WeaponUsers`
         FROM Weapons w
         LEFT JOIN Fighters as f 
         ON w.weaponID=f.weapon
