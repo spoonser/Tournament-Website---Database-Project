@@ -1,7 +1,16 @@
+# ***************************************************************************
+# * CS 340 Group Project
+# * Spencer Wagner and Megan Marshall
+# * General server-side code and CRUD queries for the Dark Tournament project
+# ***************************************************************************
+
+# Basic Flask functionality, importing modules for parsing results and accessing MySQL. 
+
 from flask import Flask, render_template, json, redirect, url_for
 from flask_mysqldb import MySQL
 from flask import request
 
+# Using environment variables on Flip to store our DB credentials. 
 import os
 
 app = Flask(__name__)
@@ -12,14 +21,18 @@ app.config['MYSQL_DB'] = os.environ.get("CS340DB")
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
-    
+ 
+# -------------------------------------------------------------------------------------------------
+# Main Index page 
+# -------------------------------------------------------------------------------------------------
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')   
     
 # -------------------------------------------------------------------------------------------------
-# Fighters Page
+# Fighters Page - SELECT all Fighters
+# -------------------------------------------------------------------------------------------------
 @app.route('/fighters')
 def fighters():
     cur = mysql.connection.cursor()
@@ -33,9 +46,12 @@ def fighters():
     available_weapons = cur.fetchall()
     
     return render_template('fighters.html', fighters=fighters, available_weapons=available_weapons) 
-    
+
+# -------------------------------------------------------------------------------------------------
+# Fighters Page - INSERT new Fighters
+# -------------------------------------------------------------------------------------------------
 @app.route('/fighters', methods=['POST'])
-def modify_fighter():
+def create_fighter():
     if request.form.get('new-fighter'):
         fighterName = request.form.get('fighter-name') or None
         weapon = request.form.get('fighter-weapon') or None
@@ -64,7 +80,9 @@ def modify_fighter():
     return fighters()
 
 
-# Update a fighter
+# -------------------------------------------------------------------------------------------------
+# Fighters Page - UPDATE a single Fighters
+# -------------------------------------------------------------------------------------------------
 @app.route('/update-fighter')
 def update_fighter_page():
     fighterID = request.args['fighterID']
@@ -101,7 +119,8 @@ def update_fighter():
     return redirect(url_for('.fighters'))
 
 # -------------------------------------------------------------------------------------------------
-# Weapons Page
+# Weapons Page - SELECT all Weapons
+# -------------------------------------------------------------------------------------------------
 @app.route('/weapons')
 def weapons():
     cur = mysql.connection.cursor()
@@ -115,6 +134,9 @@ def weapons():
 
     return render_template('weapons.html', weapons=weapons)
 
+# -------------------------------------------------------------------------------------------------
+# Weapons Page - INSERT or DELETE a Weapon
+# -------------------------------------------------------------------------------------------------
 @app.route('/weapons', methods=['POST'])
 def modify_weapon():
     if request.form.get('new-weapon'):
@@ -156,7 +178,9 @@ def modify_weapon():
     return weapons()
 
 
-# Update a weapon
+# -------------------------------------------------------------------------------------------------
+# Weapons Page - UPDATE a single Weapon
+# -------------------------------------------------------------------------------------------------
 @app.route('/update-weapon')
 def update_weapon_page():
     weaponID = request.args['weaponID']
@@ -191,7 +215,8 @@ def update_weapon():
     return redirect(url_for('.weapons'))
 
 # -------------------------------------------------------------------------------------------------
-# Results Page
+# Results Page - Leaderboard of Fighters with the most wins
+# -------------------------------------------------------------------------------------------------
 @app.route('/results')
 def results():
     cur = mysql.connection.cursor()
@@ -206,7 +231,10 @@ def results():
         LIMIT 3;''')
     leaders = cur.fetchall()
     return render_template('results.html', leaders=leaders)
-    
+
+# -------------------------------------------------------------------------------------------------
+# Results Page - Leaderboard of Fighters with the most wins, filtered Prizes for a single Fighter
+# -------------------------------------------------------------------------------------------------    
 @app.route('/results', methods=['POST'])
 def filtered_results():
     fighterName = request.form.get('fighterName') or None
@@ -251,7 +279,8 @@ def filtered_results():
       
 
 # -------------------------------------------------------------------------------------------------
-# Fights Page
+# Fights Page - SELECT all Fights
+# -------------------------------------------------------------------------------------------------
 @app.route('/fights')
 def fightsetup(error=None):
     cur = mysql.connection.cursor()
@@ -279,11 +308,13 @@ def fightsetup(error=None):
     available_prizes=cur.fetchall()
 
     return render_template('fights.html', fights=fights, available_fighters=available_fighters, available_prizes=available_prizes, fightIDs=fightIDs, error=error)
-    
+ 
+# -------------------------------------------------------------------------------------------------
+# Fights Page - INSERT a new Fight and its associated PrizesWon if any. Filter Fights by fightDate(s)
+# ------------------------------------------------------------------------------------------------- 
 @app.route('/fights', methods=['POST'])
-def modify_fight():
+def create_fight():
     error=None
-    print(request.form.to_dict())
     if request.form.get('fight-update'):
         fightID = request.form.get('old-fight-id') or None
 
@@ -380,7 +411,9 @@ def modify_fight():
     return fightsetup(error=error)
 
 
-# Update a fight
+# -------------------------------------------------------------------------------------------------
+# Fights Page - UPDATE a single Fight
+# -------------------------------------------------------------------------------------------------
 @app.route('/update-fight')
 def update_fight_page(error=None):
     fightID = request.args['fightID']
@@ -479,7 +512,8 @@ def update_fight():
     return redirect(url_for('.fightsetup'))
 
 # -------------------------------------------------------------------------------------------------
-# Prizes Page
+# Prizes Page - SELECT all Prizes
+# -------------------------------------------------------------------------------------------------
 @app.route('/prizes')
 def prizes():
     cur = mysql.connection.cursor()
@@ -500,9 +534,11 @@ def prizes():
     
     return render_template('prizes.html', allPrizes=allPrizes, prizesWon=prizesWon, available_fighters=available_fighters, available_prizes=available_prizes)
 
+# -------------------------------------------------------------------------------------------------
+# Prizes Page - INSERT a new Prize or INSERT a new PrizesWon relationship
+# -------------------------------------------------------------------------------------------------
 @app.route('/prizes', methods=['POST'])
-def modify_prize():
-    print(request.form.to_dict())
+def create_prize():
     if request.form.get('new-prize'):
         prizeType = request.form.get('prize-type') or None 
         try:
@@ -525,13 +561,13 @@ def modify_prize():
             con.commit()
 
         except:
+            print(request.form.to_dict())
             print("PrizesWon - Insert Failed")
     
     elif request.form.get('prize-won-delete'):
         prizeID = eval(request.form.get('prize-won-delete'))[0]
         fighterID = eval(request.form.get('prize-won-delete'))[1] 
-        print(prizeID)
-        print(fighterID)
+
         try:
             con = mysql.connection
             cur = con.cursor()
@@ -539,6 +575,7 @@ def modify_prize():
             con.commit()
 
         except:
+            print(fighterID, prizeID)
             print("PrizesWon - Delete Failed")
                     
     return prizes()
