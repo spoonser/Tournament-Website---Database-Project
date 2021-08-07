@@ -32,7 +32,7 @@
 					<option value="fighter-draw" selected="selected" >No Winner </option>
 				</select>
 				<select name="prize-id" id="prize-id">
-						<option value=None>No Prize</option>
+						<option value=>No Prize</option>
 						{% for prize in available_prizes %}
 						<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
 						{% endfor %}
