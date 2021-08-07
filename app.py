@@ -360,9 +360,9 @@ def create_fight():
                     VALUES (%s, %s, %s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate, fighter1Won, fighter2Won))
                 con.commit()
                 
-                if prize is not None or prize=="None":
-                    cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (prizeFighterID, prize))
-                    con.commit()
+                #if prize is not None or prize=="None":
+                    #cur.execute('''INSERT INTO PrizesWon (fighterID, prizeID) VALUES (%s, %s);''', (prizeFighterID, prize))
+                    #con.commit()
 
             except:
                 print(fighter1, fighter2, fighter1Won, fighter2Won, fightDate, prize, prizeFighterID)
