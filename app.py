@@ -468,11 +468,11 @@ def update_fight():
     # Store the original winner -- if this changes, we may need to update PrizesWon.
     if originalFightDetails['fighter1Won'] == 1:
         originalWinner = 'fighter1-won'
-        originalWinnerID = originalFightDetails['fighter1']
+        originalWinnerID = originalFightDetails['fighter1ID']
         
     elif originalFightDetails['fighter2Won'] == 1:
         originalWinner = 'fighter2-won'
-        originalWinnerID = originalFightDetails['fighter2']
+        originalWinnerID = originalFightDetails['fighter2ID']
     
 
     # Set the fighterWon flags according to the user's input.
