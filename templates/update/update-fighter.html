@@ -34,7 +34,7 @@
 		  	<input type="text" name="fighter-name" id="fighter-name" value="{{ fighters[0]['fighterName'] }}" />
 				<label for="fighter-weapon">Choose a weapon:</label>
 				<select name="fighter-weapon" id="fighter-weapon">
-					<option value= {% if  fighters[0]['weapon'] == "No Weapon" %}  selected="selected"{% endif %} >No Weapon</option>
+					<option {% if  fighters[0]['weapon'] == "No Weapon" %}  selected="selected"{% endif %} value= >No Weapon</option>
 					{% for weapon in available_weapons %}
 					<option value={{ weapon['weaponID']}} {% if  fighters[0]['weaponID'] == weapon['weaponID'] %}  selected="selected"{% endif %} >{{ weapon['weaponName'] }}	</option>
 			  	{% endfor %}
