@@ -71,7 +71,7 @@ SELECT IFNULL(p.prizeType, 'No Prizes Won') as prizeType, f.fighterName
 -- -----------------------------------------------------------------------------------------------------------------------	
 
 -- Select all Fights and their attributes
-SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+SELECT one.fightID, one.fightDate, one.fighter1ID, two.fighter2, IF(one.fighter1Won=1, one.fighter1ID, IF(one.fighter2Won=1, two.fighter2ID, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prize FROM
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prizeID
         FROM Fights
