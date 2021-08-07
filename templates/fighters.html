@@ -18,7 +18,7 @@
 				<option disabled selected value="">Select a Weapon</option>
 				<option value=>No Weapon</option>
 				{% for weapon in available_weapons %}
-					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
+					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }} (ID {{ weapon['weaponID'] }})	</option>
 				{% endfor %}
 			</select>
           <input type="submit" class="button" id="fighter-submit" value="Sign Up"/>
