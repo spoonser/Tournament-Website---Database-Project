@@ -4,49 +4,51 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="center-child">
-    <h2>Fight Update</h2>
-		<table id="fight-table">
-			<tr>
-			<th>Fight ID</th>
-			<th>Fight Date</th>
-			<th>Fighter One</th>
-			<th>Fighter Two</th>
-			<th>Winner</th>
-			<th>Associated Prize</th>
-			</tr>
-			{% for fight in fights %}
-			<tr>
-				<td>{{ fight['fightID'] }}</td> 
-				<td>{{ fight['fightDate'] }}</td>
-				<td>{{ fight['fighter1'] }}</td>
-				<td>{{ fight['fighter2'] }}</td>
-				<td>{{ fight['winner'] }}</td>
-				<td>{{ fight['prizeType'] }}</td>
-			</tr>
-			{% endfor %}
+<div class="fixed-page">
+  <h2>Fight Update</h2>
+	<table id="fight-table">
+		<tr>
+		<th>Fight ID</th>
+		<th>Fight Date</th>
+		<th>Fighter One</th>
+		<th>Fighter Two</th>
+		<th>Winner</th>
+		<th>Associated Prize</th>			
+	</tr>
+		
+		{% for fight in fights %}
+		<tr>
+			<td>{{ fight['fightID'] }}</td> 
+			<td>{{ fight['fightDate'] }}</td>
+			<td>{{ fight['fighter1'] }}</td>
+			<td>{{ fight['fighter2'] }}</td>
+			<td>{{ fight['winner'] }}</td>
+			<td>{{ fight['prizeType'] }}</td>
+		</tr>
+		{% endfor %}
 			
-		</table>
+	</table>
 
-		<h2>Modify Fight</h2>
- 	 	<form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
-      <fieldset>
-        <legend>Fight Update:</legend>
-        <input type="date" name="new-fight-date" id="new-fight-date" value={{ fights[0]['fightDate'] }} />
-        <select name="fight-winner" id="fight-winner">
-          <option value="fighter1-won" {% if  fights[0]['fighter1Won'] == 1 %} selected="selected"{% endif %}>Fighter 1 Won</option>
-          <option value="fighter2-won" {% if  fights[0]['fighter2Won'] == 1 %} selected="selected"{% endif %}>Fighter 2 Won</option>
-          <option value="fighter-draw" {% if  fights[0]['fighter1Won'] == 0 and fights[0]['fighter2Won'] == 0%} selected="selected"{% endif %}>Draw - No Winner </option>
-        </select>
+	<h2>Modify Fight</h2>
+ 	<form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
+    <fieldset>
+      <legend>Fight Update:</legend>
+      <input type="date" name="new-fight-date" id="new-fight-date" value={{ fights[0]['fightDate'] }} />
+      <select name="fight-winner" id="fight-winner">
+        <option value="fighter1-won" {% if  fights[0]['fighter1Won'] == 1 %} selected="selected"{% endif %}>Fighter 1 Won</option>
+        <option value="fighter2-won" {% if  fights[0]['fighter2Won'] == 1 %} selected="selected"{% endif %}>Fighter 2 Won</option>
+        <option value="fighter-draw" {% if  fights[0]['fighter1Won'] == 0 and fights[0]['fighter2Won'] == 0%} selected="selected"{% endif %}>Draw - No Winner </option>
+      </select>
         <select name="new-prize-id" id="new-prize-id">
-					<option value= {% if  fights[0]['prize'] is none %} selected="selected"{% endif %}>No Prize</option>
-					{% for prize in available_prizes %}
-					<option value={{ prize['prizeID']}} {% if  fights[0]['prize'] == prize['prizeID'] %} selected="selected"{% endif %} >{{ prize['prizeType'] }}	</option>
-					{% endfor %}
-				</select>
-        <input type="submit" class="button" id="fight-update" value="Update Fight"/>
-      </fieldset>
-    </form>
-
-  </div>
+				<option value= {% if  fights[0]['prize'] is none %} selected="selected"{% endif %}>No Prize</option>
+				{% for prize in available_prizes %}
+				<option value={{ prize['prizeID']}} {% if  fights[0]['prize'] == prize['prizeID'] %} selected="selected"{% endif %} >{{ prize['prizeType'] }}	</option>
+				{% endfor %}
+			</select>
+       <input type="submit" class="button" id="fight-update" value="Update Fight"/>
+     </fieldset>
+   </form>
+	
+	 </div>
+	<img id="fight-img" src="{{ url_for('static', filename='images/noun_sword.png') }}">
 {% endblock %}

@@ -4,79 +4,80 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h1>Prizes</h1>
-  <h2>Add a New Prize</h2>
-  <form class="input-form" id="prize-form" name="prize-form" action="/prizes" method="POST">
-    <fieldset>
-      <legend>New Prize:</legend>
-	  <input type="hidden" id="new-prize" name="new-prize" value="1">
-      <input type="text" name="prize-type" id="prize-type" required placeholder="Prize Type"/>
-      <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
-    </fieldset>
-  </form>
-  
-  <h2>Current Prizes</h2>
-    <table id="prize-table">
-      <tr>
-		<th>Prize ID</th>
-		<th>Prize Type</th>
-      </tr>
-
-	  {% for prize in allPrizes %}
-		<tr>
-			<td>{{ prize['prizeID'] }}</td> 
-			<td>{{ prize['prizeType'] }}</td>
-		</tr>
-      {% endfor %}
-	  
-	  
+  <div class="page-content">
+    <h1>Prizes</h1>
+    <h2>Add a New Prize</h2>
+    <form class="input-form" id="prize-form" name="prize-form" action="/prizes" method="POST">
+      <fieldset>
+        <legend>New Prize:</legend>
+      <input type="hidden" id="new-prize" name="new-prize" value="1">
+        <input type="text" name="prize-type" id="prize-type" required placeholder="Prize Type"/>
+        <input type="submit" class="button" id="prize-submit" value="Add new prize"/>
+      </fieldset>
+    </form>
     
-    </table>
-
-  <h2>Give a Fighter a Prize</h2>
-  <form class="input-form" id="prize-won-form" name="prize-won-form"  method="POST">
-    <fieldset>
-      <legend>New Prizewinner:</legend>
-	  <input type="hidden" id="prize-won" name="prize-won" value="1">
-      <select name="prize-id" id="prize-id">
-			{% for prize in available_prizes %}
-				<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
-			{% endfor %}
-	  </select>
-	  <select name="fighter-id" id="fighter-id">
-			
-				{% for fighter in available_fighters %}
-					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
-				{% endfor %}
-			</select>
-      <input type="submit" class="button" id="prize-won-submit" value="Add a new prizewinner"/>
-    </fieldset>
-  </form>
-
-  <h2>Prizewinners</h2>
-	<p> Note: Prizes can be awarded to more than one Fighter! Each Fighter can win many Prizes, but may win a single Prize only once. </p>
-  <table id="prizewinners-table">
-    <tr>
+    <h2>Current Prizes</h2>
+      <table id="prize-table">
+        <tr>
       <th>Prize ID</th>
       <th>Prize Type</th>
-      <th>Fighter ID</th>
-      <th>Fighter Name</th>
-    </tr>
+        </tr>
 
-	{% for prize in prizesWon %}
-		<tr>
-		  <td>{{ prize['prizeID'] }}</td> 
-		  <td>{{ prize['prizeType'] }}</td>
-		  <td>{{ prize['fighterID'] }}</td>
-		  <td>{{ prize['fighterName'] }}</td>
-		  <td>
-			<form class="table-form" name="deletePrizeForm"  method="POST" >
-				<input type="hidden" id="prize-won-delete" name="prize-won-delete" value="{{ prize['prizeID']}}, {{ prize['fighterID'] }}">  
-				<input id="deletePrize" type="submit" name="deletePrize" value="Delete" />
-			</form> 
-      </td>
-		</tr>
-    {% endfor %}
-  </table>
+      {% for prize in allPrizes %}
+      <tr>
+        <td>{{ prize['prizeID'] }}</td> 
+        <td>{{ prize['prizeType'] }}</td>
+      </tr>
+        {% endfor %}
+      
+      
+      
+      </table>
 
+    <h2>Give a Fighter a Prize</h2>
+    <form class="input-form" id="prize-won-form" name="prize-won-form"  method="POST">
+      <fieldset>
+        <legend>New Prizewinner:</legend>
+      <input type="hidden" id="prize-won" name="prize-won" value="1">
+        <select name="prize-id" id="prize-id">
+        {% for prize in available_prizes %}
+          <option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
+        {% endfor %}
+      </select>
+      <select name="fighter-id" id="fighter-id">
+        
+          {% for fighter in available_fighters %}
+            <option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
+          {% endfor %}
+        </select>
+        <input type="submit" class="button" id="prize-won-submit" value="Add a new prizewinner"/>
+      </fieldset>
+    </form>
+
+    <h2>Prizewinners</h2>
+    <p> Note: Prizes can be awarded to more than one Fighter! Each Fighter can win many Prizes, but may win a single<br> Prize only once. </p>
+    <table id="prizewinners-table">
+      <tr>
+        <th>Prize ID</th>
+        <th>Prize Type</th>
+        <th>Fighter ID</th>
+        <th>Fighter Name</th>
+      </tr>
+
+    {% for prize in prizesWon %}
+      <tr>
+        <td>{{ prize['prizeID'] }}</td> 
+        <td>{{ prize['prizeType'] }}</td>
+        <td>{{ prize['fighterID'] }}</td>
+        <td>{{ prize['fighterName'] }}</td>
+        <td>
+        <form class="table-form" name="deletePrizeForm"  method="POST" >
+          <input type="hidden" id="prize-won-delete" name="prize-won-delete" value="{{ prize['prizeID']}}, {{ prize['fighterID'] }}">  
+          <input id="deletePrize" type="submit" name="deletePrize" value="Delete" />
+        </form> 
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
 {% endblock %}

@@ -4,65 +4,67 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <h1>Weapons</h1>
-  <h2>Create a New Weapon</h2>
+  <div class="page-content">
+    <h1>Weapons</h1>
+    <h2>Create a New Weapon</h2>
 
-  <form name="newWeaponForm" method="POST">
-    <fieldset>
-      <legend>Enter Weapon Details:</legend>
-	    <input type="hidden" id="new-weapon" name="new-weapon" value="1">
-      <input type="text" name="weapon-name" id="weapon-name" required placeholder="Weapon Name"/>
-      <input type="text" name="weapon-type" id="weapon-type" required placeholder="Weapon Type"/>
-      <label for="weapon-ranged">Is this a ranged weapon?</label>
-      <select id="weapon-ranged" name="weapon-ranged">
-        <option value="1">Yes</option>
-        <option value="0">No</option>
-      </select>
-      <input type="submit" class="button" id="weapon-submit" value="Create"/>
-    </fieldset>
-  </form>
-  
-  <h2>Modify a Weapon</h2>
-    <form class="input-form" id="edit-weapon-form" name="edit-weapon-form" method="POST">
+    <form name="newWeaponForm" method="POST">
       <fieldset>
-        <legend>Weapon Update:</legend>
-			  <input type="hidden" id="weapon-update" name="weapon-update" value="1">
-		    <select name="weapon-id" id="weapon-id">
-				  <option disabled selected value=None> -- Select Weapon ID --</option>
-				  {% for weapon in weapons %}
-			 		<option value={{ weapon['weaponID'] }} >{{ weapon['weaponID'] }} ({{ weapon['weaponName'] }})	</option>
-			  	{% endfor %}
-			  </select>
-        <input type="submit" class="button" id="update-weapon-button" value="Update Weapon"/>
+        <legend>Enter Weapon Details:</legend>
+        <input type="hidden" id="new-weapon" name="new-weapon" value="1">
+        <input type="text" name="weapon-name" id="weapon-name" required placeholder="Weapon Name"/>
+        <input type="text" name="weapon-type" id="weapon-type" required placeholder="Weapon Type"/>
+        <label for="weapon-ranged">Is this a ranged weapon?</label>
+        <select id="weapon-ranged" name="weapon-ranged">
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <input type="submit" class="button" id="weapon-submit" value="Create"/>
       </fieldset>
     </form>
     
-  <h2>Current Weapons</h2>
-  <table id="weapon-table">
-    <tr>
-      <th>Weapon Name</th>
-      <th>Weapon ID</th>
-      <th>Weapon Type</th>
-      <th>Ranged?</th>
-      <th>Number of Fighters Wielding</th>
-    </tr>
+    <h2>Modify a Weapon</h2>
+      <form class="input-form" id="edit-weapon-form" name="edit-weapon-form" method="POST">
+        <fieldset>
+          <legend>Weapon Update:</legend>
+          <input type="hidden" id="weapon-update" name="weapon-update" value="1">
+          <select name="weapon-id" id="weapon-id">
+            <option disabled selected value=None> -- Select Weapon ID --</option>
+            {% for weapon in weapons %}
+            <option value={{ weapon['weaponID'] }} >{{ weapon['weaponID'] }} ({{ weapon['weaponName'] }})	</option>
+            {% endfor %}
+          </select>
+          <input type="submit" class="button" id="update-weapon-button" value="Update Weapon"/>
+        </fieldset>
+      </form>
       
-    {% for weapon in weapons %}
-    <tr>
-      <td>{{ weapon['weaponName'] }}</td> 
-      <td>{{ weapon['weaponID'] }}</td>
-      <td>{{ weapon['weaponType'] }}</td>
-      <td>{{ weapon['ranged'] }}</td>
-      <td>{{ weapon['WeaponUsers'] }}</td>
-	  <td> 	<form class="table-form" name="deleteWeaponForm"  method="POST" >
-				<input type="hidden" id="weapon-delete-id" name="weapon-delete-id" value="{{ weapon['weaponID'] }}">  
-				<input id="weapon-delete" type="submit" name="weapon-delete" value="Delete" />
-			</form> 
-	  </td>
-	  
-    </tr>
-    {% endfor %}
-  </table>
+    <h2>Current Weapons</h2>
+    <table id="weapon-table">
+      <tr>
+        <th>Weapon Name</th>
+        <th>Weapon ID</th>
+        <th>Weapon Type</th>
+        <th>Ranged?</th>
+        <th>Number of Fighters Wielding</th>
+      </tr>
+        
+      {% for weapon in weapons %}
+      <tr>
+        <td>{{ weapon['weaponName'] }}</td> 
+        <td>{{ weapon['weaponID'] }}</td>
+        <td>{{ weapon['weaponType'] }}</td>
+        <td>{{ weapon['ranged'] }}</td>
+        <td>{{ weapon['WeaponUsers'] }}</td>
+      <td> 	<form class="table-form" name="deleteWeaponForm"  method="POST" >
+          <input type="hidden" id="weapon-delete-id" name="weapon-delete-id" value="{{ weapon['weaponID'] }}">  
+          <input id="weapon-delete" type="submit" name="weapon-delete" value="Delete" />
+        </form> 
+      </td>
+      
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
 {% endblock %}
 
 

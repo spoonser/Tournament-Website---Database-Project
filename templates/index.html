@@ -4,24 +4,25 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-
-	<h1>Welcome, Tournament Admin!</h1>
-	<p> Track and manage Fighters as they battle for Prizes and, of course, GLORY. This tool supports all of your administrative needs for managing a tournament between fictional Fighters. 
+	<div class="fixed-page">
+		<h1>Welcome, Tournament Admin!</h1>
+		<p> Track and manage Fighters as they battle for Prizes and, of course, GLORY. This tool supports all of your administrative needs for managing a tournament between fictional Fighters. 
 		
-		<ul>	
-		<li> <a href="{{ url_for('fighters') }}">Fighters</a> Allows users to see existing Fighters or create a new Fighter. 
-		Fighter profiles for existing Fighters link to that Fighter's overall results.
+		<ul>
+			<li> <a href="{{ url_for('fighters') }}">Fighters</a> Allows users to see existing Fighters or create a new Fighter.
+			Fighter profiles for existing Fighters link to that Fighter's overall results. </li><br>
+				
+			<li> <a href="{{ url_for('weapons') }}">Weapons</a> Allows users to look up an existing Weapon or create a new Weapon. </li><br>
 			
-		<li> <a href="{{ url_for('weapons') }}">Weapons</a> Allows users to look up an existing Weapon or create a new Weapon. 
-		
-		<li> <a href="{{ url_for('fightsetup') }}">Fights</a> Allows lookup and creation/modification of Fights (who is participating, when the Fight is). 
-		Allows assignment of Prizes to Fights and assignment of Fight winners.
-		
-		<li> <a href="{{ url_for('prizes') }}">Prizes</a> Allows users to see existing Prizes, create a new Prize, and award a Prize to a Fighter.
-		
-		<li> <a href="{{ url_for('results') }}">Fighter Wins</a> Contains leaderboard (Fighters with most wins) and allows users to look up a Fighter's wins and Prizes.
+			<li> <a href="{{ url_for('fightsetup') }}">Fights</a> Allows lookup and creation/modification of Fights (who is participating, when the Fight is). 
+			Allows assignment of Prizes to Fights and assignment of Fight winners. </li><br>
 			
+			<li> <a href="{{ url_for('prizes') }}">Prizes</a> Allows users to see existing Prizes, create a new Prize, and award a Prize to a Fighter. </li><br>
+			
+			<li> <a href="{{ url_for('results') }}">Fighter Wins</a> Contains leaderboard (Fighters with most wins) and allows users to look up a Fighter's wins and Prizes. </li><br>
+		</ul>
 
-
-      
+		
+	</div>	
+<img id="fight-img" src="{{ url_for('static', filename='images/noun_sword.png') }}">
 {% endblock %}

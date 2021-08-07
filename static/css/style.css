@@ -31,11 +31,11 @@ ul {
   margin-bottom: 80px; /* Added height of footer plus a bit to solve content overlapping. */ 
   /* width: 90%; */
   overflow: auto;
+  min-height: 900px;
 } 
 
 
-.page-wrapper {
-  height: 100%;
+.page-wrapper { 
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -44,11 +44,32 @@ ul {
 }
 
 .page-content {
-  height: 1000px;
-  flex-grow: 1;
-  overflow: auto;
-  min-height: 2em;
+  flex: 1 0 70% !important;
+  overflow: hidden;
+  margin-top: 100px;
+  margin-bottom: 125px;
 }
+
+.fixed-page {
+  margin-top: 120px;
+  text-align: left;
+  margin-left: 0px;
+  margin-right: 30px;
+  max-width: 725px;
+  margin-bottom: 80px; /* Added height of footer plus a bit to solve content overlapping. */ 
+  width: 90%;
+}
+
+.fixed-page a {
+  color: #a15407;
+  opacity: 1;
+}
+
+.fixed-page a:hover {
+  color: rgb(	166,16,30);
+}
+
+
 
 form {
   width: 710px;
@@ -89,6 +110,11 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 
+#fight-img {
+  position: fixed;
+  bottom: -75px;
+}
+
 
 /* -------------------------------------------------------------------------- */
 /* Header Styles */
@@ -100,6 +126,8 @@ input[type=number]::-webkit-outer-spin-button {
   user-select: none;
   overflow: hidden;
   flex-shrink: 0;
+  position: fixed;
+  width: 100%;
 }
 
 #header-items {
@@ -158,6 +186,7 @@ input[type=number]::-webkit-outer-spin-button {
   bottom: 0px;
   position: fixed;
   margin-left: 0px;
+  pointer-events: none;
 }
 
 #footer {
@@ -166,7 +195,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
   text-align: center;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   position: fixed;
   bottom: 0;
@@ -176,10 +205,11 @@ input[type=number]::-webkit-outer-spin-button {
   overflow: hidden;
 }
 
-
-
-/* -------------------------------------------------------------------------- */
-/* Fighters Page */
-#fighter-table {
-	margin: 10px;
+#cred {
+  font-family: 'Times New Roman', Times, serif !important;
+  font-size: 11px;
+  line-height: 1;
+  position: fixed;
+  margin-left: 0px;
+  bottom: 0;
 }
