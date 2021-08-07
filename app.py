@@ -452,12 +452,12 @@ def update_fight():
     cur.execute('''SELECT fightDate, fighter1ID, fighter2ID, fighter1Won, fighter2Won, prizeID FROM Fights WHERE fightID = %s;''', (fightID,))
     originalFightDetails = cur.fetchone()
     fightDate = request.form.get('new-fight-date') or originalFightDetails['fightDate']
-    prizeID = request.form.get('new-prize-id') or originalFightDetails['prize']
-    originalPrizeID = originalFightDetails['prize']
-    fighter1 = originalFightDetails['fighter1']
+    prizeID = request.form.get('new-prize-id') or originalFightDetails['prizeID']
+    originalPrizeID = originalFightDetails['prizeID']
+    fighter1 = originalFightDetails['fighter1ID']
     originalWinner = 0
     originalWinnerID = 0
-    fighter2 = originalFightDetails['fighter2']
+    fighter2 = originalFightDetails['fighter2ID']
     result = request.form.get('fight-winner') or None
     
 
