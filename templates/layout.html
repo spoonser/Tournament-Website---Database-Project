@@ -7,49 +7,45 @@
     {% endblock %}
   </head>
   <body>
+    <div id="header">
+      <div id="header-items" class="center">
+        <h2 id="logo">Dark Tournament</h2>
+        <img id="skull" alt = "https://img.icons8.com/ios-filled/50/000000/poison.png" src="https://img.icons8.com/ios-filled/50/000000/poison.png"/>
+        <ul id="page-select">
+          <li><a href="/">Index</a></li>
+          <li><a href="fighters">Fighters</a></li>
+          <li><a href="fights">Fights</a></li>
+          <li><a href="weapons">Weapons</a></li>
+          <li><a href="prizes">Prizes</a></li>
+          <li><a href="results">Results</a></li>
+        </ul>
+      </div>
+    </div>
+  
     <div class="page-wrapper">
-    
-      <div id="header">
-        <div id="header-items" class="center">
-          <h2 id="logo">Dark Tournament</h2>
-          <img id="skull" alt = "https://img.icons8.com/ios-filled/50/000000/poison.png" src="https://img.icons8.com/ios-filled/50/000000/poison.png"/>
-          <ul id="page-select">
-            <li><a href="/">Index</a></li>
-            <li><a href="fighters">Fighters</a></li>
-            <li><a href="fights">Fights</a></li>
-            <li><a href="weapons">Weapons</a></li>
-            <li><a href="prizes">Prizes</a></li>
-            <li><a href="results">Results</a></li>
-          </ul>
-
-        </div>
-      </div>
-
-
       <div class="center">
-        <div class="center-child">
-			{% with messages = get_flashed_messages() %}
-			  {% if messages %}
-				<ul class=flashes>
-				{% for message in messages %}
-				  <li>{{ message }}</li>
-				{% endfor %}
-				</ul>
-			  {% endif %}
-			{% endwith %}
-            {% block content %}{% endblock %}
-        </div>
+          <div class="center-child">
+  			  {% with messages = get_flashed_messages() %}
+  			  {% if messages %}
+  				<ul class=flashes>
+  				{% for message in messages %}
+  				  <li>{{ message }}</li>
+  				{% endfor %}
+  				</ul>
+  			  {% endif %}
+  			  {% endwith %}
+          {% block content %}{% endblock %}
       </div>
-
-
-      <div id="footer">
-        {% block footer %}
+    </div>
+  
+    <img id="flames" src="{{ url_for('static', filename='images/tenor.gif') }}" alt="https://tenor.com/view/fire-gif-18718108">
+    <div id="footer">
+      {% block footer %}
         CS340 Project Group 36 - Spencer Wagner and Megan Marshall
         {% endblock %}
-		<br>
-		Image credit: https://img.icons8.com/
-      </div>
-
+  		  <p id="cred">Image Credits: Skull - https://img.icons8.com/ || Flames - https://tenor.com/view/fire-gif-18718108 || Fighters - https://thenounproject.com/term/sword-fight/</p>
+    </div>
+      
     </div>
   </body>
 

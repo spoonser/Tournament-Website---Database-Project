@@ -4,111 +4,97 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="center-child">
-    <h2>Add a New Fight</h2>
-	{% if error %}
-    <p class=error><strong>Error:</strong> {{ error }}
-	{% endif %}
-    <form class="input-form" id="new-fight-form" name="new-fight-form" method="POST">
-        <fieldset>
-          <legend>New Fight:</legend>
-		  <input type="hidden" id="fight-insert" name="fight-insert" value="1">
-         
-			<select name="fighter1-id" id="fighter1-id" required>
-				<option disabled selected value="">Select Fighter 1</option>
-				{% for fighter in available_fighters %}
+	<div class="page-content">
+		<h2>Add a New Fight</h2>
+		{% if error %}
+		<p class=error><strong>Error:</strong> {{ error }}</p>
+		{% endif %}
+		<form class="input-form" id="new-fight-form" name="new-fight-form" method="POST">
+			<fieldset>
+				<legend>New Fight:</legend>
+				<input type="hidden" id="fight-insert" name="fight-insert" value="1">
+					
+				<select name="fighter1-id" id="fighter1-id" required>
+					<option disabled selected value="">Select Fighter 1</option>
+					{% for fighter in available_fighters %}
+						<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
+					{% endfor %}
+				</select>
+				<select name="fighter2-id" id="fighter2-id" required>
+					<option disabled selected value="">Select Fighter 2</option>
+					{% for fighter in available_fighters %}
 					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
-				{% endfor %}
-			</select>
-			<select name="fighter2-id" id="fighter2-id" required>
-			<option disabled selected value="">Select Fighter 2</option>
-				{% for fighter in available_fighters %}
-					<option value={{ fighter['fighterID']}} >{{ fighter['fighterName'] }}	</option>
-				{% endfor %}
-			</select>
-			<select name="fight-winner" id="fight-winner">
-				<option value="fighter1-won">Fighter 1 Won</option>
-				<option value="fighter2-won">Fighter 2 Won</option>
-				<option value="fighter-draw" selected="selected" >No Winner </option>
-			</select>
-			<select name="prize-id" id="prize-id">
-				<option value=None>No Prize</option>
-				{% for prize in available_prizes %}
-					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
-				{% endfor %}
-			</select>
-          <input type="date" name="fight-date" id="fight-date" required />
-          <input type="submit" class="button" id="fight-insert" value="Submit Fight"/>
-        </fieldset>
-    </form>
-
-    <h2>Update Fight Status</h2>
-    <form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
-        <fieldset>
-          <legend>Fight Update:</legend>
-				<input type="hidden" id="fight-update" name="fight-update" value="1">
-				{% if filtered is defined %} Filtered to target date range. Clear filters to see all Fights! <br> {% endif %}
-		    	<select name="old-fight-id" id="old-fight-id">
-						<option disabled selected value=None> -- Select Fight ID --</option>
-						{% for fight in fightIDs %}
-						<option value={{ fight['fightID'] }} >{{ fight['fightID'] }}	</option>
+					{% endfor %}
+				</select>
+				<select name="fight-winner" id="fight-winner">
+					<option value="fighter1-won">Fighter 1 Won</option>
+					<option value="fighter2-won">Fighter 2 Won</option>
+					<option value="fighter-draw" selected="selected" >No Winner </option>
+				</select>
+				<select name="prize-id" id="prize-id">
+						<option value=None>No Prize</option>
+						{% for prize in available_prizes %}
+						<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
 						{% endfor %}
 					</select>
-			     <!-- <input type="date" name="new-fight-date" id="new-fight-date"/>
-          <select name="fight-winner" id="fight-winner">
-            <option disabled selected value> -- Select Win Status -- </option>
-            <option value="fighter1-won">Fighter 1 Won</option>
-            <option value="fighter2-won">Fighter 2 Won</option>
-            <option value="fighter-draw">Draw</option>
-          </select>
-          <select name="new-prize-id" id="new-prize-id">
-				<option disabled selected value> -- Select Prize -- </option>
-				<option value=None>No Prize</option>
-				{% for prize in available_prizes %}
-					<option value={{ prize['prizeID']}} >{{ prize['prizeType'] }}	</option>
-				{% endfor %}
-			</select> -->
-        <input type="submit" class="button" id="fight-update" value="Update Fight"/>
-        </fieldset>
-    </form>
+					<input type="date" name="fight-date" id="fight-date" required />
+					<input type="submit" class="button" id="fight-insert" value="Submit Fight"/>
+				</fieldset>	
+			</form>
 
-	<h2>Filter Fight Records by Date Range</h2>
-    <form class="input-form" id="filter-fight-form" name="filter-fight-form" method="POST">
-        <fieldset>
-		  <input type="hidden" id="fight-filter" name="fight-filter" value="1">
-          <input type="date" name="start-date" id="start-date"/>
-		  <input type="date" name="end-date" id="end-date"/>
-          <input type="submit" class="button" id="fight-filter" value="Filter Fights"/>
-        </fieldset>
-    </form>
-	<h2>Fight Records</h2>
-	{% if filtered is defined %}
+		<h2>Update Fight Status</h2>
+		<form class="input-form" id="edit-fight-form" name="edit-fight-form" method="POST">
+			<fieldset>
+				<legend>Fight Update:</legend>
+				<input type="hidden" id="fight-update" name="fight-update" value="1">
+				{% if filtered is defined %} Filtered to target date range. Clear filters to see all Fights! <br> {% endif %}
+				<select name="old-fight-id" id="old-fight-id">
+					<option disabled selected value=None> -- Select Fight ID --</option>
+					{% for fight in fightIDs %}
+					<option value={{ fight['fightID'] }} >{{ fight['fightID'] }}	</option>
+					{% endfor %}
+				</select>
+				<input type="submit" class="button" id="fight-update" value="Update Fight"/>
+			</fieldset>
+		</form>
+
+		<h2>Filter Fight Records by Date Range</h2>
+		<form class="input-form" id="filter-fight-form" name="filter-fight-form" method="POST">
+			<fieldset>
+				<input type="hidden" id="fight-filter" name="fight-filter" value="1">
+				<input type="date" name="start-date" id="start-date"/>
+				<input type="date" name="end-date" id="end-date"/>
+				<input type="submit" class="button" id="fight-filter" value="Filter Fights"/>
+			</fieldset>
+		</form>
+
+		<h2>Fight Records</h2>
+		{% if filtered is defined %}
 		<form class="input-form" id="filter-fight-clear"  method="POST">
 			<input type="hidden" id="clear-fight-filter" name="clear-fight-filter" value="1">
 			<input type="submit" name="clear-filter" value="Remove Filters" />
 		</form>
-	{% endif %}
-	<table id="fight-table">
-	  <tr>
-		<th>Fight ID</th>
-		<th>Fight Date</th>
-		<th>Fighter One</th>
-		<th>Fighter Two</th>
-		<th>Winner</th>
-		<th>Associated Prize</th>
-	  </tr>
-	  {% for fight in fights %}
-		<tr>
-			<td>{{ fight['fightID'] }}</td> 
-			<td>{{ fight['fightDate'] }}</td>
-			<td>{{ fight['fighter1'] }}</td>
-			<td>{{ fight['fighter2'] }}</td>
-			<td>{{ fight['winner'] }}</td>
-			<td>{{ fight['prize'] }}</td>
-		</tr>
-	  {% endfor %}
-	  
-	</table>
-	
-  </div>
+		{% endif %}
+		<table id="fight-table">
+			<tr>
+				<th>Fight ID</th>
+				<th>Fight Date</th>
+				<th>Fighter One</th>
+				<th>Fighter Two</th>
+				<th>Winner</th>
+				<th>Associated Prize</th>
+			</tr>
+			{% for fight in fights %}
+			<tr>
+				<td>{{ fight['fightID'] }}</td> 
+				<td>{{ fight['fightDate'] }}</td>
+				<td>{{ fight['fighter1'] }}</td>
+				<td>{{ fight['fighter2'] }}</td>
+				<td>{{ fight['winner'] }}</td>
+				<td>{{ fight['prize'] }}</td>
+			</tr>
+			{% endfor %}
+					
+		</table>
+	</div>
 {% endblock %}

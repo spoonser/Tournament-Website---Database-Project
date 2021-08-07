@@ -4,75 +4,66 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="center-child">
-    <h1>Fighters</h1>
+	<div class="page-content">
+		<h1>Fighters</h1>
 
-    <h2>Sign Up:</h2>
-    <form class="input-form" id="fighter-form" name="fighter-form" method="POST">
-        <fieldset>
-          <legend>New Fighter:</legend>
-		  <input type="hidden" id="new-fighter" name="new-fighter" value="1">
-          <input type="text" name="fighter-name" id="fighter-name" required placeholder="Name"/>
-		  <label for="fighter-weapon">Choose a weapon:</label>
-			<select name="fighter-weapon" id="fighter-weapon">
-				<option disabled selected value="">Select a Weapon</option>
-				<option value=>No Weapon</option>
-				{% for weapon in available_weapons %}
-					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }} (ID {{ weapon['weaponID'] }})	</option>
-				{% endfor %}
-			</select>
-          <input type="submit" class="button" id="fighter-submit" value="Sign Up"/>
-        </fieldset>
-    </form>
-	
-	<h2>Edit a Fighter</h2>
-    <form class="input-form" id="edit-fighter-form" name="edit-fighter-form" method="POST">
-      <fieldset>
-        <legend>Fighter Update:</legend>
-				<input type="hidden" id="fighter-update" name="fighter-update" value="1">
-
-		  	<select name="fighter-id" id="fighter-id">
-					<option disabled selected value=None> -- Select Fighter --</option>
-					{% for fighter in fighters %}
-					<option value={{ fighter['fighterID'] }} >{{ fighter['fighterName'] }} (ID {{ fighter['fighterID'] }})	</option>
+		<h2>Sign Up:</h2>
+		<form class="input-form" id="fighter-form" name="fighter-form" method="POST">
+				<fieldset>
+					<legend>New Fighter:</legend>
+				<input type="hidden" id="new-fighter" name="new-fighter" value="1">
+					<input type="text" name="fighter-name" id="fighter-name" required placeholder="Name"/>
+				<label for="fighter-weapon">Choose a weapon:</label>
+				<select name="fighter-weapon" id="fighter-weapon">
+					<option disabled selected value="">Select a Weapon</option>
+					<option value=>No Weapon</option>
+					{% for weapon in available_weapons %}
+						<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
 					{% endfor %}
 				</select>
-		  	<!-- <input type="text" name="fighter-name" id="fighter-name" placeholder="New Name (optional)"/><br><br>
-        <label for="fighter-weapon">Choose a weapon:</label>
-				<select name="fighter-weapon" id="fighter-weapon">
-					<option disabled selected value="">New Weapon (optional)</option>
-					<option value=None>No Weapon</option>
-					{% for weapon in available_weapons %}
-					<option value={{ weapon['weaponID']}} >{{ weapon['weaponName'] }}	</option>
-				{% endfor %}
-				</select> -->
-         <input type="submit" class="button" id="update-weapon-button" value="Update Fighter"/>
-      </fieldset>
-    </form>
+					<input type="submit" class="button" id="fighter-submit" value="Sign Up"/>
+				</fieldset>
+		</form>
+		
+		<h2>Edit a Fighter</h2>
+		<form class="input-form" id="edit-fighter-form" name="edit-fighter-form" method="POST">
+			<fieldset>
+				<legend>Fighter Update:</legend>
+					<input type="hidden" id="fighter-update" name="fighter-update" value="1">
 
-    <h2>Current Participants </h2>
-	<p> Click Name to see their Results! </p>
-    <table id="fighter-table">
-      <tr>
-        <th>Fighter Name</th>
-        <th>Fighter ID</th>
-        <th>Fighter Weapon</th>
-      </tr>
+					<select name="fighter-id" id="fighter-id">
+						<option disabled selected value=None> -- Select Fighter --</option>
+						{% for fighter in fighters %}
+						<option value={{ fighter['fighterID'] }} >{{ fighter['fighterName'] }} (ID {{ fighter['fighterID'] }})	</option>
+						{% endfor %}
+					</select>
+				<input type="submit" class="button" id="update-weapon-button" value="Update Fighter"/>
+			</fieldset>
+		</form>
 
-	  {% for fighter in fighters %}
-		<tr>
-			<td>    
-				<form class="table-form" name="fighterForm" method="POST" action="/results">
-				<input type="hidden" name="fighterName" id="fighterName" value="{{ fighter['fighterName'] }}">  
-				<button type="submit" name="submit_fighter" value="submit_value" class="link-button"> {{ fighter['fighterName'] }} </button>
-				</form> </td>
-			<td>{{ fighter['fighterID'] }}</td>
-			<td>{{ fighter['weapon'] }}</td>
-		</tr>
-      {% endfor %}
-	  
-	  
-    
-    </table>
-  </div>
+		<h2>Current Participants </h2>
+		<p> Click Name to see their Results! </p>
+		<table id="fighter-table">
+			<tr>
+				<th>Fighter Name</th>
+				<th>Fighter ID</th>
+				<th>Fighter Weapon</th>
+			</tr>
+
+			{% for fighter in fighters %}
+			<tr>
+				<td>    
+					<form class="table-form" name="fighterForm" method="POST" action="/results">
+					<input type="hidden" name="fighterName" id="fighterName" value="{{ fighter['fighterName'] }}">  
+					<button type="submit" name="submit_fighter" value="submit_value" class="link-button"> {{ fighter['fighterName'] }} </button>
+					</form> </td>
+				<td>{{ fighter['fighterID'] }}</td>
+				<td>{{ fighter['weapon'] }}</td>
+			</tr>
+			{% endfor %}
+			
+			
+		
+		</table>
+	</div>
 {% endblock %}

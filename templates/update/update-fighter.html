@@ -4,43 +4,44 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-  <div class="center-child">
-    <h2>Fighter Update</h2>
+	<div class="fixed-page">
+		<h2>Fighter Update</h2>
 
-    <table id="selected-fighter">
-      <tr>
-        <th>Fighter Name</th>
-        <th>Fighter ID</th>
-        <th>Fighter Weapon</th>
-      </tr>
+		<table id="selected-fighter">
+			<tr>
+				<th>Fighter Name</th>
+				<th>Fighter ID</th>
+				<th>Fighter Weapon</th>
+			</tr>
 
-	    {% for fighter in fighters %}
-		  <tr>
-		  	<td>    
-		  		<form class="table-form" name="fighterForm" method="POST" action="/results">
-		  		<input type="hidden" name="fighterName" id="fighterName" value="{{ fighter['fighterName'] }}">  
-		  		<button type="submit" name="submit_fighter" value="submit_value" class="link-button"> {{ fighter['fighterName'] }} </button>
-		  		</form> </td>
-		  	<td>{{ fighter['fighterID'] }}</td>
-		  	<td>{{ fighter['weapon'] }}</td>
-		  </tr>
-      {% endfor %}
-    </table><br>
+			{% for fighter in fighters %}
+			<tr>
+				<td>    
+					<form class="table-form" name="fighterForm" method="POST" action="/results">
+					<input type="hidden" name="fighterName" id="fighterName" value="{{ fighter['fighterName'] }}">  
+					<button type="submit" name="submit_fighter" value="submit_value" class="link-button"> {{ fighter['fighterName'] }} </button>
+					</form> </td>
+				<td>{{ fighter['fighterID'] }}</td>
+				<td>{{ fighter['weapon'] }}</td>
+			</tr>
+			{% endfor %}
+		</table><br>
 
-	  <h2>Edit the Fighter</h2>
-    <form class="input-form" id="edit-fighter-form" name="edit-fighter-form" method="POST">
-      <fieldset>
-        <legend>Fighter Update:</legend>		
-		  	<input type="text" name="fighter-name" id="fighter-name" value="{{ fighters[0]['fighterName'] }}" />
-				<label for="fighter-weapon">Choose a weapon:</label>
-				<select name="fighter-weapon" id="fighter-weapon">
-					<option {% if  fighters[0]['weapon'] == "No Weapon" %}  selected="selected"{% endif %} value= >No Weapon</option>
-					{% for weapon in available_weapons %}
-					<option value={{ weapon['weaponID']}} {% if  fighters[0]['weaponID'] == weapon['weaponID'] %}  selected="selected"{% endif %} >{{ weapon['weaponName'] }} (ID {{ weapon['weaponID'] }})	</option>
-			  	{% endfor %}
-				</select>
-        <input type="submit" class="button" id="update-weapon-button" value="Update Fighter"/>
-      </fieldset>
-    </form>
-  </div>
+		<h2>Edit the Fighter</h2>
+			<form class="input-form" id="edit-fighter-form" name="edit-fighter-form" method="POST">
+				<fieldset>
+					<legend>Fighter Update:</legend>		
+					<input type="text" name="fighter-name" id="fighter-name" value="{{ fighters[0]['fighterName'] }}" />
+					<label for="fighter-weapon">Choose a weapon:</label>
+					<select name="fighter-weapon" id="fighter-weapon">
+						<option value= {% if  fighters[0]['weapon'] == "No Weapon" %}  selected="selected"{% endif %} >No Weapon</option>
+						{% for weapon in available_weapons %}
+						<option value={{ weapon['weaponID']}} {% if  fighters[0]['weaponID'] == weapon['weaponID'] %}  selected="selected"{% endif %} >{{ weapon['weaponName'] }}	</option>
+						{% endfor %}
+					</select>
+					<input type="submit" class="button" id="update-weapon-button" value="Update Fighter"/>
+				</fieldset>
+			</form>
+	</div>
+	<img id="fight-img" src="{{ url_for('static', filename='images/noun_sword.png') }}">
 {% endblock %}
