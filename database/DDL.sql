@@ -33,13 +33,13 @@ INSERT INTO `Weapons` (`weaponID`, `weaponName`, `weaponType`, `ranged`) VALUES
 CREATE TABLE `Fighters` (
 `fighterID` int(11) NOT NULL AUTO_INCREMENT,
 `fighterName` varchar(255) NOT NULL,
-`weapon` int(11),
+`weaponID` int(11),
 PRIMARY KEY (`fighterID`),
-FOREIGN KEY (`weapon`) REFERENCES Weapons(`weaponID`) ON DELETE SET NULL
+FOREIGN KEY (`weaponID`) REFERENCES Weapons(`weaponID`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data for Fighters
-INSERT INTO `Fighters` (`fighterID`, `fighterName`, `weapon`) VALUES
+INSERT INTO `Fighters` (`fighterID`, `fighterName`, `weaponID`) VALUES
 (1, 'Thor', 1),
 (2, 'Aragorn', 2),
 (3, 'Annick', 3),
@@ -71,19 +71,19 @@ INSERT INTO `Prizes` (`prizeID`, `prizeType`) VALUES
 CREATE TABLE `Fights` (
 `fightID` int(11) NOT NULL AUTO_INCREMENT,
 `fightDate` date NOT NULL,
-`fighter1` int(11) DEFAULT NULL,
-`fighter2` int(11) DEFAULT NULL,
+`fighter1ID` int(11) DEFAULT NULL,
+`fighter2ID` int(11) DEFAULT NULL,
 `fighter1Won` boolean DEFAULT 0,
 `fighter2Won` boolean DEFAULT 0,
-`prize` int(11),
+`prizeID` int(11),
 PRIMARY KEY (`fightID`),
-FOREIGN KEY (`fighter1`) REFERENCES Fighters(`fighterID`),
-FOREIGN KEY (`fighter2`) REFERENCES Fighters(`fighterID`), 
-FOREIGN KEY (`prize`) REFERENCES Prizes(`prizeID`)
+FOREIGN KEY (`fighter1ID`) REFERENCES Fighters(`fighterID`),
+FOREIGN KEY (`fighter2ID`) REFERENCES Fighters(`fighterID`), 
+FOREIGN KEY (`prizeID`) REFERENCES Prizes(`prizeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data for Fights
-INSERT INTO `Fights` (`fightID`, `fightDate`, `fighter1`, `fighter2`, `fighter1Won`, `fighter2Won`, `prize`) VALUES
+INSERT INTO `Fights` (`fightID`, `fightDate`, `fighter1ID`, `fighter2ID`, `fighter1Won`, `fighter2Won`, `prizeID`) VALUES
 (1, '2021-07-01', 1, 2, 1, 0, 1),
 (2, '2021-07-05', 2, 3, 0, 1, 2),
 (3, '2021-07-10', 3, 4, 0, 1, 1),

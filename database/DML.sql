@@ -1,7 +1,7 @@
 -- Select all Fighters and their Weapon. If the Fighter has NULL as a Weapon, populates with 'No Weapon' to be more readable.
 SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`  FROM Fighters as f
         LEFT JOIN Weapons as w
-        on f.weapon=w.weaponID
+        on f.weaponID=w.weaponID
         ORDER BY f.fighterName asc;
 
 	
@@ -10,7 +10,7 @@ SELECT fighterName, fighterID from Fighters
 ORDER BY fighterName asc;
 	
 -- Insert a new Fighter. Parameters are provided by code in the Flask application and are commented out below.
-INSERT INTO Fighters (fighterName, weapon) 
+INSERT INTO Fighters (fighterName, weaponID) 
             VALUES (%s, %s);
 	--Full syntax: cur.execute('''INSERT INTO Fighters (fighterName, weapon) VALUES (%s, %s);''', (fighterName, weapon))
     
@@ -38,9 +38,9 @@ DELETE FROM Weapons WHERE weaponID=%s
 
 -- Select the 3 Fighters with the most Wins to populate the leaderboard
 SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
-        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        (SELECT fighter1ID as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1ID
         UNION 
-         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+         SELECT fighter2ID as fighterID, COUNT(fightID) as WinCount  FROM Fights WHERE fighter2Won GROUP BY fighter2ID) AS Wins
         INNER JOIN Fighters
         ON Wins.fighterID = Fighters.fighterID
         GROUP BY Wins.fighterID
@@ -50,9 +50,9 @@ SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM
 -- Select/filter Fighters' results by name.
 SELECT Fighters.fighterName, IFNULL(SUM(Wins.WinCount), 0) as `Total` FROM 
 		Fighters LEFT JOIN 
-        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        (SELECT fighter1ID as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1ID
         UNION 
-         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+         SELECT fighter2ID as fighterID, COUNT(fightID) as WinCount  FROM Fights WHERE fighter2Won GROUP BY fighter2ID) AS Wins
         
         ON Wins.fighterID = Fighters.fighterID
         WHERE Fighters.fighterName = %s
@@ -73,40 +73,40 @@ SELECT IFNULL(p.prizeType, 'No Prizes Won') as prizeType, f.fighterName
 -- Select all Fights and their attributes
 SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prize FROM
-        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prizeID
         FROM Fights
         LEFT JOIN Fighters
-        on Fights.fighter1=Fighters.fighterID) as one
+        on Fights.fighter1ID=Fighters.fighterID) as one
         JOIN
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
         FROM Fights
         LEFT JOIN Fighters
-        ON Fights.fighter2=Fighters.fighterID) AS two
+        ON Fights.fighter2ID=Fighters.fighterID) AS two
         LEFT JOIN Prizes 
-        ON one.prize=Prizes.prizeID
+        ON one.prizeID=Prizes.prizeID
         WHERE one.fightID=two.fightID
         ORDER BY one.fightDate desc
 
 -- Insert a new Fight. Parameters are provided by code in the Flask application and are commented out below.
-INSERT INTO Fights (fighter1, fighter2, prize, fightDate) 
+INSERT INTO Fights (fighter1, fighter2, prizeID, fightDate) 
                 VALUES (%s, %s, %s, %s); 
 	--Full syntax: cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate)  VALUES (%s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate))	
 
 	
 -- Filter Fights by a date range. Parameters are provided by code in the Flask application.
-SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+SELECT one.fightID, one.fightDate, one.fighter1ID, two.fighter2ID, IF(one.fighter1Won=1, one.fighter1ID, IF(one.fighter2Won=1, two.fighter2ID, "No Winner")) as winner,
 	IFNULL(Prizes.prizeType, "No Prize") as prize FROM
-	(SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+	(SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prizeID
 	FROM Fights
 	LEFT JOIN Fighters
-	on Fights.fighter1=Fighters.fighterID) as one
+	on Fights.fighter1ID=Fighters.fighterID) as one
 	JOIN
 	(SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
 	FROM Fights
 	LEFT JOIN Fighters
-	ON Fights.fighter2=Fighters.fighterID) AS two
+	ON Fights.fighter2ID=Fighters.fighterID) AS two
 	LEFT JOIN Prizes 
-	ON one.prize=Prizes.prizeID
+	ON one.prizeID=Prizes.prizeID
 	WHERE one.fightID=two.fightID
 	AND (one.fightDate >= %s OR %s IS NULL)
 	AND (one.fightDate <= %s OR %s IS NULL)
@@ -119,34 +119,34 @@ SELECT fightID from Fights ORDER BY fightID asc;
 SELECT fightID from Fights WHERE (fightDate >= %s OR %s IS NULL) AND (fightDate <= %s OR %s IS NULL) ORDER BY fightID asc;
 
 -- Select a single Fight's details. Modified version used to support editing a single fight. 
-SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+SELECT one.fightID, one.fightDate, one.fighter1ID, two.fighter2ID, IF(one.fighter1Won=1, one.fighter1ID, IF(one.fighter2Won=1, two.fighter2ID, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prizeType, one.prize, one.fighter1Won, one.fighter2Won FROM
-        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prizeID
         FROM Fights 
         LEFT JOIN Fighters
-        on Fights.fighter1=Fighters.fighterID) as one
+        on Fights.fighter1ID=Fighters.fighterID) as one
         JOIN
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
         FROM Fights
         LEFT JOIN Fighters
-        ON Fights.fighter2=Fighters.fighterID) AS two
+        ON Fights.fighter2ID=Fighters.fighterID) AS two
         LEFT JOIN Prizes 
-        ON one.prize=Prizes.prizeID
+        ON one.prizeID=Prizes.prizeID
         WHERE one.fightID=two.fightID
         AND one.fightID=%s;
 
 -- Get current values for a given Fight. Used to populate specific variables in case of update issues.
 SELECT fightDate FROM Fights WHERE fightID = %s;        
-SELECT prize FROM Fights WHERE fightID = %s;
+SELECT prizeID FROM Fights WHERE fightID = %s;
 
 -- Update a Fight. Parameters are provided by code in the Flask application and are commented out below.	
 UPDATE Fights 
 	SET fightDate = %s,
 	fighter1Won = %s,
 	fighter2Won = %s,
-	prize = %s
+	prizeID = %s
 	WHERE fightID = %s;
-	--Full syntax: cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prize = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
+	--Full syntax: cur.execute('''UPDATE Fights SET fightDate = %s, fighter1Won = %s, fighter2Won = %s, prizeID = %s WHERE fightID = %s;''', (fightDate, fighter1Won, fighter2Won, prizeID, fightID))
 -- -----------------------------------------------------------------------------------------------------------------------	
 
 -- Select all Prizes and their attributes

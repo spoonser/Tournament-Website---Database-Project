@@ -38,7 +38,7 @@ def fighters():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`  FROM Fighters as f
         LEFT JOIN Weapons as w
-        on f.weapon=w.weaponID
+        on f.weaponID=w.weaponID
         ORDER BY f.fighterName asc;''')
     fighters = cur.fetchall()
     # Get the weapon names to populate the available Weapon choices when creating a new Fighter.
@@ -58,7 +58,7 @@ def create_fighter():
         try:
             con = mysql.connect
             cur = con.cursor()
-            cur.execute('''INSERT INTO Fighters (fighterName, weapon) 
+            cur.execute('''INSERT INTO Fighters (fighterName, weaponID) 
                 VALUES (%s, %s);''', (fighterName, weapon))
             con.commit()
 
@@ -89,7 +89,7 @@ def update_fighter_page():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT f.fighterName, f.fighterID, (IFNULL(w.weaponName, 'No Weapon')) as `weapon`, w.weaponID  FROM Fighters as f
         LEFT JOIN Weapons as w
-        on f.weapon=w.weaponID
+        on f.weaponID=w.weaponID
         WHERE fighterID=%s;''', (fighterID,))
     fighters = cur.fetchall()
 
@@ -109,7 +109,7 @@ def update_fighter():
     weapon = request.form.get('fighter-weapon') or None
 
     try:
-        cur.execute('''UPDATE Fighters SET fighterName=%s, weapon=%s WHERE fighterID=%s;''', (fighterName, weapon, fighterID))
+        cur.execute('''UPDATE Fighters SET fighterName=%s, weaponID=%s WHERE fighterID=%s;''', (fighterName, weapon, fighterID))
         con.commit()
 
     except:
@@ -190,7 +190,7 @@ def update_weapon_page():
         IFNULL(GROUP_CONCAT(f.fighterName), "No Users") as `WeaponUsers`
         FROM Weapons w
         LEFT JOIN Fighters as f 
-        ON w.weaponID=f.weapon
+        ON w.weaponID=f.weaponID
         WHERE w.weaponID=%s;''', (weaponID,))
     weapons = cur.fetchall()
 
@@ -221,9 +221,9 @@ def update_weapon():
 def results():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
-        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        (SELECT fighter1ID as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1ID
         UNION 
-         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+         SELECT fighter2ID as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2ID) AS Wins
         INNER JOIN Fighters
         ON Wins.fighterID = Fighters.fighterID
         GROUP BY Wins.fighterID
@@ -243,9 +243,9 @@ def filtered_results():
  
     # Query to generate the leaderboard, or the 3 Fighters with the most wins. 
     cur.execute('''SELECT Fighters.fighterName, SUM(Wins.WinCount) as `Total` FROM 
-        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        (SELECT fighter1ID as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1ID
         UNION 
-         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+         SELECT fighter2ID as fighterID, COUNT(fightID) as WinCount  FROM Fights WHERE fighter2Won GROUP BY fighter2ID) AS Wins
         INNER JOIN Fighters
         ON Wins.fighterID = Fighters.fighterID
         GROUP BY Wins.fighterID
@@ -256,9 +256,9 @@ def filtered_results():
     # Query to generate the win results for a single Fighter, filtered by name. 
     cur.execute('''SELECT Fighters.fighterName, IFNULL(SUM(Wins.WinCount), 0) as `Total` FROM 
 		Fighters LEFT JOIN 
-        (SELECT fighter1 as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1
+        (SELECT fighter1ID as fighterID, COUNT(fightID) as WinCount FROM Fights WHERE fighter1Won GROUP BY fighter1ID
         UNION 
-         SELECT fighter2 as fighterID, COUNT(fightID) as WinCounts  FROM Fights WHERE fighter2Won GROUP BY fighter2) AS Wins
+         SELECT fighter2ID as fighterID, COUNT(fightID) as WinCount  FROM Fights WHERE fighter2Won GROUP BY fighter2ID) AS Wins
         
         ON Wins.fighterID = Fighters.fighterID
         WHERE Fighters.fighterName = %s
@@ -286,17 +286,17 @@ def fightsetup(error=None):
     cur = mysql.connection.cursor()
     cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
         IFNULL(Prizes.prizeType, "No Prize") as prize FROM
-        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prizeID
         FROM Fights
         LEFT JOIN Fighters
-        on Fights.fighter1=Fighters.fighterID) as one
+        on Fights.fighter1ID=Fighters.fighterID) as one
         JOIN
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
         FROM Fights
         LEFT JOIN Fighters
-        ON Fights.fighter2=Fighters.fighterID) AS two
+        ON Fights.fighter2ID=Fighters.fighterID) AS two
         LEFT JOIN Prizes 
-        ON one.prize=Prizes.prizeID
+        ON one.prizeID=Prizes.prizeID
         WHERE one.fightID=two.fightID
         ORDER BY one.fightDate desc;''')
     fights = cur.fetchall()
@@ -357,7 +357,7 @@ def create_fight():
             try:
                 con = mysql.connection
                 cur = con.cursor()
-                cur.execute('''INSERT INTO Fights (fighter1, fighter2, prize, fightDate, fighter1Won, fighter2Won) 
+                cur.execute('''INSERT INTO Fights (fighter1ID, fighter2ID, prizeID, fightDate, fighter1Won, fighter2Won) 
                     VALUES (%s, %s, %s, %s, %s, %s);''', (fighter1, fighter2, prize, fightDate, fighter1Won, fighter2Won))
                 con.commit()
                 
@@ -375,19 +375,19 @@ def create_fight():
         try:
             con = mysql.connection
             cur = con.cursor()
-            cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
+            cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1ID, two.fighter2ID, IF(one.fighter1Won=1, one.fighter1ID, IF(one.fighter2Won=1, two.fighter2ID, "No Winner")) as winner,
                 IFNULL(Prizes.prizeType, "No Prize") as prize FROM
-                (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+                (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prizeID
                 FROM Fights
                 LEFT JOIN Fighters
-                on Fights.fighter1=Fighters.fighterID) as one
+                on Fights.fighter1ID=Fighters.fighterID) as one
                 JOIN
                 (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
                 FROM Fights
                 LEFT JOIN Fighters
-                ON Fights.fighter2=Fighters.fighterID) AS two
+                ON Fights.fighter2ID=Fighters.fighterID) AS two
                 LEFT JOIN Prizes 
-                ON one.prize=Prizes.prizeID
+                ON one.prizeID=Prizes.prizeID
                 WHERE one.fightID=two.fightID
 				AND (one.fightDate >= %s OR %s IS NULL)
                 AND (one.fightDate <= %s OR %s IS NULL)
@@ -418,19 +418,19 @@ def create_fight():
 def update_fight_page(error=None):
     fightID = request.args['fightID']
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1, two.fighter2, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2, "No Winner")) as winner,
-        IFNULL(Prizes.prizeType, "No Prize") as prizeType, one.prize, one.fighter1Won, one.fighter2Won FROM
-        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prize
+    cur.execute('''SELECT one.fightID, one.fightDate, one.fighter1ID, two.fighter2ID, IF(one.fighter1Won=1, one.fighter1, IF(one.fighter2Won=1, two.fighter2ID, "No Winner")) as winner,
+        IFNULL(Prizes.prizeType, "No Prize") as prizeType, one.prizeID, one.fighter1Won, one.fighter2Won FROM
+        (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter1, Fights.fighter1Won, Fights.fighter2Won, Fights.prizeID
         FROM Fights 
         LEFT JOIN Fighters
-        on Fights.fighter1=Fighters.fighterID) as one
+        on Fights.fighter1ID=Fighters.fighterID) as one
         JOIN
         (SELECT Fights.fightID, Fights.fightDate, Fighters.fighterName as fighter2
         FROM Fights
         LEFT JOIN Fighters
-        ON Fights.fighter2=Fighters.fighterID) AS two
+        ON Fights.fighter2ID=Fighters.fighterID) AS two
         LEFT JOIN Prizes 
-        ON one.prize=Prizes.prizeID
+        ON one.prizeID=Prizes.prizeID
         WHERE one.fightID=two.fightID
         AND one.fightID=%s;''', (fightID,))
     fights = cur.fetchall()
