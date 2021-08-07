@@ -21,7 +21,7 @@ SELECT w.weaponName, w.weaponID, w.weaponType, IF(w.ranged=1, "Yes", "No") as ra
         COUNT(f.fighterName)  as `WeaponUsers`
         FROM Weapons w
         LEFT JOIN Fighters as f 
-        ON w.weaponID=f.weapon
+        ON w.weaponID=f.weaponID
         GROUP BY w.weaponID;
 
 -- Select weaponIDs and weaponNames. Used to populate a dropdown and prevent direct user entry of the weaponID.

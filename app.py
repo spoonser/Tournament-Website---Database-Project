@@ -128,7 +128,7 @@ def weapons():
         COUNT(f.fighterName)  as `WeaponUsers`
         FROM Weapons w
         LEFT JOIN Fighters as f 
-        ON w.weaponID=f.weapon
+        ON w.weaponID=f.weaponID
         GROUP BY w.weaponID;''')
     weapons = cur.fetchall()
 
@@ -296,8 +296,8 @@ def fightsetup(error=None):
         LEFT JOIN Fighters
         ON Fights.fighter2ID=Fighters.fighterID) AS two
         LEFT JOIN Prizes 
-        ON one.prizeID=Prizes.prizeID
         WHERE one.fightID=two.fightID
+        ON one.prizeID=Prizes.prizeID
         ORDER BY one.fightDate desc;''')
     fights = cur.fetchall()
     cur.execute('''SELECT fightID from Fights ORDER BY fightID asc;''')
